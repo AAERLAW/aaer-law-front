@@ -5,7 +5,7 @@ export class Wrapper extends Component {
     super(props);
     this.state = {
       filter: {
-        offset: 0,
+        page: 0,
         size: 10,
         ...this.props.externalParams,
       },
@@ -24,7 +24,7 @@ export class Wrapper extends Component {
         this.setState(
           {
             filter: {
-              offset: 0,
+              page: 0,
               size: 10,
               ...this.props.externalParams,
             },
@@ -41,6 +41,7 @@ export class Wrapper extends Component {
       }
     }
   };
+
   changePageSize = (size, action) => {
     this.setState(
       {
@@ -57,26 +58,32 @@ export class Wrapper extends Component {
       }
     );
   };
+
   fetchData = (action, payload) => {
     this.props.fetchData(action, payload);
   };
+
   handlePagination = (page, action) => {
-    let offset = (page - 1) * this.state.filter.size;
-    this.setState({
-      currentPage: page,
-      filter: {
-        ...this.state.filter,
-        offset,
-        ...this.props.externalParams,
+    this.setState(
+      {
+        currentPage: page,
+        filter: {
+          ...this.state.filter,
+          page,
+          ...this.props.externalParams,
+        },
       },
-    });
-    let payload = {
-      ...this.state.filter,
-      offset,
-      ...this.props.externalParams,
-    };
-    this.props.fetchData(action, payload);
+      () => {
+        let payload = {
+          ...this.state.filter,
+          page,
+          ...this.props.externalParams,
+        };
+        this.props.fetchData(action, payload);
+      }
+    );
   };
+
   search = (search, action) => {
     search.stopPropagation();
     clearTimeout(this.searchInputDebounceTimer);
@@ -95,6 +102,7 @@ export class Wrapper extends Component {
       }
     );
   };
+
   filter = (filters, action) => {
     let tempFilters = {};
     filters.forEach((item) => {
@@ -119,11 +127,12 @@ export class Wrapper extends Component {
     this.setState({ filter: tempFilters });
     this.props.fetchData(action, this.state.filter);
   };
+
   removeAllTags = (action) => {
     this.setState(
       {
         filter: {
-          offset: 0,
+          page: 0,
           size: 10,
           ...this.props.externalParams,
         },

@@ -1,16 +1,16 @@
-import React from 'react';
-import styled, { css } from 'styled-components';
-import Modal from 'react-bootstrap/Modal';
+import React from "react";
+import styled, { css } from "styled-components";
+import Modal from "react-bootstrap/Modal";
 
-import { Theme } from '../utils/theme';
+import { Theme } from "../utils/theme";
 
 const StyledModal = styled.div`
     width:100%;
     height: 100%;
     background-color: ${(props) =>
-      props.background ? props.background : Theme.QuaternaryDark};
+      props.background ? props.background : Theme.TertiaryDark};
     color: ${Theme.PrimaryTextColor};
-    border-radius: 25px;
+    border-radius: ${Theme.SecondaryRadius};
     padding: 0.25rem;
 
     .modal-header {
@@ -20,20 +20,29 @@ const StyledModal = styled.div`
       border-bottom: none;
 
       & .close { 
-          
           color:${Theme.PrimaryTextColor};
+          background : transparent;
+          border: none;
+
+          : hover { 
+            color:${Theme.PrimaryColor};
+          }
+
+          & .sr-only { 
+            display: none;
+          }
       }
     }
 
     .modal-body{
     max-height: 70vh;
-    padding: 0.25rem;
+    padding: 0.75rem;
     overflow-y: scroll;
     overflow-x: hidden;
     ${(props) =>
-      props.dialogClassName === 'modal-fullScreen' &&
+      props.dialogClassName === "modal-fullScreen" &&
       css`
-        ${'' /* height: 90vh; */}
+        ${"" /* height: 90vh; */}
         max-height: 90vh;
       `}
     }
@@ -64,7 +73,7 @@ export const ModalComponent = (props) => {
       show={show}
       onHide={onHide}
       centered={centered}
-      style={{ background: 'none', border: border }}
+      style={{ background: "none", border: border }}
       backdrop="static"
       keyboard={false}
       dialogClassName={dialogClassName}

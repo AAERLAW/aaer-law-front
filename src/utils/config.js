@@ -1,8 +1,8 @@
-let BASE_URL = `http://sample.sample.com`;
-let SERVER = `:8080/v1`;
+let BASE_URL = `http://api.nsirs.ng`;
+let SERVER = `:8180/api`;
 
 module.exports = {
-	endpoint: `${BASE_URL}${SERVER}`,
-	BASE_URL,
-	SERVER,
+  endpoint: `${BASE_URL}${SERVER}`,
+  BASE_URL,
+  SERVER,
 };

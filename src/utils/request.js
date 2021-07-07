@@ -1,8 +1,9 @@
 import axios from "axios";
-import { storagePrefix } from "./constant";
+import { storagePrefix, storageToken } from "./constant";
 
 const fetch = (options) => {
-  const AuthToken = sessionStorage.getItem(`${storagePrefix}token`);
+  const AuthToken = localStorage.getItem(storageToken);
+  console.log("AuthToken", AuthToken);
   if (AuthToken) {
     axios.defaults.headers.common.Authorization = `Bearer ${AuthToken}`;
   }
@@ -63,8 +64,8 @@ export default function request(options) {
       if (response && response instanceof Object) {
         const { data, statusText } = response;
         statusCode = response.status;
-        if (statusCode === 403) {
-          sessionStorage.clear();
+        if (statusCode === 4038) {
+          localStorage.clear();
           let origin = window.location.origin;
           window.location.replace(origin);
         }
@@ -73,6 +74,14 @@ export default function request(options) {
         statusCode = 600;
         msg = err.message || "Network Error";
       }
-      return { success: false, statusCode, message: msg };
+
+      console.log("data", response?.data);
+      return {
+        success: false,
+        statusCode,
+        message: response?.data?.meta?.info ? response?.data?.meta?.info : msg,
+        raw: response?.data,
+        meta: response?.data?.meta,
+      };
     });
 }

@@ -6,10 +6,13 @@ import qs from "query-string";
 
 export const mapStateToProps = (state, ownProps) => {
   const { token } = qs.parse(window.location.search);
-  const { loading } = state;
+  const { loading, authentication } = state;
+  const { emailVerified, verificationInfo } = authentication;
   return {
     token,
     isLoading: loading.effects["authentication/emailConfirmation"],
+    emailVerified,
+    verificationInfo,
   };
 };
 
@@ -20,6 +23,9 @@ export const mapDispatchToProps = (dispatch, ownProps) => {
     },
     emailConfirmation(data) {
       dispatch({ type: "authentication/emailConfirmation", payload: data });
+    },
+    completeRegistration(data) {
+      dispatch({ type: "authentication/completeRegistration", payload: data });
     },
   };
 };

@@ -99,6 +99,15 @@ export const HeaderLayout = (props) => {
             <Boxed className="px-1" align="right" display="flex">
               <Boxed display="flex" margin="0 0 0 auto" height="58px">
                 <Boxed height="59px" display="flex">
+                  <Icon
+                    className="icon-search-1"
+                    margin="auto 5px"
+                    pad="5px"
+                    cursor="pointer"
+                    border={`1px solid ${Theme.SecondaryTextColor}`}
+                    color={Theme.SecondaryTextColor}
+                    borderRadius="50%"
+                  />
                   <StyledDrpDown style={{ margin: "auto 0" }}>
                     <Dropdown>
                       <Dropdown.Toggle variant id="dropdown-basic">

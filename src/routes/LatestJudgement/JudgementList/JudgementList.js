@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { Boxed } from "../../../components/Boxed.components";
 import { Text } from "../../../components/Text.components";
@@ -18,104 +18,42 @@ import { Theme } from "../../../utils/theme";
 const columns = [
   {
     title: "Case Tiltle",
-    dataIndex: "caseTitle",
-    key: "caseTitle",
+    dataIndex: "case_title",
+    key: "case_title",
   },
   {
-    title: "Citation",
-    dataIndex: "citation",
-    key: "citation",
+    title: "Suit Number",
+    dataIndex: "suit_number",
+    key: "suit_number",
   },
   {
     title: "Lead Judgment by",
-    dataIndex: "judgeBy",
-    key: "judgeBy",
+    dataIndex: "lead_judgement_by",
+    key: "lead_judgement_by",
   },
   {
     title: "Date",
-    dataIndex: "date",
-    key: "date",
+    dataIndex: "judgement_date",
+    key: "judgement_date",
     render: (text) => text && formatDate(text),
   },
 ];
 
-const sampleData = [
-  {
-    key: "1",
-    caseTitle: "7 bistro Ltd & Lagos Gov",
-    citation: "(1995)SRC(FP)",
-    judgeBy: "Sylvester Umaru",
-    date: "24-08-2020",
-  },
-  {
-    key: "2",
-    caseTitle: "7 bistro Ltd & Lagos Gov",
-    citation: "(1995)SRC(FP)",
-    judgeBy: "Sylvester Umaru",
-    date: "24-08-2020",
-  },
-  {
-    key: "3",
-    caseTitle: "7 bistro Ltd & Lagos Gov",
-    citation: "(1995)SRC(FP)",
-    judgeBy: "Sylvester Umaru",
-    date: "24-08-2020",
-  },
-  {
-    key: "4",
-    caseTitle: "7 bistro Ltd & Lagos Gov",
-    citation: "(1995)SRC(FP)",
-    judgeBy: "Sylvester Umaru",
-    date: "24-08-2020",
-  },
-  {
-    key: "5",
-    caseTitle: "7 bistro Ltd & Lagos Gov",
-    citation: "(1995)SRC(FP)",
-    judgeBy: "Sylvester Umaru",
-    date: "24-08-2020",
-  },
-  {
-    key: "6",
-    caseTitle: "7 bistro Ltd & Lagos Gov",
-    citation: "(1995)SRC(FP)",
-    judgeBy: "Sylvester Umaru",
-    date: "24-08-2020",
-  },
-  {
-    key: "7",
-    caseTitle: "7 bistro Ltd & Lagos Gov",
-    citation: "(1995)SRC(FP)",
-    judgeBy: "Sylvester Umaru",
-    date: "24-08-2020",
-  },
-  {
-    key: "8",
-    caseTitle: "7 bistro Ltd & Lagos Gov",
-    citation: "(1995)SRC(FP)",
-    judgeBy: "Sylvester Umaru",
-    date: "24-08-2020",
-  },
-  {
-    key: "9",
-    caseTitle: "7 bistro Ltd & Lagos Gov",
-    citation: "(1995)SRC(FP)",
-    judgeBy: "Sylvester Umaru",
-    date: "24-08-2020",
-  },
-  {
-    key: "10",
-    caseTitle: "7 bistro Ltd & Lagos Gov",
-    citation: "(1995)SRC(FP)",
-    judgeBy: "Sylvester Umaru",
-    date: "24-08-2020",
-  },
-];
-
 export const JudgementList = (props) => {
-  const { fetchActionURL, redirect } = props;
+  // state props recieved
+  const { judgementList, judgementTotal } = props;
+  // dispatch props received
+  const { fetchActionURL, getAllJudgements } = props;
   let viewMode = calcViewMode();
   let errors;
+
+  useEffect(() => {
+    let data = {
+      page: 0,
+      size: 10,
+    };
+    getAllJudgements(data);
+  }, []);
 
   return (
     <Boxed pad="10px" bColor={Theme.TertiaryDark}>
@@ -131,14 +69,11 @@ export const JudgementList = (props) => {
           pageSize,
           filter,
         }) => {
-          console.log("pageSize", pageSize);
-          console.log("currentPage", currentPage);
-          console.log("filter", filter);
           return (
             <Boxed pad="10px 0">
               <Boxed pad="10px 0 ">
                 <PaginationComponent
-                  total={40}
+                  total={judgementTotal}
                   onChange={(page) => handlePagination(page, fetchActionURL)}
                   current={currentPage}
                   pageCounts={pageOptions}
@@ -148,14 +83,14 @@ export const JudgementList = (props) => {
                   pageSize={pageSize}
                   itemsDisplayed
                   showTotal={(total, range) => {
-                    return `${range[0]} - ${range[1]} of ${40} items`;
+                    return `${range[0]} - ${range[1]} of ${judgementTotal} items`;
                   }}
                 />
               </Boxed>
-              <TableComponent columns={columns} data={sampleData} />
+              <TableComponent columns={columns} data={judgementList} />
               <Boxed pad="10px 0 ">
                 <PaginationComponent
-                  total={40}
+                  total={judgementTotal}
                   onChange={(page) => handlePagination(page, fetchActionURL)}
                   current={currentPage}
                   pageCounts={pageOptions}
@@ -165,7 +100,7 @@ export const JudgementList = (props) => {
                   pageSize={pageSize}
                   itemsDisplayed
                   showTotal={(total, range) => {
-                    return `${range[0]} - ${range[1]} of ${40} items`;
+                    return `${range[0]} - ${range[1]} of ${judgementTotal} items`;
                   }}
                 />
               </Boxed>

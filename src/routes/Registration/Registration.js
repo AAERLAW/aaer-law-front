@@ -50,12 +50,11 @@ export const Registration = (props) => {
     validateFields((error, value) => {
       if (!error) {
         const data = {
-          address: value.address.trim(),
           country_code: value.country_code.value,
           email: value.email.trim(),
           first_name: value.first_name.trim(),
           last_name: value.last_name.trim(),
-          password: value.password,
+          middle_name: value.middle_name ? value.middle_name.trim() : "",
           phone: value.phone,
         };
         register(data);
@@ -105,7 +104,22 @@ export const Registration = (props) => {
                   tablet="repeat(2, 1fr)"
                   mobile="repeat(2, 1fr)"
                 >
-                  <Boxed margin="10px 0">
+                  <Boxed margin="15px 0 ">
+                    <Input
+                      type="text"
+                      placeholder="First Name"
+                      error={
+                        getFieldError("first_name")
+                          ? "First name is required"
+                          : null
+                      }
+                      {...getFieldProps("first_name", {
+                        rules: [{ required: true }],
+                        initialValue: "",
+                      })}
+                    />
+                  </Boxed>
+                  <Boxed margin="15px 0 ">
                     <Input
                       type="text"
                       placeholder="Last Name"
@@ -120,23 +134,17 @@ export const Registration = (props) => {
                       })}
                     />
                   </Boxed>
-                  <Boxed margin="10px 0">
+                  <Boxed margin="15px 0 ">
                     <Input
                       type="text"
-                      placeholder="First Name"
-                      error={
-                        getFieldError("first_name")
-                          ? "First Name is required"
-                          : null
-                      }
-                      {...getFieldProps("first_name", {
-                        rules: [{ required: true }],
+                      placeholder="Middle Name"
+                      {...getFieldProps("middle_name", {
+                        rules: [{}],
                         initialValue: "",
                       })}
                     />
                   </Boxed>
-
-                  <Boxed margin="10px 0">
+                  <Boxed margin="15px 0">
                     <Input
                       type="email"
                       placeholder="Your Email..."
@@ -147,11 +155,27 @@ export const Registration = (props) => {
                       }
                       {...getFieldProps("email", {
                         initialValue: "",
+                        rules: [{ required: true, type: "email" }],
+                      })}
+                    />
+                  </Boxed>
+
+                  <Boxed margin="15px 0 20px 0">
+                    <AsyncSelect
+                      placeholder="Select Country"
+                      options={[{ value: "NG", label: "Nigeria" }]}
+                      error={
+                        (errors = getFieldError("country_code"))
+                          ? "Country is required"
+                          : null
+                      }
+                      {...getFieldProps("country_code", {
+                        initialValue: "",
                         rules: [{ required: true }],
                       })}
                     />
                   </Boxed>
-                  <Boxed margin="10px 0">
+                  <Boxed margin="15px 0 20px 0">
                     <Input
                       type="phone"
                       placeholder="Your Phone Number..."
@@ -167,7 +191,7 @@ export const Registration = (props) => {
                     />
                   </Boxed>
                 </Grid>
-                <Boxed margin="20px 0">
+                {/* <Boxed margin="20px 0">
                   <Input
                     type="text"
                     placeholder="Address"
@@ -179,24 +203,9 @@ export const Registration = (props) => {
                       initialValue: "",
                     })}
                   />
-                </Boxed>
-                <Boxed margin="20px 0">
-                  <AsyncSelect
-                    placeholder="Select Country"
-                    options={[{ value: "NG", label: "Nigeria" }]}
-                    error={
-                      (errors = getFieldError("country_code"))
-                        ? "Country is required"
-                        : null
-                    }
-                    {...getFieldProps("country_code", {
-                      initialValue: "",
-                      rules: [{ required: true }],
-                    })}
-                  />
-                </Boxed>
+                </Boxed> */}
 
-                <Boxed margin="20px 0">
+                {/* <Boxed margin="20px 0">
                   <Input
                     type="password"
                     placeholder="New Password..."
@@ -243,7 +252,7 @@ export const Registration = (props) => {
                       initialValue: "",
                     })}
                   />
-                </Boxed>
+                </Boxed> */}
 
                 <Button
                   block

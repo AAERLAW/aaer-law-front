@@ -1,19 +1,19 @@
-import React from 'react';
-import styled, { css, keyframes } from 'styled-components';
-import { darken, lighten, desaturate, transparentize } from 'polished';
-import { Theme } from '../utils/theme';
+import React from "react";
+import styled, { css, keyframes } from "styled-components";
+import { darken, lighten, desaturate, transparentize } from "polished";
+import { Theme } from "../utils/theme";
 
 export const Button = styled.button`
   display: inline-block;
-  height: 45px;
-  padding: 12px 22px;
+  height: 40px;
+  padding: 10px 22px;
   font-size: 13px;
   line-height: 20px;
   font-family: ${Theme.PrimaryFontFamily};
   background-color: ${(props) =>
     props.color ? props.color : darken(0.05, Theme.PrimaryColor)};
-  border-radius: ${(props) => (props.rounded ? '26px' : Theme.SecondaryRadius)};
-  color: ${(props) => (props.fontColor ? props.fontColor : '#fff')};
+  border-radius: ${(props) => (props.rounded ? "26px" : Theme.PrimaryRadius)};
+  color: ${(props) => (props.fontColor ? props.fontColor : "#fff")};
   border: 1px solid transparent;
   text-align: center;
   cursor: pointer;
@@ -110,7 +110,7 @@ export const Button = styled.button`
       background: none;
       z-index: 1;
       &:after {
-        content: '';
+        content: "";
         display: block;
         position: absolute;
         height: 100%;
@@ -125,7 +125,7 @@ export const Button = styled.button`
         z-index: -1;
       }
       &:before {
-        content: '';
+        content: "";
         display: block;
         position: absolute;
         height: 100%;
@@ -181,12 +181,12 @@ export const Button = styled.button`
     ${(props) =>
     props.small &&
     css`
-      height: ${props.height ? props.height : '40px'};
+      height: ${props.height ? props.height : "40px"};
     `} 
       ${(props) =>
     props.xs &&
     css`
-      height: ${props.height ? props.height : '30px'};
+      height: ${props.height ? props.height : "30px"};
       line-height: 12.5px;
       font-size: 12px;
       padding: 7px 9px;
@@ -220,7 +220,7 @@ const InProgress = keyframes`
 
 const StyleBtnGroup = styled.div`
   border: 1px solid ${Theme.PrimaryColor};
-  border-radius: ${(props) => (props.rounded ? '26px' : Theme.SecondaryRadius)};
+  border-radius: ${(props) => (props.rounded ? "26px" : Theme.SecondaryRadius)};
 
   button {
     margin: 0;

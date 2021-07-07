@@ -36,25 +36,6 @@ const InputWrapper = styled.div`
   form {
     margin: 2em 0;
   }
-  /**
-* Make the field a flex-container, reverse the order so label is on top.
-*/
-
-  .field {
-    display: flex;
-    flex-flow: column-reverse;
-  }
-  /**
-* Add a transition to the label and input.
-* I'm not even sure that touch-action: manipulation works on
-* inputs, but hey, it's new and cool and could remove the 
-* pesky delay.
-*/
-  label,
-  input {
-    transition: all 0.2s;
-    touch-action: manipulation;
-  }
 
   input {
     font-size: 1.5em;
@@ -71,60 +52,10 @@ const InputWrapper = styled.div`
 
   label {
     font-size: ${Theme.SecondaryFontSize};
-    position: absolute;
-    top: 14px;
-    left: 12px;
+    font-weight: bold;
     color: ${Theme.PrimaryTextColor};
   }
-  /**
-* Translate down and scale the label up to cover the placeholder,
-* when following an input (with placeholder-shown support).
-* Also make sure the label is only on one row, at max 2/3rds of the
-* field—to make sure it scales properly and doesn't wrap.
-*/
-  input:placeholder-shown + label,
-  input:focus + label {
-    cursor: text;
-    max-width: 66.66%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    transform-origin: left bottom;
-    transform: translate(0, 0) scale(1);
-  }
-  /**
-* By default, the placeholder should be transparent. Also, it should 
-* inherit the transition.
-*/
-  input {
-    ::-webkit-input-placeholder {
-      transition: inherit;
-      ${(props) =>
-        props.label &&
-        css`
-          opacity: 0;
-        `}
-    }
-    ::-moz-placeholder {
-      transition: inherit;
-      ${(props) =>
-        props.label &&
-        css`
-          opacity: 0;
-        `}
-    }
-    ::-moz-placeholder {
-      transition: inherit;
-      ${(props) =>
-        props.label &&
-        css`
-          opacity: 0;
-        `}
-    }
-  }
-  /**
-* Show the placeholder when the input is focused.
-*/
+
   input:focus {
     ::-webkit-input-placeholder {
       opacity: 1;
@@ -138,21 +69,6 @@ const InputWrapper = styled.div`
       opacity: 1;
       color: ${Theme.SecondaryTextColor};
     }
-  }
-  /**
-* When the element is focused, remove the label transform.
-* Also, do this when the placeholder is _not_ shown, i.e. when 
-* there's something in the input at all.
-*/
-  input:not(:placeholder-shown) + label,
-  input:focus + label,
-  .gelacop-select:focus-within + label,
-  .label-float,
-  .react-datepicker-wrapper:focus-within + label {
-    transform-origin: left bottom;
-    transform: translate(0, -12px) scale(0.75);
-    cursor: pointer;
-    color: ${Theme.PrimaryColor};
   }
 
   ${(props) =>
@@ -240,7 +156,7 @@ const InputWrapper = styled.div`
     padding: 10px 10px 10px 10px;
     font-size: 13px;
     font-weight: normal;
-    color: ${(props) => (props.color ? props.color : Theme.PrimaryColor)};
+    color: ${(props) => (props.color ? props.color : Theme.PrimaryTextColor)};
 
     :focus {
       outline: none;
@@ -390,15 +306,13 @@ export class Input extends React.Component {
           {this.props.error && <em>{this.props.error}</em>}
         </div> */}
         <div class="input--wrapper field">
+          {this.props.label && (
+            <label className="title">{this.props.label}</label>
+          )}
           <input
             type={this.props.type ? this.props.type : "text"}
             {...this.props}
           />
-          {this.props.label && (
-            <label className={this.props.value ? "label-float" : null}>
-              {this.props.label}
-            </label>
-          )}
           {this.props.error && <em>{this.props.error}</em>}
         </div>
       </InputWrapper>

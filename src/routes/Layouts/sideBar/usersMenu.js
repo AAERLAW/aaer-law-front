@@ -14,21 +14,35 @@ const usersMenu = [
         pathname: "/law-reports",
       },
       {
-        icon: "icon-file-text",
+        icon: "icon-layout",
         label: "Laws Of The Federation",
         pathname: "/federation-laws",
       },
       {
-        icon: "icon-airplay",
+        icon: "icon-codepen",
         label: "Regulations of MDAs",
-        pathname: "/cases",
+        pathname: "/mdas",
       },
       {
-        icon: "icon-airplay",
+        icon: "icon-file-text",
         label: "Rules of Court",
+        pathname: "/court-rules",
+      },
+      // {
+      //   icon: "icon-briefcase",
+      //   label: "Court Forms",
+      //   pathname: "/cases",
+      // },
+      // {
+      //   icon: "icon-file-text",
+      //   label: "Forms & Agreement",
+      //   pathname: "/cases",
+      // },
+      {
+        icon: "icon-file-minus",
+        label: "Words of Gold",
         pathname: "/cases",
       },
-      { icon: "icon-briefcase", label: "Court Forms", pathname: "/settings" },
     ],
   },
 ];

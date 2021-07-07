@@ -1,27 +1,29 @@
 import { connect } from "dva";
-import { JudgementList } from "./JudgementList";
+import { CourtRules } from "./CourtRules";
 import { routerRedux } from "dva/router";
 
 export const mapStateToProps = (state, ownProps) => {
-  const { loading, judgement } = state;
-  const { judgementList, judgementTotal } = judgement;
+  const { loading, court } = state;
+  const { rules, rulesTotal } = court;
+  const isLoading = loading.effects["court/getAllRules"];
   return {
-    judgementList,
-    judgementTotal,
+    isLoading,
+    rules,
+    rulesTotal,
   };
 };
 
 export const mapDispatchToProps = (dispatch, ownProps) => {
-  const fetchActionURL = "judgement/getAllJudgements";
+  const fetchActionURL = "court/getAllRules";
   return {
     fetchActionURL,
     redirect(pathname) {
       dispatch(routerRedux.push({ pathname: `${pathname}` }));
     },
-    getAllJudgements(data) {
+    getAllRules(data) {
       dispatch({ type: fetchActionURL, payload: data });
     },
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(JudgementList);
+export default connect(mapStateToProps, mapDispatchToProps)(CourtRules);

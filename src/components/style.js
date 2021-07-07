@@ -207,7 +207,7 @@ export const LiveView = styled.div`
 
 export const PageTitle = styled.p`
   font-size: ${(props) =>
-    props.fontSize ? props.fontSize : Theme.SecondaryFontSize};
+    props.fontSize ? props.fontSize : Theme.PrimaryFontSize};
   color: ${(props) => (props.color ? props.color : Theme.SecondaryTextColor)};
   margin: ${(props) => (props.margin ? props.margin : "0")};
   padding: ${(props) => (props.padding ? props.padding : "0")};

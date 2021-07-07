@@ -92,7 +92,12 @@ export const Login = (props) => {
                   />
                 </Boxed>
 
-                <Button progess={isLoading} block onClick={onLogin}>
+                <Button
+                  disabled={isLoading}
+                  progess={isLoading}
+                  block
+                  onClick={onLogin}
+                >
                   Login
                 </Button>
                 <Text margin="1rem 0">or continue with</Text>
@@ -125,6 +130,7 @@ export const Login = (props) => {
                       fontWeight: "bold",
                       cursor: "pointer",
                     }}
+                    onClick={() => redirect("/registration")}
                   >
                     Create an account
                   </span>

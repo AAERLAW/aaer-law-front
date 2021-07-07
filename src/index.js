@@ -22,7 +22,10 @@ const app = dva({
 // 3. Model
 app.model(require("./models/app").default);
 app.model(require("./models/authentication").default);
+app.model(require("./models/judgement").default);
 app.model(require("./models/law").default);
+app.model(require("./models/mda").default);
+app.model(require("./models/court").default);
 
 // 4. Router
 app.router(RouterConfig);

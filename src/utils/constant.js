@@ -1,8 +1,7 @@
-export const storagePrefix = "gelacop_app_";
+export const storagePrefix = "confluencebits_app_";
 export const storageToken = `${storagePrefix}token`;
+export const storageRefeshToken = `${storagePrefix}refresh_token`;
 export const storageProfile = `${storagePrefix}profile`;
-export const storageProfileDetail = `${storagePrefix}profileDetail`;
-export const storageLog = `${storagePrefix}log`;
 
 export const countryList = [
   {

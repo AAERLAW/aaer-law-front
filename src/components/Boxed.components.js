@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled, { css } from "styled-components";
 
 export const Boxed = styled.div`
   ${(props) =>
@@ -47,6 +47,13 @@ export const Boxed = styled.div`
     props.bColor &&
     css`
       background-color: ${(props) => props.bColor};
+    `}
+  ${(props) =>
+    props.hoverBColor &&
+    css`
+      :hover {
+        background-color: ${(props) => props.hoverBColor};
+      }
     `}
   ${(props) =>
     props.maxWidth &&

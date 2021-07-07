@@ -15,6 +15,9 @@ import EmailConfirmation from "./routes/EmailConfirmation/index";
 import Dashboard from "./routes/Dashboard/index";
 import LatestJudgement from "./routes/LatestJudgement/index";
 import FederationLaws from "./routes/FederationLaws/index";
+import MDAs from "./routes/MDAs/index";
+import MDAsRegulation from "./routes/MDAsRegulation/index";
+import CourtRules from "./routes/CourtRules/index";
 
 const { ConnectedRouter } = routerRedux;
 
@@ -41,7 +44,7 @@ const openRoutes = [
   "/resetpassword",
   "/subscription",
   "/registration",
-  "/confirmation",
+  "/activation",
 ];
 
 export function RouterConfig({ history, app }) {
@@ -78,15 +81,13 @@ export function RouterConfig({ history, app }) {
               return <ResetPassword {...props} />;
             }}
           />
-
           <Route
-            path="/confirmation"
+            path="/activation"
             exact
             render={(props) => {
               return <EmailConfirmation {...props} />;
             }}
           />
-
           <Route
             path="/subscription"
             exact
@@ -102,7 +103,6 @@ export function RouterConfig({ history, app }) {
             }}
           />
           {/* #########   E N D :    O P E N      U R L S   #########*/}
-
           {/* #########   S T A R T :   G U A R D E D      U R L S   #########*/}
           <Route
             path="/dashboard"
@@ -124,10 +124,24 @@ export function RouterConfig({ history, app }) {
             render={(props) => {
               return <FederationLaws {...props} />;
             }}
+          />{" "}
+          mdas
+          <Route
+            path="/mdas"
+            exact
+            render={(props) => {
+              return <MDAs {...props} />;
+            }}
           />
-
+          <Route
+            path="/mdas/regulation"
+            exact
+            render={(props) => {
+              return <MDAsRegulation {...props} />;
+            }}
+          />
+          <Route path="/court-rules" exact render={(props) => <CourtRules />} />
           {/* #########   E N D :    G U A R D E D      U R L S   #########*/}
-
           <Route
             render={(props) => {
               return <Redirect to={{ pathname: "/" }} />;
