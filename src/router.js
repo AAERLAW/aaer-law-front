@@ -18,6 +18,7 @@ import FederationLaws from "./routes/FederationLaws/index";
 import MDAs from "./routes/MDAs/index";
 import MDAsRegulation from "./routes/MDAsRegulation/index";
 import CourtRules from "./routes/CourtRules/index";
+import CourtManagement from "./routes/CourtManagement/index";
 
 const { ConnectedRouter } = routerRedux;
 
@@ -141,6 +142,11 @@ export function RouterConfig({ history, app }) {
             }}
           />
           <Route path="/court-rules" exact render={(props) => <CourtRules />} />
+          <Route
+            path="/court-management"
+            exact
+            render={(props) => <CourtManagement />}
+          />
           {/* #########   E N D :    G U A R D E D      U R L S   #########*/}
           <Route
             render={(props) => {

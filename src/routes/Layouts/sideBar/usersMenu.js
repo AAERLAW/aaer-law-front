@@ -28,6 +28,11 @@ const usersMenu = [
         label: "Rules of Court",
         pathname: "/court-rules",
       },
+      {
+        icon: "icon-file-text",
+        label: "Court Management",
+        pathname: "/court-management",
+      },
       // {
       //   icon: "icon-briefcase",
       //   label: "Court Forms",

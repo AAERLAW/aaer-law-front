@@ -7,6 +7,15 @@ export async function getJudgements(data) {
     url,
     method: "GET",
     data,
+  });
+}
+
+export async function postJudgements(data) {
+  const url = `${endpoint}/judgements?`;
+  return await request({
+    url,
+    method: "POST",
+    data,
     formatData: true,
   });
 }

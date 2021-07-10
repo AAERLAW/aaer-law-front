@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 
 import { Boxed } from "../../../components/Boxed.components";
-import { Text } from "../../../components/Text.components";
 import { Button } from "../../../components/Button.components";
 import {
   TableComponent,
@@ -14,6 +13,8 @@ import Wrapper from "../../Common/FilterWrapper/index";
 import { calcViewMode, formatDate } from "../../../utils/utils";
 import { pageOptions } from "../../../utils/constant";
 import { Theme } from "../../../utils/theme";
+
+import CreateModal from "./CreateModal/index";
 
 const columns = [
   {
@@ -41,9 +42,9 @@ const columns = [
 
 export const JudgementList = (props) => {
   // state props recieved
-  const { judgementList, judgementTotal } = props;
+  const { judgementList, judgementTotal, createJudgementModal } = props;
   // dispatch props received
-  const { fetchActionURL, getAllJudgements } = props;
+  const { fetchActionURL, getAllJudgements, openCreateJudgementModal } = props;
   let viewMode = calcViewMode();
   let errors;
 
@@ -59,7 +60,12 @@ export const JudgementList = (props) => {
     <Boxed pad="10px" bColor={Theme.TertiaryDark}>
       <Boxed display="flex">
         <PageTitle>{props.title}</PageTitle>
-        <Icon className="icon-refresh" style={{ margin: "0 0 0 auto" }} />
+        <Icon className="icon-refresh-o" margin="0 0 0 auto" />
+      </Boxed>
+      <Boxed display="flex">
+        <Button margin="0 0 0 auto" onClick={() => openCreateJudgementModal()}>
+          Create Judgement
+        </Button>
       </Boxed>
       <Wrapper
         render={({
@@ -108,6 +114,7 @@ export const JudgementList = (props) => {
           );
         }}
       />
+      {createJudgementModal ? <CreateModal /> : null}
     </Boxed>
   );
 };

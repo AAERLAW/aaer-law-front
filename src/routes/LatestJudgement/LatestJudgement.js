@@ -42,7 +42,7 @@ export const LatestJudgement = (props) => {
           <Tab eventKey="ALL" title="ALL">
             <JudgementList title="ALL JUDGEMENTS" />
           </Tab>
-          <Tab eventKey="SUPREME_COURT" title="SUPREME_COURT">
+          {/* <Tab eventKey="SUPREME_COURT" title="SUPREME_COURT">
             <JudgementList title="SUPREME COURT" />
           </Tab>
           <Tab eventKey="AAQR" title="AAQR">
@@ -50,7 +50,7 @@ export const LatestJudgement = (props) => {
           </Tab>
           <Tab eventKey="DISABLED" title="DISABLED" disabled>
             <JudgementList title="DISABLED" />
-          </Tab>
+          </Tab> */}
         </Tabs>
       </StyledTabs>
     </Boxed>

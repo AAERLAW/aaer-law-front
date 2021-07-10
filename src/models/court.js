@@ -1,4 +1,4 @@
-import { getRules } from "../services/court";
+import { getRules, getCourts, postCourts } from "../services/court";
 
 const initialState = {
   rules: [
@@ -40,6 +40,50 @@ const initialState = {
     },
   ],
   rulesTotal: 36,
+  courts: [
+    {
+      id: 1,
+      name: "Federal High Court",
+    },
+    {
+      id: 2,
+      name: "Federal Low Court",
+    },
+    {
+      id: 3,
+      name: "Supreme High Court",
+    },
+    {
+      id: 4,
+      name: "Supreme Low Court",
+    },
+    {
+      id: 5,
+      name: "Religious High Court",
+    },
+    {
+      id: 6,
+      name: "Religious Low Court",
+    },
+    {
+      id: 7,
+      name: "Traditional High Court",
+    },
+    {
+      id: 8,
+      name: "Traditional Low Court",
+    },
+    {
+      id: 9,
+      name: "Sample High Court",
+    },
+    {
+      id: 10,
+      name: "Sample Low Court",
+    },
+  ],
+  courtsTotal: 46,
+  createCourtModal: false,
 };
 export default {
   namespace: "court",
@@ -55,6 +99,18 @@ export default {
   effects: {
     *getAllRules({ payload }, { call, put }) {
       const { raw, success, message } = yield call(getRules, payload);
+      if (success) {
+        console.log(raw);
+      }
+    },
+    *getAllCourts({ payload }, { call, put }) {
+      const { raw, success, message } = yield call(getCourts, payload);
+      if (success) {
+        console.log(raw);
+      }
+    },
+    *createCourt({ payload }, { call, put }) {
+      const { raw, success, message } = yield call(postCourts, payload);
       if (success) {
         console.log(raw);
       }

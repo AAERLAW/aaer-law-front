@@ -368,18 +368,13 @@ export class AsyncSelect extends React.Component {
         display={this.props.display}
       >
         <div className="input--wrapper field">
+          {this.props.label && <label>{this.props.label}</label>}
           <Select
             {...this.props}
             isDisabled={this.props.disabled}
             classNamePrefix="gelacop"
             className="gelacop-select"
           />
-
-          {this.props.label && (
-            <label className={this.props.value ? "label-float" : null}>
-              {this.props.label}
-            </label>
-          )}
           {this.props.error && <em>{this.props.error}</em>}
         </div>
       </InputWrapper>
