@@ -4,6 +4,7 @@ import App from "./routes/app";
 import { storageToken } from "./utils/constant";
 
 // Pages Route Imports
+import Home from "./routes/Home/index";
 import Login from "./routes/Login/index";
 import Registration from "./routes/Registration/index";
 import ForgotPassword from "./routes/ForgotPassword/index";
@@ -41,6 +42,7 @@ const PrivateRoute = (props) => {
 
 const openRoutes = [
   "/",
+  "/home",
   "/forgotpassword",
   "/resetpassword",
   "/subscription",
@@ -54,6 +56,13 @@ export function RouterConfig({ history, app }) {
       <App openRoutes={openRoutes} history={history}>
         <Switch>
           {/* #########   S T A R T :   O P E N      U R L S   #########*/}
+          <Route
+            path="/home"
+            exact
+            render={(props) => {
+              return <Home {...props} />;
+            }}
+          />
           <Route
             path="/"
             exact
