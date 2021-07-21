@@ -13,20 +13,34 @@ export async function postLogin(data) {
 
 export async function postForgotPassword(data) {
   const url = `${endpoint}/auth/forgotpassword`;
-  return await request({ url, method: "post", data, formatData: true });
+  return await request({ url, method: "POST", data, formatData: true });
 }
 
 export async function postEmailConfirmation(data) {
   const url = `${endpoint}/signup/validate`;
-  return await request({ url, method: "post", data, formatData: true });
+  return await request({ url, method: "POST", data, formatData: true });
 }
 
 export async function postRegistration(data) {
   const url = `${endpoint}/signup`;
-  return await request({ url, method: "post", data, formatData: true });
+  return await request({ url, method: "POST", data, formatData: true });
 }
 
 export async function postCompleteRegistration(data) {
   const url = `${endpoint}/signup/complete`;
-  return await request({ url, method: "post", data, formatData: true });
+  return await request({ url, method: "POST", data, formatData: true });
+}
+
+export async function postResendActivation(data) {
+  const url = `${endpoint}/signup/resend`;
+  return await request({ url, method: "POST", data, formatData: true });
+}
+export async function getLogOut(data) {
+  const url = `${endpoint}/auth/logout`;
+  return await request({ url, method: "POST", data, formatData: true });
+}
+
+export async function getSubscriptionPlans(data) {
+  const url = `${endpoint}/subscription/plans`;
+  return await request({ url, method: "GET" });
 }

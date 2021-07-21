@@ -2,12 +2,12 @@ const usersMenu = [
   {
     title: " ",
     list: [
-      { icon: "icon-grid", label: "Dashboard", pathname: "/dashboard" },
-      {
-        icon: "icon-book",
-        label: "Latest Judgement",
-        pathname: "/latest-judgement",
-      },
+      // { icon: "icon-grid", label: "Dashboard", pathname: "/dashboard" },
+      // {
+      //   icon: "icon-book",
+      //   label: "Latest Judgement",
+      //   pathname: "/latest-judgement",
+      // },
       {
         icon: "icon-clipboard",
         label: "Law Reports",
@@ -21,7 +21,7 @@ const usersMenu = [
       {
         icon: "icon-codepen",
         label: "Regulations of MDAs",
-        pathname: "/mdas",
+        pathname: "/regulation",
       },
       {
         icon: "icon-file-text",
@@ -33,11 +33,11 @@ const usersMenu = [
         label: "Court Management",
         pathname: "/court-management",
       },
-      // {
-      //   icon: "icon-briefcase",
-      //   label: "Court Forms",
-      //   pathname: "/cases",
-      // },
+      {
+        icon: "icon-briefcase",
+        label: "Court Forms",
+        pathname: "/court-forms",
+      },
       // {
       //   icon: "icon-file-text",
       //   label: "Forms & Agreement",
@@ -46,7 +46,7 @@ const usersMenu = [
       {
         icon: "icon-file-minus",
         label: "Words of Gold",
-        pathname: "/cases",
+        pathname: "/reader",
       },
     ],
   },

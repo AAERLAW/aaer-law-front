@@ -472,3 +472,32 @@ export const pageOptions = [
   { value: 50, label: "50 Rows" },
   { value: 100, label: "100 Rows" },
 ];
+
+export const SubcriptionPlans = {
+  basic: {
+    plan: "Basic",
+    mothly: {
+      label: "Monthly",
+      amount_price: 150000,
+      amount_label: "₦ 1,500",
+    },
+    annually: {
+      label: "Anually",
+      amount_mothly: 1500000,
+      amount_label: "₦ 15,000",
+    },
+  },
+  professional: {
+    plan: "Professional",
+    mothly: {
+      label: "Monthly",
+      amount_mothly: 400000,
+      amount_label: "₦ 4,000",
+    },
+    annually: {
+      label: "Anually",
+      amount_mothly: 4000000,
+      amount_label: "₦ 40,000",
+    },
+  },
+};

@@ -5,16 +5,12 @@ import { Boxed } from "../../components/Boxed.components";
 import { Text } from "../../components/Text.components";
 import { Button } from "../../components/Button.components";
 
-import { calcViewMode } from "../../utils/utils";
-
-import LOGO_FULL from "../../assets/img/logo-full.png";
 import HOME_1 from "../../assets/img/home-1.png";
 import HOME_2 from "../../assets/img/home-2.png";
 import HOME_3 from "../../assets/img/home-3.png";
 import HOME_4 from "../../assets/img/home-4.png";
 
 import { Theme } from "../../utils/theme";
-import { HeaderNav, FooterNav } from "../style";
 
 import TopNav from "../Common/TopNav/index";
 import Footer from "../Common/Footer/index";

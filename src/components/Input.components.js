@@ -335,17 +335,13 @@ export class Textarea extends React.Component {
         display={this.props.display}
       >
         <div className="input--wrapper field">
+          {this.props.label && <label>{this.props.label}</label>}
           <textarea
             type={this.props.type ? this.props.type : "text"}
             cols={this.props.cols}
             rows={this.props.rows}
             {...this.props}
           />
-          {this.props.label && (
-            <label className={this.props.value ? "label-float" : null}>
-              {this.props.label}
-            </label>
-          )}
           {this.props.error && <em>{this.props.error}</em>}
         </div>
       </InputWrapper>

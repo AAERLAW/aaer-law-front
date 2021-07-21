@@ -3,7 +3,6 @@ import { storagePrefix, storageToken } from "./constant";
 
 const fetch = (options) => {
   const AuthToken = localStorage.getItem(storageToken);
-  console.log("AuthToken", AuthToken);
   if (AuthToken) {
     axios.defaults.headers.common.Authorization = `Bearer ${AuthToken}`;
   }

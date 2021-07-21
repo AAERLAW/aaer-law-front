@@ -24,7 +24,7 @@ export class Wrapper extends Component {
         this.setState(
           {
             filter: {
-              page: 0,
+              page: 1,
               size: 10,
               ...this.props.externalParams,
             },

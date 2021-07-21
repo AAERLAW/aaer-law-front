@@ -15,65 +15,27 @@ import { Theme } from "../../utils/theme";
 export const EmailConfirmation = (props) => {
   const {
     emailVerified,
-    verificationInfo,
     token,
     isLoading,
     redirect,
     emailConfirmation,
     form,
-    completeRegistration,
+    resendActivation,
   } = props;
   const { getFieldProps, getFieldError, validateFields, getFieldValue } = form;
   let viewMode = calcViewMode();
 
   useEffect(() => {
-    console.log("token", token);
-    emailConfirmation({ token });
+    token && emailConfirmation({ token });
   }, []);
 
-  const checkConfirmPassword = (value1, rule, value, callback, source) => {
-    if (value !== value1) {
-      callback("Passwords must match");
-    } else {
-      callback();
-    }
-  };
-  const checkPassword = (value1, rule, value, callback, source) => {
-    if (value) {
-      let length = value.length;
-      let checkLength = length > 7;
-
-      if (checkLength) {
-        let numberTest = /\d/.test(value);
-        let format = /[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
-        let specialCharaterTest = value.match(format);
-        if (numberTest || specialCharaterTest) {
-          callback();
-        } else {
-          callback("Password must contain either a digit or special charater.");
-        }
-      } else {
-        callback("Password must be atleast 8 characters");
-      }
-    } else {
-      callback();
-    }
-  };
-
-  const onEnter = (e) => {
-    e.stopPropagation();
-    e.key === "Enter" && onCompleteRegistration();
-  };
-
-  const onCompleteRegistration = () => {
-    validateFields((error, value) => {
+  const onResendActivation = () => {
+    validateFields((error, values) => {
       if (!error) {
         const data = {
-          otp: verificationInfo?.otp,
-          password: value.password,
-          confirm_password: value.confirm_password,
+          email: values.email,
         };
-        completeRegistration(data);
+        resendActivation(data);
       }
     });
   };
@@ -122,7 +84,7 @@ export const EmailConfirmation = (props) => {
                   </>
                 ) : (
                   <>
-                    {emailVerified || true ? (
+                    {emailVerified ? (
                       <>
                         <Boxed pad="0.5rem 0" align="center">
                           <Text fontSize="25px" color={Theme.PrimaryTextColor}>
@@ -134,84 +96,55 @@ export const EmailConfirmation = (props) => {
                             Your email address has been successfully verified.{" "}
                           </Text>
                         </Boxed>
-                        <Boxed pad="10px">
-                          <Text> Please set a new password </Text>
-                        </Boxed>
-                        <Boxed margin="20px 0">
-                          <Input
-                            type="password"
-                            placeholder="New Password..."
-                            onKeyPress={onEnter}
-                            error={
-                              getFieldError("password")
-                                ? getFieldError("password")
-                                : null
-                            }
-                            {...getFieldProps("password", {
-                              rules: [
-                                { required: true },
-                                {
-                                  validator: checkPassword.bind(
-                                    this,
-                                    getFieldValue("password")
-                                  ),
-                                },
-                              ],
-                              initialValue: "",
-                            })}
-                          />
-                        </Boxed>
-                        <Boxed margin="20px 0">
-                          <Input
-                            type="password"
-                            placeholder="Confirm Password..."
-                            onKeyPress={onEnter}
-                            error={
-                              getFieldError("confirm_password")
-                                ? "Confirm password must match password"
-                                : null
-                            }
-                            {...getFieldProps("confirm_password", {
-                              rules: [
-                                { required: true },
-                                {
-                                  validator: checkConfirmPassword.bind(
-                                    this,
-                                    getFieldValue("password")
-                                  ),
-                                },
-                              ],
-                              initialValue: "",
-                            })}
-                          />
-                        </Boxed>
-
-                        <Boxed align="center" className="mx-auto">
-                          <Button
-                            block
-                            onClick={() => onCompleteRegistration()}
-                          >
-                            Save Password
-                          </Button>
-                        </Boxed>
-                        <Text margin="1rem 0">Or</Text>
-                        <Text
-                          margin="1rem 0"
-                          color={Theme.PrimaryBlue}
-                          fontWeight="bold"
-                          cursor="pointer"
-                          onClick={() => redirect("/")}
-                        >
-                          Login
-                        </Text>
                       </>
                     ) : (
                       <Boxed className="py-4" align="center">
-                        <Text>Opps an error occured</Text>
+                        {/* <Text>Opps an error occured</Text> */}
+                        <>
+                          <Boxed pad="10px">
+                            <Text fontSize="20px" fontWeight="bold">
+                              {" "}
+                              Resend Email Activation{" "}
+                            </Text>
+                          </Boxed>
+                          <Boxed margin="15px 0" align="left">
+                            <Input
+                              type="email"
+                              label="Email"
+                              placeholder="Your Email..."
+                              error={
+                                (errors = getFieldError("email"))
+                                  ? "Email is required"
+                                  : null
+                              }
+                              {...getFieldProps("email", {
+                                initialValue: "",
+                                rules: [{ required: true, type: "email" }],
+                              })}
+                            />
+                          </Boxed>
+
+                          <Boxed align="center" className="mx-auto">
+                            <Button block onClick={() => onResendActivation()}>
+                              Send Email
+                            </Button>
+                          </Boxed>
+                          <Text margin="1rem 0">or</Text>
+                        </>
                       </Boxed>
                     )}
                   </>
                 )}
+
+                <Text
+                  margin="1rem 0"
+                  color={Theme.PrimaryBlue}
+                  fontWeight="bold"
+                  cursor="pointer"
+                  onClick={() => redirect("/")}
+                >
+                  Login
+                </Text>
               </Boxed>
             </Boxed>
           </Grid>

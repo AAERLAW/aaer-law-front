@@ -26,6 +26,8 @@ app.model(require("./models/judgement").default);
 app.model(require("./models/law").default);
 app.model(require("./models/mda").default);
 app.model(require("./models/court").default);
+app.model(require("./models/reader").default);
+app.model(require("./models/auxillary").default);
 
 // 4. Router
 app.router(RouterConfig);

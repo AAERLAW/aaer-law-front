@@ -29,13 +29,18 @@ export const Footer = (props) => {
             mobile="repeat(2, 1fr)"
           >
             <Boxed>
-              <img src={LOGO_FULL} height="60px" />
+              <img
+                src={LOGO_FULL}
+                height="60px"
+                onClick={() => redirect("/")}
+                alt="logo_img"
+              />
             </Boxed>
             <Boxed>
               <FooterNav>
                 <li className="title"> PRODUCTS</li>
-                <li>Features</li>
-                <li>Pricing</li>
+                <li onClick={() => redirect("/features")}>Features</li>
+                <li onClick={() => redirect("/pricing")}>Pricing</li>
                 <li>Whats New</li>
                 <li>FAQs & Support</li>
               </FooterNav>

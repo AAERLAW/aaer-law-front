@@ -3,13 +3,17 @@ import { CourtRules } from "./CourtRules";
 import { routerRedux } from "dva/router";
 
 export const mapStateToProps = (state, ownProps) => {
-  const { loading, court } = state;
-  const { rules, rulesTotal } = court;
+  const { loading, court, authentication } = state;
+  const { rules, rulesTotal, createRuleModal } = court;
+  const { profile } = authentication;
+  const isAdmin = profile?.roles?.includes("ADMIN");
   const isLoading = loading.effects["court/getAllRules"];
   return {
     isLoading,
     rules,
     rulesTotal,
+    isAdmin,
+    createRuleModal,
   };
 };
 
@@ -22,6 +26,12 @@ export const mapDispatchToProps = (dispatch, ownProps) => {
     },
     getAllRules(data) {
       dispatch({ type: fetchActionURL, payload: data });
+    },
+    openCreateModal() {
+      dispatch({ type: "court/save", payload: { createRuleModal: true } });
+    },
+    openReader(data) {
+      dispatch({ type: "court/onReadRule", payload: data });
     },
   };
 };

@@ -4,10 +4,9 @@ import { routerRedux } from "dva/router";
 import { artistMenu, userMenu } from "./menu";
 
 export const mapStateToProps = (state, ownProps) => {
-  const { app } = state;
-  const { profile, pageTitle, collaspe, menuMode } = app;
-  let pathname = window.location.pathname;
-  let search = window.location.search;
+  const { app, authentication } = state;
+  const { pageTitle, collaspe, menuMode } = app;
+  const { profile } = authentication;
   let menuList = [];
   if (profile) {
     profile.userRole === "RART" && (menuList = artistMenu);
@@ -17,8 +16,6 @@ export const mapStateToProps = (state, ownProps) => {
   return {
     profile,
     collaspe,
-    pathname,
-    search,
     pageTitle,
     menuList,
     menuMode,
@@ -33,8 +30,8 @@ export const mapDispatchToProps = (dispatch, ownProps) => {
     setCollaspe(value) {
       dispatch({ type: "app/save", payload: { collaspe: value } });
     },
-    logOut() {
-      dispatch({ type: "app/logOut" });
+    logOut(data) {
+      dispatch({ type: "authentication/logOut", payload: data ? data : {} });
     },
   };
 };

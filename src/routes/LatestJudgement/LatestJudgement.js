@@ -40,7 +40,7 @@ export const LatestJudgement = (props) => {
           onSelect={(k) => setKey(k)}
         >
           <Tab eventKey="ALL" title="ALL">
-            <JudgementList title="ALL JUDGEMENTS" />
+            <JudgementList title="ALL REPORTS" />
           </Tab>
           {/* <Tab eventKey="SUPREME_COURT" title="SUPREME_COURT">
             <JudgementList title="SUPREME COURT" />

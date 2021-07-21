@@ -1,17 +1,24 @@
 import request from "../utils/request";
 import { endpoint } from "../utils/config";
 
-export async function getJudgements(data) {
-  const url = `${endpoint}/judgements/paginated?`;
+export async function getReports(data) {
+  const url = `${endpoint}/reports/paginated?`;
   return await request({
     url,
     method: "GET",
     data,
   });
 }
+export async function getSingleReport(data) {
+  const url = `${endpoint}/reports/${data.id}`;
+  return await request({
+    url,
+    method: "GET",
+  });
+}
 
-export async function postJudgements(data) {
-  const url = `${endpoint}/judgements?`;
+export async function postReports(data) {
+  const url = `${endpoint}/reports?`;
   return await request({
     url,
     method: "POST",

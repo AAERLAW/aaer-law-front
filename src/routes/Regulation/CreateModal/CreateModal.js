@@ -1,22 +1,20 @@
 import React from "react";
 
 import { Input } from "../../../components/Input.components";
-import { Grid } from "../../../components/Grid.components";
 import { Boxed } from "../../../components/Boxed.components";
 import { Text } from "../../../components/Text.components";
 import { Button } from "../../../components/Button.components";
 import { ModalComponent } from "../../../components/Modal.components";
 
 import { calcViewMode } from "../../../utils/utils";
-import { Theme } from "../../../utils/theme";
 import { PageTitle } from "../../../components/style";
 
-export const CreateMDA = (props) => {
+export const CreateModal = (props) => {
   // State props
-  const { createMdaModal, isLoading } = props;
+  const { createModal, isLoading } = props;
 
   // Dispatch props
-  const { form, createMDA, closeModal } = props;
+  const { form, createRegulation, closeModal } = props;
   const { getFieldProps, getFieldError, validateFields } = form;
 
   let viewMode = calcViewMode();
@@ -27,7 +25,7 @@ export const CreateMDA = (props) => {
         const data = {
           name: value.name.trim(),
         };
-        createMDA(data);
+        createRegulation(data);
       }
     });
   };
@@ -36,16 +34,20 @@ export const CreateMDA = (props) => {
   return (
     <>
       <ModalComponent
-        show={createMdaModal}
+        show={createModal}
         onHide={closeModal}
-        title={<PageTitle>Create MDA</PageTitle>}
+        title={<PageTitle>Create Regulation</PageTitle>}
         footer={
           <>
             <Button pale onClick={closeModal}>
               Cancel
             </Button>
-            <Button progess={isLoading} onClick={onSubmit}>
-              Create MDA
+            <Button
+              progress={isLoading}
+              disabled={isLoading}
+              onClick={onSubmit}
+            >
+              Create Regulation
             </Button>
           </>
         }
@@ -53,10 +55,12 @@ export const CreateMDA = (props) => {
         <Boxed pad="0 0 20px 0">
           <Input
             type="text"
-            label="MDA Name"
-            placeholder="Enter MDA name..."
+            label="Regulation Name"
+            placeholder="Enter Regulation name..."
             error={
-              (errors = getFieldError("name")) ? "MDA's name is required" : null
+              (errors = getFieldError("name"))
+                ? "Regulation's name is required"
+                : null
             }
             {...getFieldProps("name", {
               initialValue: "",

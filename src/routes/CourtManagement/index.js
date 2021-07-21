@@ -3,14 +3,17 @@ import { CourtManagement } from "./CourtManagement";
 import { routerRedux } from "dva/router";
 
 export const mapStateToProps = (state, ownProps) => {
-  const { loading, court } = state;
+  const { loading, court, authentication } = state;
   const { courts, courtsTotal, createCourtModal } = court;
+  const { profile } = authentication;
+  const isAdmin = profile?.roles?.includes("ADMIN");
   const isLoading = loading.effects["court/getAllCourts"];
   return {
     isLoading,
     courts,
     courtsTotal,
     createCourtModal,
+    isAdmin,
   };
 };
 

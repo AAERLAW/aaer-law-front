@@ -1,89 +1,15 @@
-import { getJudgements, postJudgements } from "../services/judgement";
+import { routerRedux } from "dva/router";
+import { Alert } from "../components/Alert.components";
+
+import {
+  getReports,
+  postReports,
+  getSingleReport,
+} from "../services/judgement";
 
 const initialState = {
-  judgementList: [
-    {
-      lead_judgement_by: "Ugochukwu Anthony Ogakwu, JCA",
-      suit_number: "(2021)LPELR-54417(CA)",
-      judgement_date: "06-09-2021",
-      case_title: "AINA V.STATE",
-      court_id: 1,
-      id: 1,
-    },
-    {
-      lead_judgement_by: "Ugochukwu Anthony Ogakwu, JCA",
-      suit_number: "(2021)LPELR-54417(CA)",
-      judgement_date: "06-09-2021",
-      case_title: "AINA V.STATE",
-      court_id: 2,
-      id: 2,
-    },
-    {
-      lead_judgement_by: "Ugochukwu Anthony Ogakwu, JCA",
-      suit_number: "(2021)LPELR-54417(CA)",
-      judgement_date: "06-09-2021",
-      case_title: "AINA V.STATE",
-      court_id: 3,
-      id: 3,
-    },
-    {
-      lead_judgement_by: "Ugochukwu Anthony Ogakwu, JCA",
-      suit_number: "(2021)LPELR-54417(CA)",
-      judgement_date: "06-09-2021",
-      case_title: "AINA V.STATE",
-      court_id: 4,
-      id: 4,
-    },
-    {
-      lead_judgement_by: "Ugochukwu Anthony Ogakwu, JCA",
-      suit_number: "(2021)LPELR-54417(CA)",
-      judgement_date: "06-09-2021",
-      case_title: "AINA V.STATE",
-      court_id: 5,
-      id: 5,
-    },
-    {
-      lead_judgement_by: "Ugochukwu Anthony Ogakwu, JCA",
-      suit_number: "(2021)LPELR-54417(CA)",
-      judgement_date: "06-09-2021",
-      case_title: "AINA V.STATE",
-      court_id: 6,
-      id: 6,
-    },
-    {
-      lead_judgement_by: "Ugochukwu Anthony Ogakwu, JCA",
-      suit_number: "(2021)LPELR-54417(CA)",
-      judgement_date: "06-09-2021",
-      case_title: "AINA V.STATE",
-      court_id: 7,
-      id: 7,
-    },
-    {
-      lead_judgement_by: "Ugochukwu Anthony Ogakwu, JCA",
-      suit_number: "(2021)LPELR-54417(CA)",
-      judgement_date: "06-09-2021",
-      case_title: "AINA V.STATE",
-      court_id: 8,
-      id: 8,
-    },
-    {
-      lead_judgement_by: "Ugochukwu Anthony Ogakwu, JCA",
-      suit_number: "(2021)LPELR-54417(CA)",
-      judgement_date: "06-09-2021",
-      case_title: "AINA V.STATE",
-      court_id: 9,
-      id: 9,
-    },
-    {
-      lead_judgement_by: "Ugochukwu Anthony Ogakwu, JCA",
-      suit_number: "(2021)LPELR-54417(CA)",
-      judgement_date: "06-09-2021",
-      case_title: "AINA V.STATE",
-      court_id: 10,
-      id: 10,
-    },
-  ],
-  judgementTotal: 36,
+  judgementList: [],
+  judgementTotal: 0,
   createJudgementModal: false,
 };
 export default {
@@ -99,17 +25,48 @@ export default {
 
   effects: {
     *getAllJudgements({ payload }, { call, put }) {
-      const { raw, success, message } = yield call(getJudgements, payload);
+      const { raw, success, message } = yield call(getReports, payload);
       if (success) {
-        console.log(raw);
+        const list = raw?.data?.items;
+        const total = raw?.data?.pagination?.total_record;
+        yield put({
+          type: "save",
+          payload: { judgementList: list, judgementTotal: total },
+        });
+      } else {
+        Alert.error(message);
       }
     },
-    *createJudgement({ payload }, { call, put }) {
-      const { raw, success, message } = yield call(postJudgements, payload);
+    *createJudgement({ payload }, { call, put, select }) {
+      const { raw, success, message } = yield call(postReports, payload);
       if (success) {
-        console.log(raw);
+        const data = raw?.data;
+        const oldList = yield select(
+          ({ judgement }) => judgement.judgementList
+        );
+        const newList = [data, ...oldList];
+        Alert.success("Successfully created case.");
+        yield put({
+          type: "save",
+          payload: { createJudgementModal: false, judgementList: newList },
+        });
       } else {
-        console.log(message);
+        Alert.error(message);
+      }
+    },
+    *onRead({ payload }, { call, put }) {
+      const { raw, success, message } = yield call(getSingleReport, payload);
+      if (success) {
+        const data = { ...raw.data, name: raw?.data?.case_title };
+        const book = {
+          id: `Report-${raw?.data?.id}`,
+          type: `Report`,
+          data: data,
+        };
+        yield put({ type: "reader/addBook", payload: book });
+        yield put(routerRedux.push("/reader"));
+      } else {
+        Alert.error(message);
       }
     },
   },

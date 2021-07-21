@@ -1,63 +1,21 @@
-import { getMDAs, postCreateMDA, getMDAsRegulations } from "../services/mda";
+import { routerRedux } from "dva/router";
+import { Alert } from "../components/Alert.components";
+
+import {
+  getRegulations,
+  postCreateRegulation,
+  getRegulationItems,
+  getSingleRegulationItem,
+  postCreateRegulationItem,
+} from "../services/mda";
 
 const initialState = {
-  totalItem: 64,
-  itemList: [
-    {
-      id: 1,
-      name: "ACCIDENT INVESTIGATION BUREAU ",
-    },
-    {
-      id: 2,
-      name: "BUREAU OF PUBLIC PROCUREMENT",
-    },
-    {
-      id: 3,
-      name: "CORPORATE AFFAIRS COMMISSION OF NIGERIA ",
-    },
-    {
-      id: 4,
-      name: "CENTRAL BANK OF NIGERIA",
-    },
-    {
-      id: 5,
-      name: "CONSUMER PROTECTION COUNCIL",
-    },
-  ],
-  createMdaModal: false,
-  regulationList: [
-    {
-      id: 1699,
-      name: "CIVIL AVIATION",
-      agency: "ACCIDENT INVESTIGATION BUREAU",
-      year: 2019,
-    },
-    {
-      id: 1701,
-      name: "INVESTIGATION TRAINING MANUAL",
-      agency: "ACCIDENT INVESTIGATION BUREAU",
-      year: 2018,
-    },
-    {
-      id: 1709,
-      name: "OPERATIONS INVESTIGATIONS GUIDANCE MATERIAL",
-      agency: "ACCIDENT INVESTIGATION BUREAU",
-      year: 2007,
-    },
-    {
-      id: 1700,
-      name: "GUIDANCE MATERIAL FOR ENGINEERING",
-      agency: "ACCIDENT INVESTIGATION BUREAU",
-      year: 2007,
-    },
-    {
-      id: 1725,
-      name: "CIVIL AVIATION (REPEAL AND RE-ENACTMENT) ACT ",
-      agency: "ACCIDENT INVESTIGATION BUREAU",
-      year: 2006,
-    },
-  ],
-  regulationTotal: 43,
+  regulationTotal: 0,
+  regulationList: [],
+  createModal: false,
+  regulationItemsList: [],
+  regulationItemsTotal: 0,
+  createRegItemModal: false,
 };
 
 export default {
@@ -72,22 +30,85 @@ export default {
   },
 
   effects: {
-    *getAllMDAs({ payload }, { call, put }) {
-      const { raw, success, message } = yield call(getMDAs, payload);
+    *getAllRegulations({ payload }, { call, put }) {
+      const { raw, success, message } = yield call(getRegulations, payload);
       if (success) {
-        console.log(raw);
+        const list = raw?.data?.items;
+        const total = raw?.data?.pagination?.total_record;
+        yield put({
+          type: "save",
+          payload: { regulationList: list, regulationTotal: total },
+        });
+      } else {
+        Alert.error(message);
       }
     },
-    *createMDA({ payload }, { call, put }) {
-      const { raw, success, message } = yield call(postCreateMDA, payload);
+    *createRegulation({ payload }, { call, put, select }) {
+      const { raw, success, message } = yield call(
+        postCreateRegulation,
+        payload
+      );
       if (success) {
-        console.log(raw);
+        const data = raw?.data;
+        const oldList = yield select(({ mda }) => mda.regulationList);
+        const newList = [data, ...oldList];
+        Alert.success("Successfully created regulation.");
+        yield put({
+          type: "save",
+          payload: { createModal: false, regulationList: newList },
+        });
+      } else {
+        Alert.error(message);
       }
     },
-    *getAllMDAsRegulations({ payload }, { call, put }) {
-      const { raw, success, message } = yield call(getMDAsRegulations, payload);
+
+    *getAllRegulationItems({ payload }, { call, put }) {
+      const { raw, success, message } = yield call(getRegulationItems, payload);
       if (success) {
-        console.log(raw);
+        const list = raw?.data?.items;
+        const total = raw?.data?.pagination?.total_record;
+        yield put({
+          type: "save",
+          payload: { regulationItemsList: list, regulationItemsTotal: total },
+        });
+      } else {
+        Alert.error(message);
+      }
+    },
+    *createRegulationItem({ payload }, { call, put, select }) {
+      const { raw, success, message } = yield call(
+        postCreateRegulationItem,
+        payload
+      );
+      if (success) {
+        const data = raw?.data;
+        const oldList = yield select(({ mda }) => mda.regulationItemsList);
+        const newList = [data, ...oldList];
+        Alert.success("Successfully created regulation item.");
+        yield put({
+          type: "save",
+          payload: { createRegItemModal: false, regulationItemsList: newList },
+        });
+      } else {
+        Alert.error(message);
+      }
+    },
+    *onRead({ payload }, { call, put }) {
+      const { raw, success, message } = yield call(
+        getSingleRegulationItem,
+        payload
+      );
+      if (success) {
+        const data = {
+          id: `Regulation-${raw?.data?.id}`,
+          type: `Regulation Item`,
+          data: raw?.data,
+        };
+        console.log({ data });
+        yield put({ type: "reader/addBook", payload: data });
+        yield put(routerRedux.push("/reader"));
+      } else {
+        Alert.error(message);
       }
     },
   },

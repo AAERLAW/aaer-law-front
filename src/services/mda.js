@@ -1,17 +1,16 @@
 import request from "../utils/request";
 import { endpoint } from "../utils/config";
 
-export async function getMDAs(data) {
+export async function getRegulations(data) {
   const url = `${endpoint}/regulations/paginated?`;
   return await request({
     url,
     method: "GET",
     data,
-    formatData: true,
   });
 }
 
-export async function postCreateMDA(data) {
+export async function postCreateRegulation(data) {
   const url = `${endpoint}/regulations`;
   return await request({
     url,
@@ -21,11 +20,27 @@ export async function postCreateMDA(data) {
   });
 }
 
-export async function getMDAsRegulations(data) {
+export async function getRegulationItems(data) {
   const url = `${endpoint}/regulationitems/paginated?`;
   return await request({
     url,
     method: "GET",
+    data,
+  });
+}
+export async function getSingleRegulationItem(data) {
+  const url = `${endpoint}/regulationitems/${data.id}`;
+  return await request({
+    url,
+    method: "GET",
+  });
+}
+
+export async function postCreateRegulationItem(data) {
+  const url = `${endpoint}/regulationitems`;
+  return await request({
+    url,
+    method: "POST",
     data,
     formatData: true,
   });

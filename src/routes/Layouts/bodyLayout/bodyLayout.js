@@ -39,7 +39,7 @@ const MainBody = styled.div`
   }
 
   .dark-wrapper {
-    background: ${transparentize(0.25, Theme.TertiaryDark)};
+    background: ${transparentize(0.25, Theme.SecondaryDark)};
     transition: all 0.5s;
     -webkit-transition: all 0.25s;
     width: 100%;

@@ -33,8 +33,14 @@ const columns = [
 
 export const CourtManagement = (props) => {
   // state props receieved
-  const { isLoading, courts, courtsTotal, fetchActionURL, createCourtModal } =
-    props;
+  const {
+    isLoading,
+    courts,
+    courtsTotal,
+    fetchActionURL,
+    createCourtModal,
+    isAdmin,
+  } = props;
 
   // dispatch props recieved
   const { redirect, getAllCourts, openCourtModal } = props;
@@ -54,9 +60,11 @@ export const CourtManagement = (props) => {
         borderRadius={Theme.SecondaryRadius}
       >
         <Boxed pad="10px 0" display="flex">
-          <Button margin="0 0 0 auto" onClick={() => openCourtModal()}>
-            Create Court
-          </Button>
+          {isAdmin && (
+            <Button margin="0 0 0 auto" onClick={() => openCourtModal()}>
+              Create Court
+            </Button>
+          )}
         </Boxed>
         <Wrapper
           render={({

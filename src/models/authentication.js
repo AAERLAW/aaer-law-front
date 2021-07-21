@@ -3,8 +3,11 @@ import {
   postLogin,
   postForgotPassword,
   postEmailConfirmation,
+  postResendActivation,
   postRegistration,
   postCompleteRegistration,
+  getSubscriptionPlans,
+  getLogOut,
 } from "../services/authentication";
 import { Alert } from "../components/Alert.components";
 
@@ -16,8 +19,9 @@ import {
 
 const initialState = {
   profile: {},
-  verificationInfo: {},
   emailVerified: false,
+  subcriptionPlan: {},
+  openPaymentModal: false,
 };
 
 export default {
@@ -28,6 +32,20 @@ export default {
   subscriptions: {
     setup({ dispatch, history }) {
       // eslint-disable-line
+      //Persist token details logic
+      try {
+        let profile = localStorage.getItem(storageProfile);
+        console.log({ profile });
+        if (profile) {
+          let profileData = JSON.parse(profile);
+          dispatch({
+            type: "save",
+            payload: { profile: profileData },
+          });
+        }
+      } catch (err) {
+        console.log(err);
+      }
     },
   },
 
@@ -41,7 +59,7 @@ export default {
         localStorage.setItem(storageRefeshToken, refresh_token);
         localStorage.setItem(storageProfile, JSON.stringify(data));
         yield put({ type: "save", payload: { profile: data } });
-        yield put(routerRedux.push("/dashboard"));
+        yield put(routerRedux.push("/law-reports"));
       } else {
         Alert.error(message);
       }
@@ -64,7 +82,6 @@ export default {
       console.log("raw", raw);
     },
     *emailConfirmation({ payload }, { call, put }) {
-      console.log("payload", payload);
       const { raw, success, message } = yield call(
         postEmailConfirmation,
         payload
@@ -73,8 +90,19 @@ export default {
         console.log(raw);
         yield put({
           type: "save",
-          payload: { emailVerified: true, verificationInfo: raw?.data },
+          payload: { emailVerified: true },
         });
+      } else {
+        Alert.error(message);
+      }
+    },
+    *resendActivation({ payload }, { call, put }) {
+      const { raw, success, message } = yield call(
+        postResendActivation,
+        payload
+      );
+      if (success) {
+        Alert.success("A new activation link has been sent to your mail.");
       } else {
         Alert.error(message);
       }
@@ -91,6 +119,23 @@ export default {
       } else {
         Alert.error(message);
       }
+    },
+    *getAllSubscriptionPlans({ payload }, { call, put }) {
+      const { raw, success, message } = yield call(
+        getSubscriptionPlans,
+        payload
+      );
+      if (success) {
+        console.log(raw);
+      } else {
+        Alert.error(message);
+      }
+    },
+    *logOut({ payload }, { call, put }) {
+      const { refresh_token } = payload;
+      call(getLogOut, { refresh_token });
+      localStorage.clear();
+      yield put(routerRedux.push("/"));
     },
   },
 

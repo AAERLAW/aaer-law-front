@@ -3,12 +3,17 @@ import { JudgementList } from "./JudgementList";
 import { routerRedux } from "dva/router";
 
 export const mapStateToProps = (state, ownProps) => {
-  const { loading, judgement } = state;
+  const { loading, judgement, authentication } = state;
   const { judgementList, judgementTotal, createJudgementModal } = judgement;
+  const isLoading = loading.effects["judgement/getAllJudgements"];
+  const { profile } = authentication;
+  const isAdmin = profile?.roles?.includes("ADMIN");
   return {
     judgementList,
     judgementTotal,
     createJudgementModal,
+    isLoading,
+    isAdmin,
   };
 };
 
@@ -26,6 +31,12 @@ export const mapDispatchToProps = (dispatch, ownProps) => {
       dispatch({
         type: "judgement/save",
         payload: { createJudgementModal: true },
+      });
+    },
+    onRead(data) {
+      dispatch({
+        type: "judgement/onRead",
+        payload: data,
       });
     },
   };

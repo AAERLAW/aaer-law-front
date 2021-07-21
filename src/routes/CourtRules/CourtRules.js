@@ -1,6 +1,9 @@
 import React, { useEffect } from "react";
 
 import { Boxed } from "../../components/Boxed.components";
+import { Text } from "../../components/Text.components";
+import { Button } from "../../components/Button.components";
+import { Loader } from "../../components/Loader.components";
 import {
   TableComponent,
   PaginationComponent,
@@ -13,32 +16,21 @@ import { calcViewMode, formatDate } from "../../utils/utils";
 import { pageOptions } from "../../utils/constant";
 import { Theme } from "../../utils/theme";
 
-const columns = [
-  {
-    title: "Tiltle",
-    dataIndex: "title",
-    key: "title",
-  },
-  {
-    title: "Jurisdiction",
-    dataIndex: "jurisdiction",
-    key: "jurisdiction",
-  },
-  {
-    title: "Date",
-    dataIndex: "rule_date",
-    key: "rule_date",
-    align: "right",
-    render: (text) => text && formatDate(text),
-  },
-];
+import CreateModal from "./CreateModal/index";
 
 export const CourtRules = (props) => {
   // state props receieved
-  const { isLoading, rules, rulesTotal, fetchActionURL } = props;
+  const {
+    isLoading,
+    rules,
+    rulesTotal,
+    fetchActionURL,
+    createRuleModal,
+    isAdmin,
+  } = props;
 
   // dispatch props recieved
-  const { redirect, getAllRules } = props;
+  const { redirect, getAllRules, openCreateModal, openReader } = props;
   let viewMode = calcViewMode();
   let errors;
 
@@ -47,6 +39,31 @@ export const CourtRules = (props) => {
     getAllRules(data);
   }, []);
 
+  const columns = [
+    {
+      title: "Tiltle",
+      dataIndex: "title",
+      key: "title",
+      render: (text, record) => (
+        <Text onClick={() => openReader(record)} cursor="pointer">
+          {text}
+        </Text>
+      ),
+    },
+    {
+      title: "Jurisdiction",
+      dataIndex: "jurisdiction",
+      key: "jurisdiction",
+    },
+    {
+      title: "Date",
+      dataIndex: "rule_date",
+      key: "rule_date",
+      align: "right",
+      render: (text) => text && formatDate(text),
+    },
+  ];
+
   return (
     <Boxed pad="20px">
       <Boxed
@@ -54,9 +71,12 @@ export const CourtRules = (props) => {
         bColor={Theme.TertiaryDark}
         borderRadius={Theme.SecondaryRadius}
       >
-        <Boxed display="flex">
-          <PageTitle>{props.title}</PageTitle>
-          <Icon className="icon-refresh" style={{ margin: "0 0 0 auto" }} />
+        <Boxed pad="10px 0" display="flex">
+          {isAdmin && (
+            <Button margin="0 0 0 auto" onClick={() => openCreateModal()}>
+              Create Rule
+            </Button>
+          )}
         </Boxed>
         <Wrapper
           render={({
@@ -70,7 +90,7 @@ export const CourtRules = (props) => {
               <Boxed pad="10px 0">
                 <Boxed pad="10px 0 ">
                   <PaginationComponent
-                    total={40}
+                    total={rulesTotal}
                     onChange={(page) => handlePagination(page, fetchActionURL)}
                     current={currentPage}
                     pageCounts={pageOptions}
@@ -80,14 +100,20 @@ export const CourtRules = (props) => {
                     pageSize={pageSize}
                     itemsDisplayed
                     showTotal={(total, range) => {
-                      return `${range[0]} - ${range[1]} of ${40} items`;
+                      return `${range[0]} - ${range[1]} of ${rulesTotal} items`;
                     }}
                   />
                 </Boxed>
-                <TableComponent columns={columns} data={rules} />
+                {isLoading ? (
+                  <Boxed pad="20px 0" display="flex" width="100%">
+                    <Loader margin="auto" />
+                  </Boxed>
+                ) : (
+                  <TableComponent columns={columns} data={rules} />
+                )}
                 <Boxed pad="10px 0 ">
                   <PaginationComponent
-                    total={40}
+                    total={rulesTotal}
                     onChange={(page) => handlePagination(page, fetchActionURL)}
                     current={currentPage}
                     pageCounts={pageOptions}
@@ -97,7 +123,7 @@ export const CourtRules = (props) => {
                     pageSize={pageSize}
                     itemsDisplayed
                     showTotal={(total, range) => {
-                      return `${range[0]} - ${range[1]} of ${40} items`;
+                      return `${range[0]} - ${range[1]} of ${rulesTotal} items`;
                     }}
                   />
                 </Boxed>
@@ -106,6 +132,7 @@ export const CourtRules = (props) => {
           }}
         />
       </Boxed>
+      {createRuleModal && <CreateModal />}
     </Boxed>
   );
 };

@@ -1,14 +1,14 @@
 import { connect } from "dva";
 import { createForm } from "rc-form";
-import { CreateMDA } from "./CreateMDA";
+import { CreateModal } from "./CreateModal";
 import { routerRedux } from "dva/router";
 
 export const mapStateToProps = (state, ownProps) => {
-  const { loading, mda } = state;
-  const isLoading = loading.effects["mda/createMDA"];
-  const { createMdaModal } = mda;
+  const { loading, court } = state;
+  const { createFormModal } = court;
+  const isLoading = loading.effects["court/createForm"];
   return {
-    createMdaModal,
+    createFormModal,
     isLoading,
   };
 };
@@ -18,11 +18,11 @@ export const mapDispatchToProps = (dispatch, ownProps) => {
     redirect(pathname) {
       dispatch(routerRedux.push({ pathname: `${pathname}` }));
     },
-    createMDA(data) {
-      dispatch({ type: "mda/createMDA", payload: data });
+    createForm(data) {
+      dispatch({ type: "court/createForm", payload: data });
     },
     closeModal() {
-      dispatch({ type: "mda/save", payload: { createMdaModal: false } });
+      dispatch({ type: "court/save", payload: { createFormModal: false } });
     },
   };
 };
@@ -30,4 +30,4 @@ export const mapDispatchToProps = (dispatch, ownProps) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(createForm()(CreateMDA));
+)(createForm()(CreateModal));

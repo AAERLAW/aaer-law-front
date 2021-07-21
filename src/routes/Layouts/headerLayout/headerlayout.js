@@ -20,7 +20,7 @@ import { Theme } from "../../../utils/theme";
 
 export const HeaderLayout = (props) => {
   // state props
-  const { pathname, pageTitle, collaspe } = props;
+  const { profile, pageTitle, collaspe } = props;
 
   // dispatch props
   const { redirect, logOut, setCollaspe } = props;
@@ -30,12 +30,8 @@ export const HeaderLayout = (props) => {
   let viewMode = calcViewMode();
 
   let navColor = Theme.SideBarColor;
-  let activeColor = Theme.PrimaryTextColor;
 
-  if (pathname === "/media") {
-    navColor = Theme.PrimaryColor;
-    activeColor = "#fff";
-  }
+  console.log({ profile });
 
   return (
     <Boxed
@@ -99,7 +95,7 @@ export const HeaderLayout = (props) => {
             <Boxed className="px-1" align="right" display="flex">
               <Boxed display="flex" margin="0 0 0 auto" height="58px">
                 <Boxed height="59px" display="flex">
-                  <Icon
+                  {/* <Icon
                     className="icon-search-1"
                     margin="auto 5px"
                     pad="5px"
@@ -107,12 +103,13 @@ export const HeaderLayout = (props) => {
                     border={`1px solid ${Theme.SecondaryTextColor}`}
                     color={Theme.SecondaryTextColor}
                     borderRadius="50%"
-                  />
+                  /> */}
                   <StyledDrpDown style={{ margin: "auto 0" }}>
                     <Dropdown>
                       <Dropdown.Toggle variant id="dropdown-basic">
                         <Label fontSize="13px" lineHeight="33px" pad="0">
-                          <Avatar src={genderImage} size="35px" /> Gabriel
+                          <Avatar src={genderImage} size="35px" />{" "}
+                          {profile?.username}
                           <i
                             className="icon icon-angle-down"
                             fontSize="16px"
@@ -123,10 +120,10 @@ export const HeaderLayout = (props) => {
                       </Dropdown.Toggle>
 
                       <Dropdown.Menu>
-                        <Dropdown.Item onClick={() => redirect("/profile")}>
+                        {/* <Dropdown.Item onClick={() => redirect("/profile")}>
                           View Profile
-                        </Dropdown.Item>
-                        <Dropdown.Item onClick={() => logOut()}>
+                        </Dropdown.Item> */}
+                        <Dropdown.Item onClick={() => logOut(profile)}>
                           Log Out
                         </Dropdown.Item>
                       </Dropdown.Menu>

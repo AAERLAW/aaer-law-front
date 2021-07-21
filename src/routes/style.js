@@ -43,3 +43,12 @@ export const FooterNav = styled.ul`
     }
   }
 `;
+
+export const SubscribeList = styled.ul`
+  list-style: none;
+  padding-left: 0;
+  margin: 10px 0;
+  li {
+    font-weight: light;
+  }
+`;

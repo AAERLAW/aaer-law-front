@@ -7,6 +7,7 @@ import { Text } from "../../components/Text.components";
 import { Button } from "../../components/Button.components";
 
 import { calcViewMode } from "../../utils/utils";
+import { endpoint } from "../../utils/config";
 
 import LOGO from "../../assets/img/logo.png";
 import LOGIN_BG from "../../assets/img/login-bg.png";
@@ -108,16 +109,28 @@ export const Login = (props) => {
                     mobile="repeat(2, 1fr)"
                   >
                     <Boxed align="center">
-                      <Facebook />
+                      <a
+                        onClick={() => redirect(`${endpoint}/auth/facebook`)}
+                        style={{ cursor: "pointer", textDecoration: "none" }}
+                      >
+                        <Facebook />
+                      </a>
                     </Boxed>
-                    <img
-                      src="https://www.google.com/images/hpp/gsa_super_g-64.gif"
-                      style={{
-                        height: "40px",
-                        width: "40px",
-                        margin: "0 auto",
-                      }}
-                    />
+
+                    <a
+                      href={`${endpoint}/auth/google?scope=openid%20profile%20email`}
+                      style={{ cursor: "pointer", textDecoration: "none" }}
+                    >
+                      <img
+                        src="https://www.google.com/images/hpp/gsa_super_g-64.gif"
+                        style={{
+                          height: "40px",
+                          width: "40px",
+                          margin: "0 auto",
+                          cursor: "pointer",
+                        }}
+                      />
+                    </a>
                   </Grid>
                 </Boxed>
 

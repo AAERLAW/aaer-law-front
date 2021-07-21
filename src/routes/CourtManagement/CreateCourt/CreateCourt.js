@@ -44,7 +44,11 @@ export const CreateCourt = (props) => {
             <Button pale onClick={closeModal}>
               Cancel
             </Button>
-            <Button progess={isLoading} onClick={onSubmit}>
+            <Button
+              progress={isLoading}
+              disabled={isLoading}
+              onClick={onSubmit}
+            >
               Create Court
             </Button>
           </>

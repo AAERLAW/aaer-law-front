@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { Grid } from "../../components/Grid.components";
 import { Boxed } from "../../components/Boxed.components";
 import { Text } from "../../components/Text.components";
+import { Button } from "../../components/Button.components";
 import { PaginationComponent } from "../../components/Table.components";
 import { PageTitle } from "../../components/style";
 
@@ -12,10 +13,21 @@ import { calcViewMode } from "../../utils/utils";
 import { pageOptions } from "../../utils/constant";
 import { Theme } from "../../utils/theme";
 
-export const MDAsRegulation = (props) => {
-  const { regulationList, regulationTotal, params, fetchActionURL } = props;
+import CreateModal from "./CreateModal/index";
 
-  const { redirect, getAllMDAsRegulations } = props;
+export const Form = (props) => {
+  // dispatch props recieved
+  const {
+    formList,
+    formTotal,
+    params,
+    createFormModal,
+    fetchActionURL,
+    isAdmin,
+  } = props;
+
+  // dispatch props recieved
+  const { redirect, getAllForms, openCreateModal, openReader } = props;
   let viewMode = calcViewMode();
   let errors;
 
@@ -23,16 +35,20 @@ export const MDAsRegulation = (props) => {
     let data = {
       page: 1,
       size: 10,
-      regulation_id: params.regulation_id,
+      court_form_item: params.court_form_item_id,
     };
-    getAllMDAsRegulations(data);
+    getAllForms(data);
   }, []);
+
+  // onReader = (data) => {
+  //   openReader(data);
+  // };
 
   return (
     <Boxed pad="20px">
-      <PageTitle>{params.name}</PageTitle>
+      <PageTitle>Form / {params.name}</PageTitle>
       <Wrapper
-        externalParams={{ regulation_id: params.regulation_id }}
+        externalParams={{ court_form_item: params.court_form_item_id }}
         render={({
           changePageSize,
           handlePagination,
@@ -42,9 +58,16 @@ export const MDAsRegulation = (props) => {
         }) => {
           return (
             <>
+              <Boxed pad="10px 0" display="flex">
+                {isAdmin && (
+                  <Button margin="0 0 0 auto" onClick={() => openCreateModal()}>
+                    Create Form
+                  </Button>
+                )}
+              </Boxed>
               <Boxed pad="10px 0 ">
                 <PaginationComponent
-                  total={regulationTotal}
+                  total={formTotal}
                   onChange={(page) => handlePagination(page, fetchActionURL)}
                   current={currentPage}
                   pageCounts={pageOptions}
@@ -54,7 +77,7 @@ export const MDAsRegulation = (props) => {
                   pageSize={pageSize}
                   itemsDisplayed
                   showTotal={(total, range) => {
-                    return `${range[0]} - ${range[1]} of ${regulationTotal} items`;
+                    return `${range[0]} - ${range[1]} of ${formTotal} items`;
                   }}
                 />
               </Boxed>
@@ -69,15 +92,15 @@ export const MDAsRegulation = (props) => {
                   tablet="repeat(2,1fr)"
                   mobile="repeat(1, 1fr)"
                 >
-                  {regulationTotal > 0
-                    ? regulationList.map((item, index) => {
+                  {formTotal > 0
+                    ? formList.map((item, index) => {
                         return (
                           <Boxed
                             key={index}
                             pad="5px 10px"
                             cursor="pointer"
                             borderRadius={Theme.PrimaryRadius}
-                            onClick={() => console.log(item.id)}
+                            onClick={() => openReader(item)}
                             margin="5px"
                             bColor={Theme.TertiaryDark}
                             hoverBColor={`${Theme.PrimaryColor}20`}
@@ -85,7 +108,7 @@ export const MDAsRegulation = (props) => {
                             style={{ flexFlow: "column" }}
                           >
                             <Text>
-                              {item.name} <br />
+                              {item.title} <br />
                             </Text>
                             <Text
                               color={Theme.SecondaryTextColor}
@@ -103,6 +126,12 @@ export const MDAsRegulation = (props) => {
           );
         }}
       />
+      {createFormModal ? (
+        <CreateModal
+          court_form_item_id={params.court_form_item_id}
+          court_form_item_name={params.name}
+        />
+      ) : null}
     </Boxed>
   );
 };

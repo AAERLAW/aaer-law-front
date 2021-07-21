@@ -9,17 +9,22 @@ import Login from "./routes/Login/index";
 import Registration from "./routes/Registration/index";
 import ForgotPassword from "./routes/ForgotPassword/index";
 import ResetPassword from "./routes/ResetPassword/index";
-import Subscription from "./routes/Subscription/index";
 import Features from "./routes/Features/index";
+import Pricing from "./routes/Pricing/index";
 import EmailConfirmation from "./routes/EmailConfirmation/index";
 
 import Dashboard from "./routes/Dashboard/index";
+import Subscription from "./routes/Subscription/index";
 import LatestJudgement from "./routes/LatestJudgement/index";
 import FederationLaws from "./routes/FederationLaws/index";
-import MDAs from "./routes/MDAs/index";
-import MDAsRegulation from "./routes/MDAsRegulation/index";
+import Regulation from "./routes/Regulation/index";
+import RegulationItem from "./routes/RegulationItem/index";
 import CourtRules from "./routes/CourtRules/index";
 import CourtManagement from "./routes/CourtManagement/index";
+import CourtForms from "./routes/CourtForms/index";
+import CourtFormsItem from "./routes/CourtFormsItem/index";
+import Form from "./routes/Form/index";
+import Reader from "./routes/Reader/index.js";
 
 const { ConnectedRouter } = routerRedux;
 
@@ -42,7 +47,9 @@ const PrivateRoute = (props) => {
 
 const openRoutes = [
   "/",
-  "/home",
+  "/login",
+  "/pricing",
+  "/features",
   "/forgotpassword",
   "/resetpassword",
   "/subscription",
@@ -57,14 +64,14 @@ export function RouterConfig({ history, app }) {
         <Switch>
           {/* #########   S T A R T :   O P E N      U R L S   #########*/}
           <Route
-            path="/home"
+            path="/"
             exact
             render={(props) => {
               return <Home {...props} />;
             }}
           />
           <Route
-            path="/"
+            path="/login"
             exact
             render={(props) => {
               return <Login {...props} />;
@@ -99,17 +106,17 @@ export function RouterConfig({ history, app }) {
             }}
           />
           <Route
-            path="/subscription"
-            exact
-            render={(props) => {
-              return <Subscription {...props} />;
-            }}
-          />
-          <Route
             path="/features"
             exact
             render={(props) => {
               return <Features {...props} />;
+            }}
+          />
+          <Route
+            path="/pricing"
+            exact
+            render={(props) => {
+              return <Pricing {...props} />;
             }}
           />
           {/* #########   E N D :    O P E N      U R L S   #########*/}
@@ -122,7 +129,14 @@ export function RouterConfig({ history, app }) {
             }}
           />
           <Route
-            path="/latest-judgement"
+            path="/subscription"
+            exact
+            render={(props) => {
+              return <Subscription {...props} />;
+            }}
+          />
+          <Route
+            path="/law-reports"
             exact
             render={(props) => {
               return <LatestJudgement {...props} />;
@@ -134,34 +148,41 @@ export function RouterConfig({ history, app }) {
             render={(props) => {
               return <FederationLaws {...props} />;
             }}
-          />{" "}
-          mdas
+          />
           <Route
-            path="/mdas"
+            path="/regulation"
             exact
             render={(props) => {
-              return <MDAs {...props} />;
+              return <Regulation {...props} />;
             }}
           />
           <Route
-            path="/mdas/regulation"
+            path="/regulation/items"
             exact
             render={(props) => {
-              return <MDAsRegulation {...props} />;
+              return <RegulationItem {...props} />;
             }}
           />
           <Route path="/court-rules" exact render={(props) => <CourtRules />} />
+          <Route path="/court-forms" exact render={(props) => <CourtForms />} />
+          <Route
+            path="/court-forms/items"
+            exact
+            render={(props) => <CourtFormsItem />}
+          />
+          <Route path="/court-forms/form" exact render={(props) => <Form />} />
           <Route
             path="/court-management"
             exact
             render={(props) => <CourtManagement />}
           />
+          <Route path="/reader" exact render={(props) => <Reader />} />
           {/* #########   E N D :    G U A R D E D      U R L S   #########*/}
-          <Route
+          {/* <Route
             render={(props) => {
-              return <Redirect to={{ pathname: "/" }} />;
+              return <Redirect to={{ pathname: "/login" }} />;
             }}
-          />
+          /> */}
         </Switch>
       </App>
     </ConnectedRouter>

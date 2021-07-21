@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 
 import { Boxed } from "../../../components/Boxed.components";
 import { Button } from "../../../components/Button.components";
+import { Loader } from "../../../components/Loader.components";
+import { Text } from "../../../components/Text.components";
 import {
   TableComponent,
   PaginationComponent,
@@ -16,35 +18,18 @@ import { Theme } from "../../../utils/theme";
 
 import CreateModal from "./CreateModal/index";
 
-const columns = [
-  {
-    title: "Case Tiltle",
-    dataIndex: "case_title",
-    key: "case_title",
-  },
-  {
-    title: "Suit Number",
-    dataIndex: "suit_number",
-    key: "suit_number",
-  },
-  {
-    title: "Lead Judgment by",
-    dataIndex: "lead_judgement_by",
-    key: "lead_judgement_by",
-  },
-  {
-    title: "Date",
-    dataIndex: "judgement_date",
-    key: "judgement_date",
-    render: (text) => text && formatDate(text),
-  },
-];
-
 export const JudgementList = (props) => {
   // state props recieved
-  const { judgementList, judgementTotal, createJudgementModal } = props;
+  const {
+    judgementList,
+    judgementTotal,
+    createJudgementModal,
+    isLoading,
+    isAdmin,
+  } = props;
   // dispatch props received
-  const { fetchActionURL, getAllJudgements, openCreateJudgementModal } = props;
+  const { fetchActionURL, getAllJudgements, openCreateJudgementModal, onRead } =
+    props;
   let viewMode = calcViewMode();
   let errors;
 
@@ -56,6 +41,36 @@ export const JudgementList = (props) => {
     getAllJudgements(data);
   }, []);
 
+  const columns = [
+    {
+      title: "Case Tiltle",
+      dataIndex: "case_title",
+      key: "case_title",
+      render: (text, record) => (
+        <Text onClick={() => onRead(record)} cursor="pointer">
+          {text}
+        </Text>
+      ),
+    },
+    {
+      title: "Suit Number",
+      dataIndex: "suit_number",
+      key: "suit_number",
+    },
+    {
+      title: "Lead Judgment by",
+      dataIndex: "lead_judgement_by",
+      key: "lead_judgement_by",
+    },
+    {
+      title: "Date",
+      dataIndex: "judgement_date",
+      key: "judgement_date",
+      align: "right",
+      render: (text) => text && formatDate(text),
+    },
+  ];
+
   return (
     <Boxed pad="10px" bColor={Theme.TertiaryDark}>
       <Boxed display="flex">
@@ -63,9 +78,14 @@ export const JudgementList = (props) => {
         <Icon className="icon-refresh-o" margin="0 0 0 auto" />
       </Boxed>
       <Boxed display="flex">
-        <Button margin="0 0 0 auto" onClick={() => openCreateJudgementModal()}>
-          Create Judgement
-        </Button>
+        {isAdmin && (
+          <Button
+            margin="0 0 0 auto"
+            onClick={() => openCreateJudgementModal()}
+          >
+            Create Report
+          </Button>
+        )}
       </Boxed>
       <Wrapper
         render={({
@@ -77,44 +97,57 @@ export const JudgementList = (props) => {
         }) => {
           return (
             <Boxed pad="10px 0">
-              <Boxed pad="10px 0 ">
-                <PaginationComponent
-                  total={judgementTotal}
-                  onChange={(page) => handlePagination(page, fetchActionURL)}
-                  current={currentPage}
-                  pageCounts={pageOptions}
-                  changePageSize={(pageSize) =>
-                    changePageSize(pageSize, fetchActionURL)
-                  }
-                  pageSize={pageSize}
-                  itemsDisplayed
-                  showTotal={(total, range) => {
-                    return `${range[0]} - ${range[1]} of ${judgementTotal} items`;
-                  }}
-                />
-              </Boxed>
-              <TableComponent columns={columns} data={judgementList} />
-              <Boxed pad="10px 0 ">
-                <PaginationComponent
-                  total={judgementTotal}
-                  onChange={(page) => handlePagination(page, fetchActionURL)}
-                  current={currentPage}
-                  pageCounts={pageOptions}
-                  changePageSize={(pageSize) =>
-                    changePageSize(pageSize, fetchActionURL)
-                  }
-                  pageSize={pageSize}
-                  itemsDisplayed
-                  showTotal={(total, range) => {
-                    return `${range[0]} - ${range[1]} of ${judgementTotal} items`;
-                  }}
-                />
-              </Boxed>
+              {isLoading ? (
+                <Boxed pad="20px 0 " display="flex">
+                  {" "}
+                  <Loader margin="auto" />{" "}
+                </Boxed>
+              ) : (
+                <>
+                  <Boxed pad="10px 0 ">
+                    <PaginationComponent
+                      total={judgementTotal}
+                      onChange={(page) =>
+                        handlePagination(page, fetchActionURL)
+                      }
+                      current={currentPage}
+                      pageCounts={pageOptions}
+                      changePageSize={(pageSize) =>
+                        changePageSize(pageSize, fetchActionURL)
+                      }
+                      pageSize={pageSize}
+                      itemsDisplayed
+                      showTotal={(total, range) => {
+                        return `${range[0]} - ${range[1]} of ${judgementTotal} items`;
+                      }}
+                    />
+                  </Boxed>
+                  <TableComponent columns={columns} data={judgementList} />
+                  <Boxed pad="10px 0 ">
+                    <PaginationComponent
+                      total={judgementTotal}
+                      onChange={(page) =>
+                        handlePagination(page, fetchActionURL)
+                      }
+                      current={currentPage}
+                      pageCounts={pageOptions}
+                      changePageSize={(pageSize) =>
+                        changePageSize(pageSize, fetchActionURL)
+                      }
+                      pageSize={pageSize}
+                      itemsDisplayed
+                      showTotal={(total, range) => {
+                        return `${range[0]} - ${range[1]} of ${judgementTotal} items`;
+                      }}
+                    />
+                  </Boxed>
+                </>
+              )}
             </Boxed>
           );
         }}
       />
-      {createJudgementModal ? <CreateModal /> : null}
+      {isAdmin && createJudgementModal ? <CreateModal /> : null}
     </Boxed>
   );
 };

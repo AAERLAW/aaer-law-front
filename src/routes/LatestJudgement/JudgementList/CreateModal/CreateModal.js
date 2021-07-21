@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from "react";
+import moment from "moment";
 import Upload from "rc-upload";
 
-import { Input, AsyncSelect } from "../../../../components/Input.components";
+import {
+  Input,
+  AsyncSelect,
+  Textarea,
+} from "../../../../components/Input.components";
 import { Grid } from "../../../../components/Grid.components";
 import { Boxed } from "../../../../components/Boxed.components";
 import { Text } from "../../../../components/Text.components";
@@ -70,12 +75,14 @@ export const CreateJudgement = (props) => {
           const data = {
             case_title: value.case_title.trim(),
             suit_number: value.suit_number.trim(),
+            citation: value.citation.trim(),
             lead_judgement_by: value.lead_judgement_by.trim(),
-            judgement_date: value.judgement_date,
+            summary: value.summary.trim(),
+            judgement_date: moment(value.judgement_date).format("DD-MM-YYYY"),
             court_id: value.court_id.value,
-            base64: file.base64,
+            file: file.base64,
+            extension: "pdf",
           };
-          console.log("data", data);
           createJudgement(data);
         } else {
           Alert.info("Case file is required");
@@ -93,14 +100,14 @@ export const CreateJudgement = (props) => {
       <ModalComponent
         show={createJudgementModal}
         onHide={closeModal}
-        title={<PageTitle>Create Judgement</PageTitle>}
+        title={<PageTitle>Create Report</PageTitle>}
         footer={
           <>
             <Button pale onClick={closeModal}>
               Cancel
             </Button>
-            <Button progess={isLoading} onClick={onSubmit}>
-              Create Judgement
+            <Button diabled={isLoading} progess={isLoading} onClick={onSubmit}>
+              Create Report
             </Button>
           </>
         }
@@ -116,6 +123,22 @@ export const CreateJudgement = (props) => {
                 : null
             }
             {...getFieldProps("case_title", {
+              initialValue: "",
+              rules: [{ required: true }],
+            })}
+          />
+        </Boxed>
+        <Boxed pad="10px 0 ">
+          <Input
+            type="text"
+            label="Lead Judgement by"
+            placeholder="Enter lead judgement by..."
+            error={
+              (errors = getFieldError("lead_judgement_by"))
+                ? "Lead Judgement by is required"
+                : null
+            }
+            {...getFieldProps("lead_judgement_by", {
               initialValue: "",
               rules: [{ required: true }],
             })}
@@ -145,14 +168,14 @@ export const CreateJudgement = (props) => {
           <Boxed pad="10px 0 ">
             <Input
               type="text"
-              label="Lead Judgement by"
-              placeholder="Enter lead judgement by..."
+              label="Citation"
+              placeholder="Enter citation..."
               error={
-                (errors = getFieldError("lead_judgement_by"))
-                  ? "Lead Judgement by is required"
+                (errors = getFieldError("citation"))
+                  ? "Citation is required"
                   : null
               }
-              {...getFieldProps("lead_judgement_by", {
+              {...getFieldProps("citation", {
                 initialValue: "",
                 rules: [{ required: true }],
               })}
@@ -192,6 +215,21 @@ export const CreateJudgement = (props) => {
             />
           </Boxed>
         </Grid>
+        <Boxed pad="10px 0">
+          <Textarea
+            label="Summary"
+            placeholder="Enter Summary..."
+            rows={5}
+            height="100px"
+            error={
+              (errors = getFieldError("summary")) ? "Summary is required" : null
+            }
+            {...getFieldProps("summary", {
+              initialValue: "",
+              rules: [{ required: true }],
+            })}
+          />
+        </Boxed>
         <Boxed pad="10px 0">
           <Text fontWeight="bold" fontSize={Theme.SecondaryFontSize}>
             Case File

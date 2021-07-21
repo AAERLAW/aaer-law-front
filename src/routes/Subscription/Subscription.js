@@ -1,19 +1,33 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { Grid } from "../../components/Grid.components";
 import { Boxed } from "../../components/Boxed.components";
 import { Text } from "../../components/Text.components";
 import { Button } from "../../components/Button.components";
+import { Icon } from "../../components/style";
 
 import { calcViewMode } from "../../utils/utils";
+import { SubcriptionPlans } from "../../utils/constant";
+import { Theme } from "../../utils/theme";
 
 import SUB_BG from "../../assets/img/sub-bg.png";
 import STUDENTS from "../../assets/img/students.png";
 import LEGAL_PRACTITIONER from "../../assets/img/legal-practitioner.png";
-import { Theme } from "../../utils/theme";
+
+import { SubscribeList } from "../style";
+
+import PaymentModal from "./PaymentModal/index";
 
 export const Subscription = (props) => {
-  const { redirect } = props;
+  // state props received
+  const { openPaymentModal } = props;
+
+  // dispatch props recieved
+  const { redirect, openModal, getAllSubscriptionPlans } = props;
+
+  useEffect(() => {
+    getAllSubscriptionPlans();
+  }, []);
   let viewMode = calcViewMode();
   let errors;
 
@@ -28,7 +42,7 @@ export const Subscription = (props) => {
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
         }}
-        minHeight="45vh"
+        minHeight="40vh"
       >
         <Text padding="40px 5px 5px 5px" fontSize="20px" fontWeight="bold">
           Choose your subscription plan
@@ -56,20 +70,50 @@ export const Subscription = (props) => {
                 >
                   <img src={STUDENTS} height="50px" alt="read-online" />
                   <Text
-                    padding="80px 0 20px 0"
+                    padding="40px 0 10px 0"
                     fontSize="28px"
                     fontWeight="bold"
                   >
-                    Students
+                    Basic
                   </Text>
                   <Text color={Theme.SecondaryTextColor}>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vel
                     blandit non id varius.
                   </Text>
+                  <SubscribeList>
+                    <li>
+                      <Icon className="icon-check" />
+                      Law Reports
+                    </li>
+                    <li>
+                      {" "}
+                      <Icon className="icon-check" /> Laws of the Federation
+                    </li>
+                    <li>
+                      {" "}
+                      <Icon className="icon-check" /> Regulations of MDA
+                    </li>
+                    <li>
+                      {" "}
+                      <Icon className="icon-check" /> Rules of Court
+                    </li>
+                    <li>
+                      {" "}
+                      <Icon className="icon-check" /> Textbooks
+                    </li>
+                    {/* <li>
+                      {" "}
+                      <Icon className="icon-check" /> Precedents
+                    </li>
+                    <li>
+                      {" "}
+                      <Icon className="icon-check" /> Journal Articles
+                    </li> */}
+                  </SubscribeList>
 
                   <Text
                     margin="auto 0 0 0"
-                    padding="80px 0 5px 0"
+                    padding="20px 0 5px 0"
                     fontWeight="bold"
                   >
                     From N 1,000
@@ -77,7 +121,12 @@ export const Subscription = (props) => {
                   <Text color={Theme.SecondaryTextColor}>
                     Pay Monthly or Anually
                   </Text>
-                  <Button margin="20px 0 0 0" block>
+
+                  <Button
+                    margin="20px 0 0 0"
+                    block
+                    onClick={() => openModal(SubcriptionPlans.basic_monthly)}
+                  >
                     Select
                   </Button>
                 </Boxed>
@@ -97,30 +146,58 @@ export const Subscription = (props) => {
                     alt="read-online"
                   />
                   <Text
-                    padding="80px 0 20px 0"
+                    padding="40px 0 10px 0"
                     fontSize="28px"
                     fontWeight="bold"
                   >
-                    Legal Practitioner
+                    Professional
                   </Text>
                   <Text color={Theme.SecondaryTextColor}>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vel
                     blandit non id varius.
                   </Text>
+                  <SubscribeList>
+                    <li>
+                      <Icon className="icon-check" />
+                      Law Reports
+                    </li>
+                    <li>
+                      {" "}
+                      <Icon className="icon-check" /> Laws of the Federation
+                    </li>
+                    <li>
+                      {" "}
+                      <Icon className="icon-check" /> Regulations of MDA
+                    </li>
+                    <li>
+                      {" "}
+                      <Icon className="icon-check" /> Rules of Court
+                    </li>
+                    <li>
+                      {" "}
+                      <Icon className="icon-check" /> Textbooks
+                    </li>
+                    <li>
+                      {" "}
+                      <Icon className="icon-check" /> Precedents
+                    </li>
+                    <li>
+                      {" "}
+                      <Icon className="icon-check" /> Journal Articles
+                    </li>
+                  </SubscribeList>
 
                   <Text
                     margin="auto 0 0 0"
-                    padding="80px 0 5px 0"
+                    padding="20px 0 5px 0"
                     fontWeight="bold"
                   >
                     From N 1,000
                   </Text>
-                  <Text
-                    color={Theme.SecondaryTextColor}
-                    fontSize={Theme.SecondaryFontSize}
-                  >
+                  <Text color={Theme.SecondaryTextColor}>
                     Pay Monthly or Anually
                   </Text>
+
                   <Button margin="20px 0 0 0" block>
                     Select
                   </Button>
@@ -129,6 +206,7 @@ export const Subscription = (props) => {
             </Grid>
           </Boxed>
         </Boxed>
+        {openPaymentModal && <PaymentModal />}
       </Boxed>
     </>
   );
