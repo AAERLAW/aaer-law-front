@@ -37,11 +37,11 @@ const registerModel = (app, model) => {
 };
 
 const PrivateRoute = (props) => {
-  const AuthToken = sessionStorage.getItem(`${storageToken}`);
+  const AuthToken = localStorage.getItem(`${storageToken}`);
   if (AuthToken) {
     return <Route {...props} />;
   } else {
-    return <Redirect to={{ pathname: "/" }} />;
+    return <Redirect to={{ pathname: "/login" }} />;
   }
 };
 
@@ -121,68 +121,80 @@ export function RouterConfig({ history, app }) {
           />
           {/* #########   E N D :    O P E N      U R L S   #########*/}
           {/* #########   S T A R T :   G U A R D E D      U R L S   #########*/}
-          <Route
+          <PrivateRoute
             path="/dashboard"
             exact
             render={(props) => {
               return <Dashboard {...props} />;
             }}
           />
-          <Route
+          <PrivateRoute
             path="/subscription"
             exact
             render={(props) => {
               return <Subscription {...props} />;
             }}
           />
-          <Route
+          <PrivateRoute
             path="/law-reports"
             exact
             render={(props) => {
               return <LatestJudgement {...props} />;
             }}
           />
-          <Route
+          <PrivateRoute
             path="/federation-laws"
             exact
             render={(props) => {
               return <FederationLaws {...props} />;
             }}
           />
-          <Route
+          <PrivateRoute
             path="/regulation"
             exact
             render={(props) => {
               return <Regulation {...props} />;
             }}
           />
-          <Route
+          <PrivateRoute
             path="/regulation/items"
             exact
             render={(props) => {
               return <RegulationItem {...props} />;
             }}
           />
-          <Route path="/court-rules" exact render={(props) => <CourtRules />} />
-          <Route path="/court-forms" exact render={(props) => <CourtForms />} />
-          <Route
+          <PrivateRoute
+            path="/court-rules"
+            exact
+            render={(props) => <CourtRules />}
+          />
+          <PrivateRoute
+            path="/court-forms"
+            exact
+            render={(props) => <CourtForms />}
+          />
+          <PrivateRoute
             path="/court-forms/items"
             exact
             render={(props) => <CourtFormsItem />}
           />
-          <Route path="/court-forms/form" exact render={(props) => <Form />} />
-          <Route
+          <PrivateRoute
+            path="/court-forms/form"
+            exact
+            render={(props) => <Form />}
+          />
+          <PrivateRoute
             path="/court-management"
             exact
             render={(props) => <CourtManagement />}
           />
-          <Route path="/reader" exact render={(props) => <Reader />} />
+          <PrivateRoute path="/reader" exact render={(props) => <Reader />} />
           {/* #########   E N D :    G U A R D E D      U R L S   #########*/}
-          {/* <Route
+          <Route
             render={(props) => {
               return <Redirect to={{ pathname: "/login" }} />;
             }}
-          /> */}
+          />
         </Switch>
       </App>
     </ConnectedRouter>

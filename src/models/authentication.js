@@ -65,21 +65,22 @@ export default {
       }
     },
     *register({ payload }, { call, put }) {
-      console.log("payload", payload);
       const { raw, success, message } = yield call(postRegistration, payload);
       if (success) {
-        console.log(raw);
         let responseMessage = raw?.meta?.info;
         Alert.success(responseMessage);
-        yield put(routerRedux.push("/"));
+        yield put(routerRedux.push("/login"));
       } else {
         Alert.error(message);
       }
     },
     *forgotPassword({ payload }, { call, put }) {
-      console.log(payload);
       const { raw, success, message } = yield call(postForgotPassword, payload);
-      console.log("raw", raw);
+      if (success) {
+        console.log(raw);
+      } else {
+        Alert.error(message);
+      }
     },
     *emailConfirmation({ payload }, { call, put }) {
       const { raw, success, message } = yield call(
@@ -87,7 +88,6 @@ export default {
         payload
       );
       if (success) {
-        console.log(raw);
         yield put({
           type: "save",
           payload: { emailVerified: true },
@@ -135,7 +135,7 @@ export default {
       const { refresh_token } = payload;
       call(getLogOut, { refresh_token });
       localStorage.clear();
-      yield put(routerRedux.push("/"));
+      yield put(routerRedux.push("/login"));
     },
   },
 

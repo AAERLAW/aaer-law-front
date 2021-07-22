@@ -141,7 +141,7 @@ export const EmailConfirmation = (props) => {
                   color={Theme.PrimaryBlue}
                   fontWeight="bold"
                   cursor="pointer"
-                  onClick={() => redirect("/")}
+                  onClick={() => redirect("/login")}
                 >
                   Login
                 </Text>

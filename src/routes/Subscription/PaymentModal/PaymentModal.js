@@ -75,7 +75,7 @@ export const PaymentModal = (props) => {
       case "YEARLY_ONEOFF":
         return PAYSTACK_Y_ONEOFF;
       default:
-        return plan;
+        return PAYSTACK_M;
     }
   };
 
@@ -113,7 +113,7 @@ export const PaymentModal = (props) => {
               reference={getReference(email)}
               email={email}
               amount={subscriptionPlan ? subscriptionPlan.amount : 0}
-              paystackkey={PAYSTACK_KEY}
+              publicKey={PAYSTACK_KEY}
               tag="a"
             ></PaystackButton>
           </>

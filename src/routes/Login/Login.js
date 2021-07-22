@@ -67,7 +67,7 @@ export const Login = (props) => {
                     placeholder="Your Email..."
                     error={
                       (errors = getFieldError("username"))
-                        ? "Email or Phone Number is required"
+                        ? "Email is required"
                         : null
                     }
                     {...getFieldProps("username", {

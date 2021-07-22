@@ -1,6 +1,6 @@
 {
 	"name": "AAER-LAW",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"private": true,
 	"dependencies": {
 		"@phuocng/react-pdf-viewer": "^1.7.0",

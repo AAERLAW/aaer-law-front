@@ -2,15 +2,21 @@ import { connect } from "dva";
 import { SideBar } from "./sideBar";
 import { routerRedux } from "dva/router";
 
-import artistMenu from "./artistMenu";
+import adminMenu from "./adminMenu";
 import usersMenu from "./usersMenu";
 
 const mapStateToProps = (state, ownProps) => {
-  const { app } = state;
-  const { profile, openMediaMenu, menuMode } = app;
+  const { app, authentication } = state;
+  const { openMediaMenu, menuMode } = app;
+  const { profile } = authentication;
   const { collaspe } = ownProps;
 
   let dataList = usersMenu;
+  const isAdmin = profile?.roles?.includes("ADMIN");
+  console.log({ isAdmin });
+  if (isAdmin) {
+    dataList = adminMenu;
+  }
 
   return {
     profile,

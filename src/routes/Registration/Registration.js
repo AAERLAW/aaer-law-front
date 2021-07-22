@@ -193,19 +193,6 @@ export const Registration = (props) => {
                     />
                   </Boxed>
                 </Grid>
-                {/* <Boxed margin="20px 0">
-                  <Input
-                    type="text"
-                    placeholder="Address"
-                    error={
-                      getFieldError("address") ? "Address is required" : null
-                    }
-                    {...getFieldProps("address", {
-                      rules: [{ required: true }],
-                      initialValue: "",
-                    })}
-                  />
-                </Boxed> */}
 
                 <Boxed margin="20px 0">
                   <Input
@@ -271,7 +258,7 @@ export const Registration = (props) => {
                   color={Theme.PrimaryBlue}
                   fontWeight="bold"
                   cursor="pointer"
-                  onClick={() => redirect("/")}
+                  onClick={() => redirect("/login")}
                 >
                   Login
                 </Text>
