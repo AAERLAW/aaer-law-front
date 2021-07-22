@@ -26,11 +26,18 @@ export const TopNav = (props) => {
           <Boxed display="flex" align="center">
             <HeaderNav>
               <li onClick={() => redirect("/")}>Home</li>
-              <li onClick={() => redirect("/features")}>Feature</li>
+              {/* <li onClick={() => redirect("/features")}>Feature</li> */}
               <li onClick={() => redirect("/pricing")}>Pricing</li>
             </HeaderNav>
           </Boxed>
           <Boxed align="right">
+            <Button
+              margin="5px 0"
+              pale
+              onClick={() => redirect("/registration")}
+            >
+              Register
+            </Button>
             <Button margin="5px 0" onClick={() => redirect("/login")}>
               Login
             </Button>

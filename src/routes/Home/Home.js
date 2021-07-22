@@ -38,15 +38,13 @@ export const Home = (props) => {
               color={Theme.SecondaryTextColor}
               fontSize="18px"
             >
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
+              AAER Law is an all-in-one legal management software for your law
+              practice, providing all resources you need to increase efficiency
+              and scale your legal research.
             </Text>
-            <Button margin="15px 0">Get Started</Button>
+            <Button margin="15px 0" onClick={() => redirect("/registration")}>
+              Register
+            </Button>
           </Boxed>
           <Boxed align="center" pad="20px">
             <img src={HOME_1} alt="home-1" width="700px" />
@@ -71,10 +69,8 @@ export const Home = (props) => {
                   All the features of AAER in one Dashboard
                 </Text>
                 <Text color={Theme.SecondaryTextColor} margin="15px 0">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Dictum ipsum gravida augue sed id. bibendum a. In egestas
-                  facilisis consectetur a ut pellentesque blandit nisl odio. Sem
-                  odio nulla morbi sapien egestas volutpat.
+                  Get access to latest judgements, rules, regulations and
+                  unlimited court forms templates using just your browser.
                 </Text>
               </Boxed>
             </Boxed>
@@ -82,13 +78,12 @@ export const Home = (props) => {
             <Boxed pad="20px 10px" display="flex">
               <Boxed margin="auto 0">
                 <Text margin="10px 0 " fontSize="24px" fontWeight="bold">
-                  All the features of AAER in one Dashboard
+                  Your clients trust you because AAER Law gives you assurance.
                 </Text>
                 <Text color={Theme.SecondaryTextColor} margin="15px 0">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Dictum ipsum gravida augue sed id. bibendum a. In egestas
-                  facilisis consectetur a ut pellentesque blandit nisl odio. Sem
-                  odio nulla morbi sapien egestas volutpat.
+                  Whether its law reports, purchasing textbooks, creating forms
+                  and agreements or staying updated with your legal practice,
+                  Primsol has you covered.
                 </Text>
               </Boxed>
             </Boxed>
@@ -102,13 +97,10 @@ export const Home = (props) => {
             <Boxed pad="20px 10px" display="flex">
               <Boxed margin="auto 0">
                 <Text margin="10px 0 " fontSize="24px" fontWeight="bold">
-                  All the features of AAER in one Dashboard
+                  Best Price rate for unlimited access.
                 </Text>
                 <Text color={Theme.SecondaryTextColor} margin="15px 0">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Dictum ipsum gravida augue sed id. bibendum a. In egestas
-                  facilisis consectetur a ut pellentesque blandit nisl odio. Sem
-                  odio nulla morbi sapien egestas volutpat.
+                  AAER puts the knowlegde of law right in your pockets.
                 </Text>
               </Boxed>
             </Boxed>
