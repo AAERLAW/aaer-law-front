@@ -1,4 +1,4 @@
-let BASE_URL = `http://api.nsirs.ng`;
+let BASE_URL = `https://aaerlawapp.com`;
 let SERVER = `:8180/api`;
 
 // PAYSTACK DETAILS
