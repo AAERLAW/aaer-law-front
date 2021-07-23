@@ -9,7 +9,6 @@ import { Alert } from "../../../components/Alert.components";
 import { ModalComponent } from "../../../components/Modal.components";
 
 import { calcViewMode, getBase64 } from "../../../utils/utils";
-import { Theme } from "../../../utils/theme";
 import { PageTitle, Icon } from "../../../components/style";
 
 export const CreateModal = (props) => {

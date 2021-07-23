@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { ThemeContext } from "styled-components";
 import Upload from "rc-upload";
 import moment from "moment";
 
@@ -11,7 +12,6 @@ import { Alert } from "../../../components/Alert.components";
 import { ModalComponent } from "../../../components/Modal.components";
 
 import { calcViewMode, getBase64 } from "../../../utils/utils";
-import { Theme } from "../../../utils/theme";
 import { PageTitle, Icon } from "../../../components/style";
 
 export const CreateModal = (props) => {
@@ -23,6 +23,8 @@ export const CreateModal = (props) => {
   const { getFieldProps, getFieldError, validateFields } = form;
 
   const [file, setFile] = useState({});
+
+  const Theme = useContext(ThemeContext);
 
   let viewMode = calcViewMode();
 

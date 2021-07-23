@@ -13,8 +13,8 @@ import { Theme, Theme2 } from "../utils/theme";
 
 const App = (props) => {
   const { children, openRoutes, history } = props;
-  console.log(props.app);
   const { nightMode } = props.app;
+
   const exist =
     openRoutes.findIndex((item) => item === history.location.pathname) > -1;
   return (

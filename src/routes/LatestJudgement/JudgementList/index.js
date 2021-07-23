@@ -7,7 +7,7 @@ export const mapStateToProps = (state, ownProps) => {
   const { judgementList, judgementTotal, createJudgementModal } = judgement;
   const isLoading = loading.effects["judgement/getAllJudgements"];
   const { profile } = authentication;
-  const isAdmin = profile?.roles?.includes("USER");
+  const isAdmin = profile?.roles?.includes("ADMIN");
   return {
     judgementList,
     judgementTotal,
