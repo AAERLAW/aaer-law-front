@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
+import { ThemeContext } from "styled-components";
 
 import { Grid } from "../../components/Grid.components";
 import { Boxed } from "../../components/Boxed.components";
@@ -11,7 +12,7 @@ import Wrapper from "../Common/FilterWrapper/index";
 
 import { calcViewMode } from "../../utils/utils";
 import { pageOptions } from "../../utils/constant";
-import { Theme } from "../../utils/theme";
+// import { Theme } from "../../utils/theme";
 
 import CreateModal from "./CreateModal/index";
 
@@ -28,6 +29,8 @@ export const Form = (props) => {
 
   // dispatch props recieved
   const { redirect, getAllForms, openCreateModal, openReader } = props;
+
+  const Theme = useContext(ThemeContext);
   let viewMode = calcViewMode();
   let errors;
 
@@ -48,6 +51,7 @@ export const Form = (props) => {
     <Boxed pad="20px">
       <PageTitle>Form / {params.name}</PageTitle>
       <Wrapper
+        externalActionURL={fetchActionURL}
         externalParams={{ court_form_item: params.court_form_item_id }}
         render={({
           changePageSize,

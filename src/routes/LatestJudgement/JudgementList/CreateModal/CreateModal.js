@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { ThemeContext } from "styled-components";
 import moment from "moment";
 import Upload from "rc-upload";
 
@@ -16,7 +17,7 @@ import { ModalComponent } from "../../../../components/Modal.components";
 import { Icon } from "../../../../components/style";
 
 import { calcViewMode, getBase64 } from "../../../../utils/utils";
-import { Theme } from "../../../../utils/theme";
+// import { Theme } from "../../../../utils/theme";
 import { PageTitle } from "../../../../components/style";
 
 export const CreateJudgement = (props) => {
@@ -26,6 +27,8 @@ export const CreateJudgement = (props) => {
   // Dispatch props
   const { form, createJudgement, closeModal, getAllCourts } = props;
   const { getFieldProps, getFieldError, validateFields } = form;
+
+  const Theme = useContext(ThemeContext);
 
   const [file, setFile] = useState({});
 
@@ -85,7 +88,7 @@ export const CreateJudgement = (props) => {
           };
           createJudgement(data);
         } else {
-          Alert.info("Case file is required");
+          Alert.info("File is required");
         }
       }
     });

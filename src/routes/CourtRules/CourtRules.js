@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
+import { ThemeContext } from "styled-components";
 
 import { Boxed } from "../../components/Boxed.components";
 import { Text } from "../../components/Text.components";
@@ -14,7 +15,7 @@ import Wrapper from "../Common/FilterWrapper/index";
 
 import { calcViewMode, formatDate } from "../../utils/utils";
 import { pageOptions } from "../../utils/constant";
-import { Theme } from "../../utils/theme";
+// import { Theme } from "../../utils/theme";
 
 import CreateModal from "./CreateModal/index";
 
@@ -31,6 +32,8 @@ export const CourtRules = (props) => {
 
   // dispatch props recieved
   const { redirect, getAllRules, openCreateModal, openReader } = props;
+
+  const Theme = useContext(ThemeContext);
   let viewMode = calcViewMode();
   let errors;
 

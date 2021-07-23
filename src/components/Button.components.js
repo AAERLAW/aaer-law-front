@@ -9,15 +9,16 @@ export const Button = styled.button`
   padding: 10px 22px;
   font-size: 13px;
   line-height: 20px;
-  font-family: ${Theme.PrimaryFontFamily};
+  font-family: ${(props) => props.theme.PrimaryFontFamily};
   background-color: ${(props) =>
-    props.color ? props.color : darken(0.05, Theme.PrimaryColor)};
-  border-radius: ${(props) => (props.rounded ? "26px" : Theme.PrimaryRadius)};
+    props.color ? props.color : darken(0.05, props.theme.PrimaryColor)};
+  border-radius: ${(props) =>
+    props.rounded ? "26px" : props.theme.PrimaryRadius};
   color: ${(props) => (props.fontColor ? props.fontColor : "#fff")};
   border: 1px solid transparent;
   text-align: center;
   cursor: pointer;
-  transition: ${Theme.PrimaryTransition};
+  transition: ${(props) => props.theme.PrimaryTransition};
   letter-spacing: 1.5px;
 
   ${(props) =>
@@ -73,7 +74,9 @@ export const Button = styled.button`
 
     &:hover {
     background-color: ${(props) =>
-      props.color ? darken(0.1, props.color) : darken(0.1, Theme.PrimaryColor)};
+      props.color
+        ? darken(0.1, props.color)
+        : darken(0.1, props.theme.PrimaryColor)};
   }
   &:active {
     outline: none;
@@ -86,20 +89,20 @@ export const Button = styled.button`
     css`
       border-color: transparent;
       color: #272727;
-      background-color: ${Theme.SecondaryBorderColor};
+      background-color: ${(props) => props.theme.SecondaryBorderColor};
       background-color: ${(props) =>
         props.color
-          ? desaturate(0.7, lighten(0.35, Theme.SecondaryBorderColor))
-          : desaturate(0.7, lighten(0.35, Theme.SecondaryBorderColor))};
+          ? desaturate(0.7, lighten(0.35, props.theme.SecondaryBorderColor))
+          : desaturate(0.7, lighten(0.35, props.theme.SecondaryBorderColor))};
       &:hover {
         color: ${(props) =>
           props.color
             ? desaturate(0.9, lighten(0.1, props.color))
-            : desaturate(0.9, lighten(0.1, Theme.PrimaryColor))};
+            : desaturate(0.9, lighten(0.1, props.theme.PrimaryColor))};
         background-color: ${(props) =>
           props.color
             ? desaturate(0.7, lighten(0.35, props.color))
-            : desaturate(0.7, lighten(0.35, Theme.PrimaryColor))};
+            : desaturate(0.7, lighten(0.35, props.theme.PrimaryColor))};
       }
     `}
   ${(props) =>
@@ -120,7 +123,7 @@ export const Button = styled.button`
         background-color: ${(props) =>
           props.color
             ? darken(0.07, props.color)
-            : darken(0.07, Theme.PrimaryColor)};
+            : darken(0.07, props.theme.PrimaryColor)};
         animation: ${InProgress} 1.2s ease-in-out alternate both infinite;
         z-index: -1;
       }
@@ -133,7 +136,7 @@ export const Button = styled.button`
         top: 0;
         right: 0;
         background-color: ${(props) =>
-          props.color ? props.color : Theme.PrimaryColor};
+          props.color ? props.color : props.theme.PrimaryColor};
         z-index: -2;
       }
       &:hover {
@@ -165,16 +168,16 @@ export const Button = styled.button`
     css`
       border: 1px solid
         ${(props) =>
-          props.color ? props.color : darken(0.05, Theme.PrimaryColor)};
+          props.color ? props.color : darken(0.05, props.theme.PrimaryColor)};
       background-color: transparent;
       color: ${(props) =>
-        props.color ? props.color : darken(0.05, Theme.PrimaryColor)};
+        props.color ? props.color : darken(0.05, props.theme.PrimaryColor)};
 
       &:hover {
         background-color: ${(props) =>
           props.color
             ? transparentize(0.8, props.color)
-            : transparentize(0.8, Theme.PrimaryColor)};
+            : transparentize(0.8, props.theme.PrimaryColor)};
       }
     `} 
 
@@ -219,8 +222,9 @@ const InProgress = keyframes`
 `;
 
 const StyleBtnGroup = styled.div`
-  border: 1px solid ${Theme.PrimaryColor};
-  border-radius: ${(props) => (props.rounded ? "26px" : Theme.SecondaryRadius)};
+  border: 1px solid ${(props) => props.theme.PrimaryColor};
+  border-radius: ${(props) =>
+    props.rounded ? "26px" : props.theme.SecondaryRadius};
 
   button {
     margin: 0;

@@ -5,13 +5,13 @@ import { darken, lighten, transparentize } from "polished";
 import Pagination from "rc-pagination";
 import Table from "rc-table";
 
-import { Theme } from "../utils/theme";
+// import { props => props.theme } from "../utils/props => props.theme";
 
 export const TableWrapper = styled.div`
   display: block;
   margin: 5px 0;
-  font-size: ${Theme.SecondaryFontSize};
-  background-color: #fff;
+  font-size: ${(props) => props.theme.SecondaryFontSize};
+  background-color: ${(props) => props.theme.TertiaryDark};
   overflow-x: auto;
 
   & table {
@@ -19,25 +19,29 @@ export const TableWrapper = styled.div`
     border-collapse: collapse;
 
     & thead {
-      /* background: ${lighten(0.1, Theme.PrimaryGrey)}; */
+      /* background: ${(props) => lighten(0.1, props.theme.PrimaryGrey)}; */
       & th {
         text-align: left;
         padding: 10px 15px;
         text-transform: uppercase;
-        border-bottom: 1px solid ${lighten(0.66, Theme.PrimaryTextColor)};
+        border-bottom: 1px solid
+          ${(props) => lighten(0.66, props.theme.PrimaryTextColor)};
 
-        font-size: ${Theme.SecondaryFontSize};
-        color: ${Theme.SecondaryTextColor};
+        font-size: ${(props) => props.theme.SecondaryFontSize};
+        color: ${(props) => props.theme.SecondaryTextColor};
         font-weight: bold;
       }
     }
     & tbody {
+      color: ${(props) => props.theme.PrimaryTextColor}
       & tr:nth-child(even) {
-        background: #fafafa;
+        background: ${(props) => props.theme.SecondaryDark};
       }
       & tr {
-        // border-bottom: 1px solid ${lighten(0.66, Theme.PrimaryTextColor)};
-        // border-left: 1px solid ${lighten(1, Theme.PrimaryColor)};
+        // border-bottom: 1px solid ${(props) =>
+          lighten(0.66, props.theme.PrimaryTextColor)};
+        // border-left: 1px solid ${(props) =>
+          lighten(1, props.theme.PrimaryColor)};
         transition: all 0.1s ease-out;
         & td:first-child {
           border-left: none;
@@ -45,15 +49,18 @@ export const TableWrapper = styled.div`
         & td:last-child {
         }
         &:hover {
-          //   border-left: 1px solid ${lighten(0, Theme.PrimaryColor)};
-          //   background-color: ${lighten(0.46, Theme.PrimaryColor)};
+          //   border-left: 1px solid ${(props) =>
+            lighten(0, props.theme.PrimaryColor)};
+          //   background-color: ${(props) =>
+            lighten(0.46, props.theme.PrimaryColor)};
         }
       }
       & td {
         padding: 10px 15px;
-        font-size: ${Theme.SecondaryFontSize};
-        // border-left: 1px solid ${lighten(0.66, Theme.PrimaryTextColor)};
-        transition: ${Theme.PrimaryTransition};
+        font-size: ${(props) => props.theme.SecondaryFontSize};
+        // border-left: 1px solid ${(props) =>
+          lighten(0.66, props.theme.PrimaryTextColor)};
+        transition: ${(props) => props.theme.PrimaryTransition};
       }
       & td.text-center {
         text-align: center !important;
@@ -68,7 +75,7 @@ export const TableWrapper = styled.div`
 
 const PaginationWrapper = styled.div`
   text-align: right;
-  color: ${Theme.PrimaryFontColor};
+  color: ${(props) => props.theme.PrimaryFontColor};
   position: relative;
 
   & .rc-pagination {
@@ -83,7 +90,7 @@ const PaginationWrapper = styled.div`
         &:after {
           font-family: "confluencebits";
           content: "\\f104";
-          color: ${Theme.PrimaryColor};
+          color: ${(props) => props.theme.PrimaryColor};
           /* font-size: 18px; */
           font-weight: bold;
         }
@@ -94,7 +101,7 @@ const PaginationWrapper = styled.div`
         &:after {
           font-family: "confluencebits";
           content: "\\f105";
-          color: ${Theme.PrimaryColor};
+          color: ${(props) => props.theme.PrimaryColor};
           /* font-size: 18px; */
           font-weight: bold;
         }
@@ -112,7 +119,7 @@ const PaginationWrapper = styled.div`
       margin: 0 2px;
 
       &:hover {
-        border-color: ${Theme.PrimaryColor};
+        border-color: ${(props) => props.theme.PrimaryColor};
       }
 
       transition: background-color 0.3s ease-out;
@@ -128,21 +135,21 @@ const PaginationWrapper = styled.div`
         }
       }
       &.rc-pagination-item-active {
-        color: ${Theme.PrimaryColor};
+        color: ${(props) => props.theme.PrimaryColor};
         font-weight: bold;
         padding: 10px 0;
         // margin-top: -1px;
         // height: 51px;
         & a {
-          color: ${Theme.PrimaryColor};
+          color: ${(props) => props.theme.PrimaryColor};
         }
       }
       &.rc-pagination-prev,
       &.rc-pagination-next {
-        border: 1px solid ${Theme.SecondaryTextColor};
+        border: 1px solid ${(props) => props.theme.SecondaryTextColor};
 
         &:hover {
-          border-color: ${Theme.PrimaryColor};
+          border-color: ${(props) => props.theme.PrimaryColor};
         }
         a {
           text-decoration: none;
@@ -156,7 +163,8 @@ const PaginationWrapper = styled.div`
       }
       &:hover {
         outline: none;
-        background-color: ${lighten(0.7, Theme.PrimaryFontColor)};
+        background-color: ${(props) =>
+          lighten(0.7, props.theme.PrimaryFontColor)};
       }
     }
   }

@@ -4,7 +4,7 @@ import { transparentize } from "polished";
 import SideBar from "../sideBar/index";
 
 import { calcViewMode } from "../../../utils/utils";
-import { Theme } from "../../../utils/theme";
+// import { Theme } from "../../../utils/theme";
 
 const MainBody = styled.div`
   display: flex;
@@ -13,7 +13,7 @@ const MainBody = styled.div`
   margin-top: 0;
 
   & .main-content {
-    background: ${Theme.PrimaryDark};
+    background: ${(props) => props.theme.PrimaryDark};
     transition: all 0.5s;
     -webkit-transition: all 0.25s;
     width: ${(props) =>
@@ -26,7 +26,7 @@ const MainBody = styled.div`
   }
 
   & .main-sidebar {
-    background: ${Theme.SideBarColor};
+    background: ${(props) => props.theme.SideBarColor};
     min-width: ${(props) => (props.collaspe ? "60px" : "230px")};
     transition: all 0.5s;
     -webkit-transition: all 0.25s;
@@ -39,7 +39,7 @@ const MainBody = styled.div`
   }
 
   .dark-wrapper {
-    background: ${transparentize(0.25, Theme.SecondaryDark)};
+    background: ${`${(props) => props.theme.SecondaryDark}50`};
     transition: all 0.5s;
     -webkit-transition: all 0.25s;
     width: 100%;
@@ -52,7 +52,7 @@ const MainBody = styled.div`
   }
 
   & .sidebar-chat {
-    background: ${Theme.PrimaryDark};
+    background: ${(props) => props.theme.PrimaryDark};
     padding: 0.2rem;
     width: 300px;
   }

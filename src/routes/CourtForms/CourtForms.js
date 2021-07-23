@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { ThemeContext } from "styled-components";
 
 import { Grid } from "../../components/Grid.components";
 import { AsyncSelect } from "../../components/Input.components";
@@ -13,7 +14,7 @@ import Wrapper from "../Common/FilterWrapper/index";
 
 import { calcViewMode } from "../../utils/utils";
 import { pageOptions } from "../../utils/constant";
-import { Theme } from "../../utils/theme";
+// import { Theme } from "../../utils/theme";
 
 import CreateModal from "./CreateModal/index";
 
@@ -30,6 +31,9 @@ export const CourtForms = (props) => {
 
   // dispatch props recieved
   const { redirect, getAllCourtForms, openCreateModal } = props;
+
+  const Theme = useContext(ThemeContext);
+
   let viewMode = calcViewMode();
   let errors;
 

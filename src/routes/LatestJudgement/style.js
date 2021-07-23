@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Theme } from "../../utils/theme";
+// import { Theme } from "../../utils/theme";
 
 export const StyledTabs = styled.div`
   & .nav-tabs,
@@ -10,14 +10,16 @@ export const StyledTabs = styled.div`
 
   & .nav-tabs {
     .nav-item {
-      border-radius: ${`${Theme.SecondaryRadius} ${Theme.SecondaryRadius} 0 0`};
-      font-size: ${Theme.PrimaryFontSize};
+      border-radius: ${(props) =>
+        `${props.theme.SecondaryRadius} ${props.theme.SecondaryRadius} 0 0`};
+      font-size: ${(props) => props.theme.PrimaryFontSize};
       font-weight: bold;
-      color: ${Theme.SecondaryTextColor};
+      color: ${(props) => props.theme.SecondaryTextColor};
+      background: ${(props) => props.theme.TertiaryDark} !important;
     }
 
     .nav-link {
-      color: ${Theme.SecondaryTextColor};
+      color: ${(props) => props.theme.SecondaryTextColor};
     }
     .disabled {
       opacity: 0.35;

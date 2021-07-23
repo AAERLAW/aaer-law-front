@@ -5,7 +5,7 @@ import { artistMenu, userMenu } from "./menu";
 
 export const mapStateToProps = (state, ownProps) => {
   const { app, authentication } = state;
-  const { pageTitle, collaspe, menuMode } = app;
+  const { pageTitle, collaspe, menuMode, nightMode } = app;
   const { profile } = authentication;
   let menuList = [];
   if (profile) {
@@ -19,6 +19,7 @@ export const mapStateToProps = (state, ownProps) => {
     pageTitle,
     menuList,
     menuMode,
+    nightMode,
   };
 };
 
@@ -32,6 +33,9 @@ export const mapDispatchToProps = (dispatch, ownProps) => {
     },
     logOut(data) {
       dispatch({ type: "authentication/logOut", payload: data ? data : {} });
+    },
+    toggleNightMode(data) {
+      dispatch({ type: "app/save", payload: { nightMode: data } });
     },
   };
 };

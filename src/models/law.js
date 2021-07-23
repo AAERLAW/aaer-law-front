@@ -7,41 +7,8 @@ export default {
   namespace: "law",
 
   state: {
-    lawsList: [
-      {
-        id: 0,
-        name: "ACCIDENT INVESTIGATION BUREAU",
-      },
-      {
-        id: 1,
-        name: "ABUBAKAR TAFAWA BALEWA UNIVERSITY, BAUCHI ACT 1988",
-      },
-      {
-        id: 2,
-        name: "ACTS AUTHENTICATION ACT (1962)",
-      },
-      {
-        id: 3,
-        name: "ADMINISTRATION OF CRIMINAL JUSTICE ACT (2015)",
-      },
-      {
-        id: 4,
-        name: "ACCIDENT INVESTIGATION BUREAU",
-      },
-      {
-        id: 5,
-        name: "ABUBAKAR TAFAWA BALEWA UNIVERSITY, BAUCHI ACT 1988",
-      },
-      {
-        id: 6,
-        name: "ACCIDENT INVESTIGATION BUREAU",
-      },
-      {
-        id: 7,
-        name: "ABUBAKAR TAFAWA BALEWA UNIVERSITY, BAUCHI ACT 1988",
-      },
-    ],
-    lawsTotal: 46,
+    lawsList: [],
+    lawsTotal: 0,
     createLawModal: false,
   },
 

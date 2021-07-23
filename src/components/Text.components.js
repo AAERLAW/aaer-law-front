@@ -1,16 +1,17 @@
 import React from "react";
 import styled, { css } from "styled-components";
-import { Theme } from "../utils/theme";
+// import { Theme } from "../utils/theme";
 
 export const Text = styled.p`
   font-size: ${(props) =>
-    props.fontSize ? props.fontSize : Theme.PrimaryFontSize};
-  color: ${(props) => (props.color ? props.color : Theme.PrimaryTextColor)};
+    props.fontSize ? props.fontSize : props.theme.PrimaryFontSize};
+  color: ${(props) =>
+    props.color ? props.color : props.theme.PrimaryTextColor};
   margin: ${(props) => (props.margin ? props.margin : "0")};
   padding: ${(props) => (props.padding ? props.padding : "0")};
   display: ${(props) => (props.display ? props.display : "0")};
   font-family: ${(props) =>
-    props.fontFamily ? props.fontFamily : Theme.PrimaryFontFamily};
+    props.fontFamily ? props.fontFamily : props.theme.PrimaryFontFamily};
   font-weight: ${(props) => (props.fontWeight ? props.fontWeight : "normal")};
   ${(props) =>
     props.cursor &&

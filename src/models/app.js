@@ -2,6 +2,7 @@ let initialState = {
   collaspe: false,
   float: false,
   pageTitle: "",
+  nightMode: false,
 };
 
 export default {

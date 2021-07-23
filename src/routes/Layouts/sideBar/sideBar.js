@@ -8,8 +8,8 @@ import LOGO from "../../../assets/img/logo.png";
 
 const SideList = styled.div`
   padding: 15px 0;
-  background: ${Theme.SideBarColor};
-  color: ${Theme.PrimaryTextColor};
+  background: ${(props) => props.theme.SideBarColor};
+  color: ${(props) => props.theme.PrimaryTextColor};
   width: ${(props) => (props.collaspe ? "60px" : "230px")};
   position: fixed;
   overflow: hidden;
@@ -45,7 +45,7 @@ const SideList = styled.div`
 
   .sideList-title {
     font-size: 12px;
-    color: ${Theme.PrimaryFontColor};
+    color: ${(props) => props.theme.PrimaryFontColor};
     margin: 0;
     padding: 0.5rem 1rem;
     opacity: ${(props) => (props.collaspe ? "0" : "1")};
@@ -59,7 +59,7 @@ const SideList = styled.div`
     & li {
       font-size: 12px;
       padding: ${(props) => (props.collaspe ? "0.5rem" : "0.5rem 0.5rem")};
-      color: ${Theme.PrimaryTextColor};
+      color: ${(props) => props.theme.PrimaryTextColor};
       cursor: pointer;
       display: flex;
       overflow: hidden;
@@ -67,13 +67,13 @@ const SideList = styled.div`
       transition: all 0.5s;
       -webkit-transition: all 0.25s;
       cursor: pointer;
-      border-radius: ${Theme.SecondaryRadius};
+      border-radius: ${(props) => props.theme.SecondaryRadius};
 
       :hover {
-        background: ${Theme.PrimaryDark};
+        background: ${(props) => props.theme.PrimaryDark};
 
         & i {
-          color: ${Theme.PrimaryColor};
+          color: ${(props) => props.theme.PrimaryColor};
         }
       }
 
@@ -96,7 +96,7 @@ const SideList = styled.div`
     }
 
     .active {
-      color: ${Theme.PrimaryColor};
+      color: ${(props) => props.theme.PrimaryColor};
     }
   }
 `;

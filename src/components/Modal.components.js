@@ -8,24 +8,24 @@ const StyledModal = styled.div`
     width:100%;
     height: 100%;
     background-color: ${(props) =>
-      props.background ? props.background : Theme.TertiaryDark};
-    color: ${Theme.PrimaryTextColor};
-    border-radius: ${Theme.SecondaryRadius};
+      props.background ? props.background : props.theme.TertiaryDark};
+    color: ${(props) => props.theme.PrimaryTextColor};
+    border-radius: ${(props) => props.theme.SecondaryRadius};
     padding: 0.25rem;
 
     .modal-header {
       font-size: 1.2rem;
-      font-family: ${Theme.SecondaryFontFamily};
+      font-family: ${(props) => props.theme.SecondaryFontFamily};
       padding: 1rem;
       border-bottom: none;
 
       & .close { 
-          color:${Theme.PrimaryTextColor};
+          color:${(props) => props.theme.PrimaryTextColor};
           background : transparent;
           border: none;
 
           : hover { 
-            color:${Theme.PrimaryColor};
+            color:${(props) => props.theme.PrimaryColor};
           }
 
           & .sr-only { 

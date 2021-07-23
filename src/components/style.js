@@ -38,7 +38,7 @@ export const LandingContainer = styled.div`
 export const Title = styled.h3`
   font-weight: ${(props) => (props.fontWeight ? props.fontWeight : "bold")};
   font-family: ${(props) =>
-    props.fontFamily ? props.fontFamily : Theme.SecondaryFontFamily};
+    props.fontFamily ? props.fontFamily : props.theme.SecondaryFontFamily};
   margin: 0;
   padding: 0.25rem 0;
   font-size: ${(props) => (props.fontSize ? props.fontSize : "2rem")};
@@ -51,7 +51,8 @@ export const Title = styled.h3`
 `;
 
 export const Link = styled.a`
-  color: ${(props) => (props.color ? props.color : Theme.PrimaryFontColor)};
+  color: ${(props) =>
+    props.color ? props.color : props.theme.PrimaryFontColor};
   text-decoration: none;
   :hover {
     text-decoration: none;
@@ -59,18 +60,19 @@ export const Link = styled.a`
 `;
 
 export const HR = styled.hr`
-  color: ${(props) => (props.color ? props.color : Theme.PrimaryTextColor)};
+  color: ${(props) =>
+    props.color ? props.color : props.theme.PrimaryTextColor};
   margin: ${(props) => (props.margin ? props.margin : "0.75rem 0")};
   padding: 0;
   border: 0;
   border-bottom: 0.5px solid
-    ${(props) => (props.color ? props.color : Theme.PrimaryTextColor)};
+    ${(props) => (props.color ? props.color : props.theme.PrimaryTextColor)};
   height: 0.5px;
 `;
 
 export const Icon = styled.i`
   font-size: ${(props) => (props.fontSize ? props.fontSize : "14px")};
-  color: ${(props) => (props.color ? props.color : Theme.PrimaryColor)};
+  color: ${(props) => (props.color ? props.color : props.theme.PrimaryColor)};
   & :before {
     margin: 0 auto;
   }
@@ -207,13 +209,14 @@ export const LiveView = styled.div`
 
 export const PageTitle = styled.p`
   font-size: ${(props) =>
-    props.fontSize ? props.fontSize : Theme.PrimaryFontSize};
-  color: ${(props) => (props.color ? props.color : Theme.SecondaryTextColor)};
+    props.fontSize ? props.fontSize : props.theme.PrimaryFontSize};
+  color: ${(props) =>
+    props.color ? props.color : props.theme.SecondaryTextColor};
   margin: ${(props) => (props.margin ? props.margin : "0")};
   padding: ${(props) => (props.padding ? props.padding : "0")};
   display: ${(props) => (props.display ? props.display : "0")};
   font-family: ${(props) =>
-    props.fontFamily ? props.fontFamily : Theme.PrimaryFontFamily};
+    props.fontFamily ? props.fontFamily : props.theme.PrimaryFontFamily};
   font-weight: ${(props) => (props.fontWeight ? props.fontWeight : "bold")};
   ${(props) =>
     props.cursor &&

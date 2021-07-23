@@ -17,7 +17,7 @@ import {
 
 const initialState = {
   rules: [],
-  rulesTotal: 3,
+  rulesTotal: 0,
   createRuleModal: false,
   courts: [],
   courtsTotal: 0,

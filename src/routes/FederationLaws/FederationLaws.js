@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
+import { ThemeContext } from "styled-components";
 
 import { Tabs, Tab } from "react-bootstrap";
 
@@ -11,7 +12,7 @@ import Wrapper from "../Common/FilterWrapper/index";
 
 import { calcViewMode } from "../../utils/utils";
 import { pageOptions } from "../../utils/constant";
-import { Theme } from "../../utils/theme";
+// import { Theme } from "../../utils/theme";
 import CreateModal from "./CreateModal/index";
 import { Loader } from "../../components/Loader.components";
 
@@ -28,6 +29,9 @@ export const FederationLaws = (props) => {
 
   // dipatch props received
   const { redirect, getFederalLaws, openCreateModal, readLaw } = props;
+
+  const Theme = useContext(ThemeContext);
+
   let viewMode = calcViewMode();
   let errors;
 

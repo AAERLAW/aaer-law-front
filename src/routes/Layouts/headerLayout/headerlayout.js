@@ -1,4 +1,6 @@
 import React from "react";
+import { useContext } from "react";
+import { ThemeContext } from "styled-components";
 
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -16,22 +18,22 @@ import femaleImage from "../../../assets/img/female.png";
 import Logo from "../../../assets/img/logo.png";
 
 import { calcViewMode } from "../../../utils/utils";
-import { Theme } from "../../../utils/theme";
+// import { Theme } from "../../../utils/theme";
 
 export const HeaderLayout = (props) => {
   // state props
-  const { profile, pageTitle, collaspe } = props;
+  const { profile, pageTitle, collaspe, nightMode } = props;
 
   // dispatch props
-  const { redirect, logOut, setCollaspe } = props;
+  const { redirect, logOut, setCollaspe, toggleNightMode } = props;
+
+  const Theme = useContext(ThemeContext);
 
   let genderImage = maleImage;
 
   let viewMode = calcViewMode();
 
   let navColor = Theme.SideBarColor;
-
-  console.log({ profile });
 
   return (
     <Boxed
@@ -95,7 +97,7 @@ export const HeaderLayout = (props) => {
             <Boxed className="px-1" align="right" display="flex">
               <Boxed display="flex" margin="0 0 0 auto" height="58px">
                 <Boxed height="59px" display="flex">
-                  {/* <Icon
+                  <Icon
                     className="icon-search-1"
                     margin="auto 5px"
                     pad="5px"
@@ -103,7 +105,17 @@ export const HeaderLayout = (props) => {
                     border={`1px solid ${Theme.SecondaryTextColor}`}
                     color={Theme.SecondaryTextColor}
                     borderRadius="50%"
-                  /> */}
+                  />
+                  <Icon
+                    className="icon-moon"
+                    margin="auto 5px"
+                    pad="5px"
+                    cursor="pointer"
+                    border={`1px solid ${Theme.SecondaryTextColor}`}
+                    color={Theme.SecondaryTextColor}
+                    borderRadius="50%"
+                    onClick={() => toggleNightMode(!nightMode)}
+                  />
                   <StyledDrpDown style={{ margin: "auto 0" }}>
                     <Dropdown>
                       <Dropdown.Toggle variant id="dropdown-basic">

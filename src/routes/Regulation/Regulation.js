@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
-
-import { Tabs, Tab } from "react-bootstrap";
+import React, { useEffect, useContext } from "react";
+import { ThemeContext } from "styled-components";
 
 import { Button } from "../../components/Button.components";
 import { Boxed } from "../../components/Boxed.components";
@@ -11,7 +10,7 @@ import Wrapper from "../Common/FilterWrapper/index";
 
 import { calcViewMode } from "../../utils/utils";
 import { pageOptions } from "../../utils/constant";
-import { Theme } from "../../utils/theme";
+// import { Theme } from "../../utils/theme";
 
 import CreateModal from "./CreateModal/index";
 import { Loader } from "../../components/Loader.components";
@@ -29,6 +28,8 @@ export const MDAs = (props) => {
 
   //dispatch props receieved
   const { redirect, getRegulations, openCreateModal } = props;
+
+  const Theme = useContext(ThemeContext);
 
   let viewMode = calcViewMode();
   let errors;

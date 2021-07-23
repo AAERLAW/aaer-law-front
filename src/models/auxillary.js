@@ -7,7 +7,7 @@ export default {
 
   state: {
     stateList: [],
-    stateTotal: 46,
+    stateTotal: 0,
     createLawModal: false,
   },
 

@@ -10,12 +10,13 @@ import { Theme } from "../utils/theme";
 
 export const Label = styled.p`
   font-size: ${(props) =>
-    props.fontSize ? props.fontSize : Theme.PrimaryFontSize};
+    props.fontSize ? props.fontSize : props.theme.PrimaryFontSize};
   font-weight: normal;
-  font-family: ${Theme.PrimaryFont};
+  font-family: ${(props) => props.theme.PrimaryFont};
   margin: ${(props) => (props.margin ? props.margin : 0)};
   padding: ${(props) => (props.pad ? props.pad : "0.15rem 10px")};
-  color: ${(props) => (props.color ? props.color : Theme.PrimaryFontColor)};
+  color: ${(props) =>
+    props.color ? props.color : props.theme.PrimaryFontColor};
   letter-spacing: 0.45;
   line-height: ${(props) => (props.lineHeight ? props.lineHeight : "unset")};
 `;
@@ -51,23 +52,23 @@ const InputWrapper = styled.div`
   }
 
   label {
-    font-size: ${Theme.SecondaryFontSize};
+    font-size: ${(props) => props.theme.SecondaryFontSize};
     font-weight: bold;
-    color: ${Theme.PrimaryTextColor};
+    color: ${(props) => props.theme.PrimaryTextColor};
   }
 
   input:focus {
     ::-webkit-input-placeholder {
       opacity: 1;
-      color: ${Theme.SecondaryTextColor};
+      color: ${(props) => props.theme.SecondaryTextColor};
     }
     ::-moz-placeholder {
       opacity: 1;
-      color: ${Theme.SecondaryTextColor};
+      color: ${(props) => props.theme.SecondaryTextColor};
     }
     ::-moz-placeholder {
       opacity: 1;
-      color: ${Theme.SecondaryTextColor};
+      color: ${(props) => props.theme.SecondaryTextColor};
     }
   }
 
@@ -112,9 +113,9 @@ const InputWrapper = styled.div`
   }
 
   & .gelacop__menu {
-    ${"" /* background-color: ${Theme.QuaternaryDark}; */}
-    color: ${Theme.PrimaryTextColor};
-    border-radius: ${Theme.SecondaryRadius};
+    background-color: ${(props) => props.theme.TertiaryDark};
+    color: ${(props) => props.theme.PrimaryTextColor};
+    border-radius: ${(props) => props.theme.SecondaryRadius};
     padding: 12px 10px;
     margin: 2px 0 0 0;
     text-align: left;
@@ -124,21 +125,20 @@ const InputWrapper = styled.div`
       max-height: 200px;
 
       & .gelacop__option {
-        border-radius: ${Theme.SecondaryRadius};
-        hieght: 40px;
+        border-radius: ${(props) => props.theme.SecondaryRadius};
+        height: 40px;
         padding: 8px 30px;
-        font-size: ${Theme.SecondaryFontSize};
+        font-size: ${(props) => props.theme.SecondaryFontSize};
         cursor: pointer;
-      }
-      & .gelacop__option--is-focused {
-        ${
-          "" /* background-color: ${transparentize(0.1, Theme.TertiaryDark)}; */
+        background-color: transparent
+
+        &:hover {
+          background: ${(props) => `${props.theme.SecondaryDark}50`} !important;
         }
       }
 
       & .gelacop__option--is-selected {
-        ${"" /* background-color: ${Theme.TertiaryDark}; */}
-        color: ${Theme.PrimaryTextColor};
+        color: ${(props) => props.theme.PrimaryTextColor};
       }
     }
   }
@@ -148,20 +148,21 @@ const InputWrapper = styled.div`
   .gelacop__control {
     box-shadow: none;
     position: relative;
-    background-color: #f6f6f9;
+    background-color: ${(props) => `${props.theme.TertiaryDark}50`};
     height: ${(props) => (props.height ? props.height : "40px")};
-    border-radius: ${Theme.SecondaryRadius};
+    border-radius: ${(props) => props.theme.SecondaryRadius};
     border: 1px solid #ececee;
     width: 100%;
     padding: 10px 10px 10px 10px;
     font-size: 13px;
     font-weight: normal;
-    color: ${(props) => (props.color ? props.color : Theme.PrimaryTextColor)};
+    color: ${(props) =>
+      props.color ? props.color : props.theme.PrimaryTextColor};
 
     :focus {
       outline: none;
-      color: ${Theme.PrimaryTextColor};
-      border-bottom: ${`1.2px solid ${Theme.PrimaryColor}`};
+      color: ${(props) => props.theme.PrimaryTextColor};
+      border-bottom: ${`1.2px solid ${(props) => props.theme.PrimaryColor}`};
     }
 
     & .gelacop__value-container {
@@ -176,7 +177,7 @@ const InputWrapper = styled.div`
       & .gelacop__single-value,
       .gelacop__input {
         color: ${(props) =>
-          props.color ? props.color : Theme.PrimaryTextColor};
+          props.color ? props.color : props.theme.PrimaryTextColor};
         transform: unset;
       }
     }
@@ -188,7 +189,7 @@ const InputWrapper = styled.div`
       height: 100%;
 
       & .gelacop__indicator.gelacop__dropdown-indicator {
-        color: ${Theme.PrimaryColor};
+        color: ${(props) => props.theme.PrimaryColor};
       }
     }
 
@@ -197,15 +198,15 @@ const InputWrapper = styled.div`
     }
 
     :hover {
-      border: ${`1.5px solid ${Theme.PrimaryColor}`};
-      background: #f6f6f9;
+      border: ${`1.5px solid ${(props) => props.theme.PrimaryColor}`};
+      background-color: ${(props) => `${props.theme.SecondaryDark}50`};
       outline: none;
     }
 
     ${(props) =>
       props.error &&
       css`
-        border: ${`1.5px solid ${Theme.PrimaryRed}`};
+        border: ${`1.5px solid ${(props) => props.theme.PrimaryRed}`};
       `}
 
     ${(props) =>
@@ -243,12 +244,12 @@ const InputWrapper = styled.div`
             props.color
               ? transparentize(0.8, props.color)
               : transparentize(0.8, Theme.PrimaryColor)};
-          color: ${Theme.PrimaryTextColor};
+          color: ${(props) => props.theme.PrimaryTextColor};
         }
 
         :focus {
           outline: none;
-          color: ${Theme.PrimaryTextColor};
+          color: ${(props) => props.theme.PrimaryTextColor};
         }
       `}  
 
@@ -275,7 +276,7 @@ const InputWrapper = styled.div`
       opacity: 0.75;
 
       label {
-        color: ${Theme.PrimaryTextColor} !important;
+        color: ${(props) => props.theme.PrimaryTextColor} !important;
       }
     `}
 `;
@@ -432,7 +433,7 @@ const CheckWrapper = styled.label`
     :before {
       content: "";
       border: 1px solid ${lighten(0.15, Theme.SecondaryDark)};
-      background: ${Theme.SecondaryDark};
+      background: ${(props) => props.theme.SecondaryDark};
       width: 20px;
       height: 20px;
       border-radius: 4px;
@@ -455,7 +456,7 @@ const CheckWrapper = styled.label`
 
       :after {
         content: "";
-        background: ${Theme.PrimaryColor};
+        background: ${(props) => props.theme.PrimaryColor};
       }
     }
   }
@@ -524,7 +525,7 @@ const RadioWrapper = styled.label`
 
   input:checked ~ .checkmark {
     background-color: transparent;
-    border: 1px solid ${Theme.PrimaryRed};
+    border: 1px solid ${(props) => props.theme.PrimaryRed};
   }
 
   .checkmark:after {
@@ -539,7 +540,7 @@ const RadioWrapper = styled.label`
 
   input:checked ~ .checkmark:after {
     display: block;
-    background: ${Theme.PrimaryRed};
+    background: ${(props) => props.theme.PrimaryRed};
   }
 
   .checkmark:after {
