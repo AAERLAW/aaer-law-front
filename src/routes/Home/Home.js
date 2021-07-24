@@ -47,7 +47,7 @@ export const Home = (props) => {
             </Button>
           </Boxed>
           <Boxed align="center" pad="20px">
-            <img src={HOME_1} alt="home-1" width="700px" />
+            <img src={HOME_1} alt="home-1" width="100%" />
           </Boxed>
           <Boxed pad="20px">
             <Text align="center" fontSize="24px" fontWeight="bold">

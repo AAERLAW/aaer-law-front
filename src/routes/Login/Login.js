@@ -47,14 +47,16 @@ export const Login = (props) => {
       >
         <Boxed maxWidth="1080px" width="100%" margin="0 auto">
           <Grid desktop="50% 50%" tablet="40% 60%" mobile="100%">
-            <Boxed display="flex" width="100%" height="100%">
-              <img
-                src={LOGIN_BG}
-                height="450px"
-                alt="login_bg"
-                style={{ margin: "auto" }}
-              />
-            </Boxed>
+            {viewMode !== "mobile" && (
+              <Boxed display="flex" width="100%" height="100%">
+                <img
+                  src={LOGIN_BG}
+                  height="450px"
+                  alt="login_bg"
+                  style={{ margin: "auto" }}
+                />
+              </Boxed>
+            )}
             <Boxed display="flex" width="100%" minHeight="100vh">
               <Boxed margin="auto" align="center">
                 <Boxed pad="10px 0">
