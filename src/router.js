@@ -1,5 +1,11 @@
 import React from "react";
-import { Route, Switch, routerRedux, Redirect } from "dva/router";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  routerRedux,
+  Redirect,
+} from "dva/router";
 import App from "./routes/app";
 import { storageToken } from "./utils/constant";
 
@@ -200,6 +206,7 @@ export function RouterConfig({ history, app }) {
             render={(props) => {
               console.log("am callled: last ROUTE");
               console.log({ location: window.location.pathname });
+              console.log({ history: history });
               console.log({ props });
               return <Redirect to={{ pathname: "/login" }} />;
             }}
