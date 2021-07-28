@@ -2,11 +2,11 @@ let BASE_URL = `https://www.aaerlawapp.com`;
 let SERVER = `:8180/api`;
 
 // PAYSTACK DETAILS
-let PAYSTACK_KEY = `pk_test_da0f827f5acb7784f1d563c830faa494c6aef8d9`;
+let PAYSTACK_KEY = `pk_test_e54eee45276d2070cae3c28ba2e9ec0c255c347a`;
 let PAYSTACK_M = `PLN_y7q8mhnca1vfve9`;
-let PAYSTACK_M_ONEOFF = `payment_month_oneoff`;
-let PAYSTACK_Y = `payment_yearly`;
-let PAYSTACK_Y_ONEOFF = `payment_year_oneoff`;
+let PAYSTACK_M_ONEOFF = `PLN_x5ph554tlmfcal0`;
+let PAYSTACK_Y = `PLN_gpjhs6xccsujtti`;
+let PAYSTACK_Y_ONEOFF = `PLN_gpjhs6xccsujtti`;
 
 module.exports = {
   endpoint: `${BASE_URL}${SERVER}`,
