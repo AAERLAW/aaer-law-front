@@ -46,6 +46,6 @@ export async function getSubscriptionPlans(data) {
 }
 
 export async function postVerifyPayment(data) {
-  const url = `${endpoint}/auth/verify-payment`;
+  const url = `${endpoint}/payment`;
   return await request({ url, method: "POST", data, formatData: true });
 }

@@ -74,6 +74,7 @@ export const PaymentModal = (props) => {
           transaction: response.transaction,
           subscribe_plan: actualPlan,
           access_token,
+          subscriptionDetail,
         };
         let close = closeModal;
         verifyPayment(data);
@@ -136,7 +137,7 @@ export const PaymentModal = (props) => {
             <b>{`${
               subscriptionPlan ? subscriptionPlan?.monthly?.label : " "
             }`}</b>{" "}
-            if you choose to autorenew.
+            .{/* if you choose to autorenew. */}
           </Text>
           <Text fontWeight="normal">
             Your account will be charged{" "}
@@ -146,15 +147,15 @@ export const PaymentModal = (props) => {
                 : "-- --"
             }`}</b>
             , plus applicable taxes for 1 active user[s].
-            <br /> We will automatically renew your plan{" "}
+            {/* <br /> We will automatically renew your plan{" "}
             <b>{`${
               subscriptionPlan ? subscriptionPlan?.monthly?.label : "-- --"
             }`}</b>
             , should you choose to autorenew. You can cancel anytime in the
-            "Settings" panel.
+            "Settings" panel. */}
           </Text>
         </Boxed>
-        <Boxed pad="0.5rem 1rem" display="flex">
+        {/* <Boxed pad="0.5rem 1rem" display="flex">
           <SwitchComp
             checked={autorenew}
             onChange={() => setAutorenew((prev) => !prev)}
@@ -167,7 +168,7 @@ export const PaymentModal = (props) => {
           >
             Autorenew Subcription
           </Text>
-        </Boxed>
+        </Boxed> */}
         <Boxed pad="0.5rem 1rem">
           <Checkbox
             checked={terms}

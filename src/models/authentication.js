@@ -71,6 +71,16 @@ export default {
         Alert.error(message);
       }
     },
+
+    *postLogin({ payload }, { put }) {
+      const { data } = payload;
+      const { access_token, refresh_token } = data;
+      localStorage.setItem(storageToken, access_token);
+      localStorage.setItem(storageRefeshToken, refresh_token);
+      localStorage.setItem(storageProfile, JSON.stringify(data));
+      yield put({ type: "save", payload: { profile: data } });
+      yield put(routerRedux.push("/law-reports"));
+    },
     *register({ payload }, { call, put }) {
       const { raw, success, message } = yield call(postRegistration, payload);
       if (success) {
@@ -151,7 +161,12 @@ export default {
       const { raw, success, message } = yield call(postVerifyPayment, data);
 
       if (success || true) {
-        Alert.success("Payment verified successfully. Please login");
+        Alert.success("Payment verified successfully.");
+        yield put({
+          type: "authentication/postLogin",
+          payload: { data: payload.subscriptionDetail },
+        });
+
         yield put({
           type: "save",
           payload: {
@@ -160,7 +175,8 @@ export default {
             openPaymentModal: false,
           },
         });
-        yield put(routerRedux.push("/login"));
+
+        // yield put(routerRedux.push("/login"));
       } else {
         Alert.error(message);
       }
