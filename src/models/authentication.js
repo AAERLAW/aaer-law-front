@@ -58,6 +58,7 @@ export default {
       if (success) {
         const { data } = raw;
         const isAdmin = data?.roles?.includes("ADMIN");
+        console.log({ isAdmin });
         if (isAdmin) {
           // If account is an admin
           yield put({
@@ -67,6 +68,7 @@ export default {
         } else {
           // Normal user account
           const isSubscribed = data?.subscription?.status;
+          console.log({ isSubscribed });
           if (isSubscribed) {
             // Subscribed User
             yield put({
