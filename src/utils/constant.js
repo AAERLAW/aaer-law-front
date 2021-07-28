@@ -478,13 +478,13 @@ export const SubcriptionPlans = {
     plan: "BASIC",
     monthly: {
       label: "Monthly",
-      amount_price: 150000,
-      amount_label: "₦ 1,500",
+      amount_price: 250000,
+      amount_label: "₦ 2,500",
     },
     annually: {
       label: "Anually",
-      amount_monthly: 1500000,
-      amount_label: "₦ 15,000",
+      amount_monthly: 2500000,
+      amount_label: "₦ 25,000",
     },
   },
   professional: {
