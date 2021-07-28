@@ -66,8 +66,8 @@ export default {
           });
         } else {
           // Normal user account
-          const isSubscribed = data?.subscription?.status;
-          if (isSubscribed) {
+          const isExpiredSubscribe = data?.subscription?.status;
+          if (!isExpiredSubscribe) {
             // Subscribed User
             yield put({
               type: "authentication/postLogin",

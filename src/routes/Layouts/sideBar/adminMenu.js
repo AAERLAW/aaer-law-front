@@ -44,8 +44,8 @@ const artistMenu = [
       //   pathname: "/cases",
       // },
       {
-        icon: "icon-file-minus",
-        label: "Words of Gold",
+        icon: "icon-book",
+        label: "Reader",
         pathname: "/reader",
       },
     ],
