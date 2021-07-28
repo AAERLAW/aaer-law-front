@@ -125,6 +125,14 @@ export function RouterConfig({ history, app }) {
               return <Pricing {...props} />;
             }}
           />
+
+          <Route
+            path="/subscription"
+            exact
+            render={(props) => {
+              return <Subscription {...props} />;
+            }}
+          />
           {/* #########   E N D :    O P E N      U R L S   #########*/}
           {/* #########   S T A R T :   G U A R D E D      U R L S   #########*/}
           <PrivateRoute
@@ -132,13 +140,6 @@ export function RouterConfig({ history, app }) {
             exact
             render={(props) => {
               return <Dashboard {...props} />;
-            }}
-          />
-          <PrivateRoute
-            path="/subscription"
-            exact
-            render={(props) => {
-              return <Subscription {...props} />;
             }}
           />
           <PrivateRoute

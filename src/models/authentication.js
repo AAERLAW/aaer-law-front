@@ -58,7 +58,6 @@ export default {
       if (success) {
         const { data } = raw;
         const isAdmin = data?.roles?.includes("ADMIN");
-        console.log({ isAdmin });
         if (isAdmin) {
           // If account is an admin
           yield put({
@@ -68,7 +67,6 @@ export default {
         } else {
           // Normal user account
           const isSubscribed = data?.subscription?.status;
-          console.log({ isSubscribed });
           if (isSubscribed) {
             // Subscribed User
             yield put({
@@ -78,7 +76,7 @@ export default {
           } else {
             // Non Subscribed User
             yield put({ type: "save", payload: { subscriptionDetail: data } });
-            yield put(routerRedux.push("/subscription"));
+            yield put(routerRedux.push({ pathname: "/subscription" }));
           }
         }
       } else {
@@ -93,7 +91,8 @@ export default {
       localStorage.setItem(storageRefeshToken, refresh_token);
       localStorage.setItem(storageProfile, JSON.stringify(data));
       yield put({ type: "save", payload: { profile: data } });
-      yield put(routerRedux.push("/law-reports"));
+      // yield put(routerRedux.push("/law-reports"));
+      yield put(routerRedux.push({ pathname: "/law-reports" }));
     },
     *register({ payload }, { call, put }) {
       const { raw, success, message } = yield call(postRegistration, payload);

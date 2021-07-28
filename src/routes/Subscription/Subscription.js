@@ -23,11 +23,12 @@ export const Subscription = (props) => {
   const { openPaymentModal } = props;
 
   // dispatch props recieved
-  const { redirect, openModal, getAllSubscriptionPlans } = props;
+  const { redirect, openModal } = props;
 
-  useEffect(() => {
-    getAllSubscriptionPlans();
-  }, []);
+  // useEffect(() => {
+  //   getAllSubscriptionPlans();
+  // }, []);
+
   let viewMode = calcViewMode();
   let errors;
 
@@ -74,7 +75,7 @@ export const Subscription = (props) => {
                     fontSize="28px"
                     fontWeight="bold"
                   >
-                    Basic
+                    {SubcriptionPlans?.basic?.plan}
                   </Text>
                   <Text color={Theme.SecondaryTextColor}>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vel
@@ -116,7 +117,7 @@ export const Subscription = (props) => {
                     padding="20px 0 5px 0"
                     fontWeight="bold"
                   >
-                    From N 1,500
+                    From {SubcriptionPlans?.basic?.monthly?.amount_label}
                   </Text>
                   <Text color={Theme.SecondaryTextColor}>
                     Pay Monthly or Anually
@@ -150,7 +151,7 @@ export const Subscription = (props) => {
                     fontSize="28px"
                     fontWeight="bold"
                   >
-                    Professional
+                    {SubcriptionPlans?.professional?.plan}
                   </Text>
                   <Text color={Theme.SecondaryTextColor}>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vel
@@ -192,7 +193,7 @@ export const Subscription = (props) => {
                     padding="20px 0 5px 0"
                     fontWeight="bold"
                   >
-                    From N 4,000
+                    From {SubcriptionPlans?.professional?.monthly?.amount_label}
                   </Text>
                   <Text color={Theme.SecondaryTextColor}>
                     Pay Monthly or Anually

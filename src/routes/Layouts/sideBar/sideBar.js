@@ -84,7 +84,7 @@ const SideList = styled.div`
 
       .sideList-label {
         padding: 0 1rem;
-        font-weight: bold;
+        // font-weight: bold;
         opacity: ${(props) => (props.collaspe ? "0" : "1")};
         margin: auto 0;
         ${(props) =>

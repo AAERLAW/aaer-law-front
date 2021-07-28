@@ -22,12 +22,12 @@ export const mapDispatchToProps = (dispatch, ownProps) => {
         payload: { openPaymentModal: true, subscriptionPlan: data },
       });
     },
-    getAllSubscriptionPlans(data) {
-      dispatch({
-        type: "authentication/getAllSubscriptionPlans",
-        payload: data,
-      });
-    },
+    // getAllSubscriptionPlans(data) {
+    //   dispatch({
+    //     type: "authentication/getAllSubscriptionPlans",
+    //     payload: data,
+    //   });
+    // },
   };
 };
 

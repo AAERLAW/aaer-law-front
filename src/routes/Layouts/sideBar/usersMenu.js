@@ -35,7 +35,7 @@ const usersMenu = [
       // },
       {
         icon: "icon-file-minus",
-        label: "Words of Gold",
+        label: "Reader",
         pathname: "/reader",
       },
     ],
