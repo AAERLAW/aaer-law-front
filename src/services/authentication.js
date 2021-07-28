@@ -44,3 +44,8 @@ export async function getSubscriptionPlans(data) {
   const url = `${endpoint}/subscription/plans`;
   return await request({ url, method: "GET" });
 }
+
+export async function postVerifyPayment(data) {
+  const url = `${endpoint}/auth/verify-payment`;
+  return await request({ url, method: "POST", data, formatData: true });
+}

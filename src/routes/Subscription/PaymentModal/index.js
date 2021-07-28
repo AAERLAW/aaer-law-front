@@ -5,12 +5,14 @@ import { routerRedux } from "dva/router";
 
 export const mapStateToProps = (state, ownProps) => {
   const { loading, authentication } = state;
-  const { openPaymentModal, subscriptionPlan } = authentication;
+  const { openPaymentModal, subscriptionPlan, subscriptionDetail } =
+    authentication;
   const isLoading = loading.effects["authentication/verifyPayment"];
   return {
     openPaymentModal,
     isLoading,
     subscriptionPlan,
+    subscriptionDetail,
   };
 };
 

@@ -7,6 +7,7 @@ import {
   postRegistration,
   postCompleteRegistration,
   getSubscriptionPlans,
+  postVerifyPayment,
   getLogOut,
 } from "../services/authentication";
 import { Alert } from "../components/Alert.components";
@@ -20,6 +21,7 @@ import {
 const initialState = {
   profile: {},
   emailVerified: false,
+  subscriptionDetail: {},
   subcriptionPlan: {},
   openPaymentModal: false,
 };
@@ -54,12 +56,16 @@ export default {
       const { raw, success, message } = yield call(postLogin, payload);
       if (success) {
         const { data } = raw;
-        const { access_token, refresh_token } = data;
-        localStorage.setItem(storageToken, access_token);
-        localStorage.setItem(storageRefeshToken, refresh_token);
-        localStorage.setItem(storageProfile, JSON.stringify(data));
-        yield put({ type: "save", payload: { profile: data } });
-        yield put(routerRedux.push("/law-reports"));
+        // const { access_token, refresh_token } = data;
+        // localStorage.setItem(storageToken, access_token);
+        // localStorage.setItem(storageRefeshToken, refresh_token);
+        // localStorage.setItem(storageProfile, JSON.stringify(data));
+        // yield put({ type: "save", payload: { profile: data } });
+        // yield put(routerRedux.push("/law-reports"));
+
+        // Redirect to subscription page
+        yield put({ type: "save", payload: { subscriptionDetail: data } });
+        yield put(routerRedux.push("/subscription"));
       } else {
         Alert.error(message);
       }
@@ -127,6 +133,24 @@ export default {
       );
       if (success) {
         console.log(raw);
+      } else {
+        Alert.error(message);
+      }
+    },
+    *verifyPayment({ payload }, { call, put }) {
+      const { raw, success, message } = yield call(postVerifyPayment, payload);
+      if (success) {
+        // const { data } = raw;
+        // const { access_token, refresh_token } = data;
+        // localStorage.setItem(storageToken, access_token);
+        // localStorage.setItem(storageRefeshToken, refresh_token);
+        // localStorage.setItem(storageProfile, JSON.stringify(data));
+        // yield put({ type: "save", payload: { profile: data } });
+        // yield put(routerRedux.push("/law-reports"));
+
+        // Redirect to subscription page
+        Alert.success("Payment verified successfully.");
+        yield put(routerRedux.push("/login"));
       } else {
         Alert.error(message);
       }

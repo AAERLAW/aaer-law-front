@@ -4,9 +4,10 @@ import { routerRedux } from "dva/router";
 
 export const mapStateToProps = (state, ownProps) => {
   const { loading, authentication } = state;
-  const { openPaymentModal } = authentication;
+  const { openPaymentModal, subscriptionDetail } = authentication;
   return {
     openPaymentModal,
+    subscriptionDetail,
   };
 };
 
