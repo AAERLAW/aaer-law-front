@@ -116,7 +116,7 @@ export const Subscription = (props) => {
                     padding="20px 0 5px 0"
                     fontWeight="bold"
                   >
-                    From N 1,000
+                    From N 1,500
                   </Text>
                   <Text color={Theme.SecondaryTextColor}>
                     Pay Monthly or Anually
@@ -125,7 +125,7 @@ export const Subscription = (props) => {
                   <Button
                     margin="20px 0 0 0"
                     block
-                    onClick={() => openModal(SubcriptionPlans.basic_monthly)}
+                    onClick={() => openModal(SubcriptionPlans.basic)}
                   >
                     Select
                   </Button>
@@ -192,13 +192,17 @@ export const Subscription = (props) => {
                     padding="20px 0 5px 0"
                     fontWeight="bold"
                   >
-                    From N 1,000
+                    From N 4,000
                   </Text>
                   <Text color={Theme.SecondaryTextColor}>
                     Pay Monthly or Anually
                   </Text>
 
-                  <Button margin="20px 0 0 0" block>
+                  <Button
+                    margin="20px 0 0 0"
+                    block
+                    onClick={() => openModal(SubcriptionPlans.professional)}
+                  >
                     Select
                   </Button>
                 </Boxed>

@@ -3,18 +3,18 @@ let SERVER = `:8180/api`;
 
 // PAYSTACK DETAILS
 let PAYSTACK_KEY = `pk_test_e54eee45276d2070cae3c28ba2e9ec0c255c347a`;
-let PAYSTACK_M = `PLN_x5ph554tlmfcal0`;
-let PAYSTACK_M_ONEOFF = `PLN_x5ph554tlmfcal0`;
-let PAYSTACK_Y = `PLN_gpjhs6xccsujtti`;
-let PAYSTACK_Y_ONEOFF = `PLN_gpjhs6xccsujtti`;
+let PAYSTACK_BASIC = `PLN_x5ph554tlmfcal0`;
+let PAYSTACK_BASIC_ONEOFF = `PLN_1wo3wx9oqh1pva9`;
+let PAYSTACK_PROF = `PLN_gpjhs6xccsujtti`;
+let PAYSTACK_PROF_ONEOFF = `PLN_3u0wfrsnvelhfes`;
 
 module.exports = {
   endpoint: `${BASE_URL}${SERVER}`,
   BASE_URL,
   SERVER,
   PAYSTACK_KEY,
-  PAYSTACK_M,
-  PAYSTACK_M_ONEOFF,
-  PAYSTACK_Y,
-  PAYSTACK_Y_ONEOFF,
+  PAYSTACK_BASIC,
+  PAYSTACK_BASIC_ONEOFF,
+  PAYSTACK_PROF,
+  PAYSTACK_PROF_ONEOFF,
 };

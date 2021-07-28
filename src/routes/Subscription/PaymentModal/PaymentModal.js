@@ -11,22 +11,24 @@ import { ModalComponent } from "../../../components/Modal.components";
 
 import {
   PAYSTACK_KEY,
-  PAYSTACK_M,
-  PAYSTACK_Y,
-  PAYSTACK_M_ONEOFF,
-  PAYSTACK_Y_ONEOFF,
+  PAYSTACK_BASIC,
+  PAYSTACK_BASIC_ONEOFF,
+  PAYSTACK_PROF,
+  PAYSTACK_PROF_ONEOFF,
 } from "../../../utils/config";
 import { calcViewMode, hash } from "../../../utils/utils";
 import { Theme } from "../../../utils/theme";
 import { PageTitle, Icon } from "../../../components/style";
 
 export const PaymentModal = (props) => {
-  const email = "bankiakid@gmail.com";
+  // const email = "bankiakid@gmail.com";
   // State props
-  const { openPaymentModal, subscriptionPlan, isLoading } = props;
+  const { openPaymentModal, subscriptionPlan, subscriptionDetail, isLoading } =
+    props;
 
   // Dispatch props
   const { verifyPayment, closeModal, redirect } = props;
+  const { email, access_token } = subscriptionDetail;
 
   const redirectCallback = useCallback((value) => redirect(value), [redirect]);
 
@@ -34,30 +36,11 @@ export const PaymentModal = (props) => {
   const [autorenew, setAutorenew] = useState(false);
 
   let viewMode = calcViewMode();
-
-  const onSubmit = () => {};
-
   const getReference = (email) => {
     let today = new Date();
     let hash_value = `${email ? email : ""}${today.toString()}`;
     let answer = hash(hash_value);
     return answer;
-  };
-
-  const callback = (response) => {
-    // card charged successfully, get reference here
-    switch (response.status) {
-      case "success":
-        let data = { reference: response.reference, subscribe_plan: plan };
-        let close = closeModal;
-        verifyPayment(data, close);
-        break;
-      default:
-        // redirect("/");
-        console.log(response);
-        Alert.error("Please authenticate your account detail.");
-        break;
-    }
   };
 
   let plan = `${subscriptionPlan ? subscriptionPlan.plan : ""}${
@@ -66,16 +49,38 @@ export const PaymentModal = (props) => {
 
   const getPaystackPlan = (plan) => {
     switch (plan) {
-      case "MONTHLY":
-        return PAYSTACK_M;
-      case "MONTHLY_ONEOFF":
-        return PAYSTACK_M_ONEOFF;
-      case "YEARLY":
-        return PAYSTACK_Y;
-      case "YEARLY_ONEOFF":
-        return PAYSTACK_Y_ONEOFF;
+      case "BASIC":
+        return PAYSTACK_BASIC;
+      case "BASIC_ONEOFF":
+        return PAYSTACK_BASIC_ONEOFF;
+      case "PROFESSIONAL":
+        return PAYSTACK_PROF;
+      case "PROFESSIONAL_ONEOFF":
+        return PAYSTACK_PROF_ONEOFF;
       default:
-        return PAYSTACK_M;
+        return PAYSTACK_BASIC;
+    }
+  };
+
+  const callback = (response) => {
+    console.log({ response });
+    // card charged successfully, get reference here
+    switch (response.status) {
+      case "success":
+        let data = {
+          reference: response.reference,
+          transaction: response.transaction,
+          subscribe_plan: getPaystackPlan(plan),
+          access_token,
+        };
+        let close = closeModal;
+        verifyPayment(data);
+        break;
+      default:
+        // redirect("/");
+        console.log(response);
+        Alert.error("Please authenticate your account detail.");
+        break;
     }
   };
 
@@ -105,15 +110,15 @@ export const PaymentModal = (props) => {
                 </Button>
               }
               class="payButton"
-              callback={callback}
               plan={actualPlan}
-              close={redirectCallback}
+              onClose={closeModal}
               disabled={!terms}
               embed={false}
               reference={getReference(email)}
               email={email}
               amount={subscriptionPlan ? subscriptionPlan.amount : 0}
               publicKey={PAYSTACK_KEY}
+              onSuccess={(reference) => callback(reference)}
               tag="a"
             ></PaystackButton>
           </>
@@ -123,23 +128,29 @@ export const PaymentModal = (props) => {
           <Text>
             You are subscribing to the{" "}
             <b>
-              {`${subscriptionPlan ? subscriptionPlan.label : " "}`}{" "}
+              {`${subscriptionPlan ? subscriptionPlan?.monthly?.label : " "}`}{" "}
               {`${subscriptionPlan ? subscriptionPlan.plan : " "}`}
             </b>{" "}
             plan. <br />
             Billing will take place{" "}
-            <b>{`${subscriptionPlan ? subscriptionPlan.label : " "}`}</b> if you
-            choose to autorenew.
+            <b>{`${
+              subscriptionPlan ? subscriptionPlan?.monthly?.label : " "
+            }`}</b>{" "}
+            if you choose to autorenew.
           </Text>
           <Text fontWeight="normal">
             Your account will be charged{" "}
             <b>{`${
-              subscriptionPlan ? subscriptionPlan.amount_label : "-- --"
+              subscriptionPlan
+                ? subscriptionPlan?.monthly?.amount_label
+                : "-- --"
             }`}</b>
             , plus applicable taxes for 1 active user[s].
             <br /> We will automatically renew your plan{" "}
-            <b>{`${subscriptionPlan ? subscriptionPlan.label : "-- --"}`}</b>,
-            should you choose to autorenew. You can cancel anytime in the
+            <b>{`${
+              subscriptionPlan ? subscriptionPlan?.monthly?.label : "-- --"
+            }`}</b>
+            , should you choose to autorenew. You can cancel anytime in the
             "Settings" panel.
           </Text>
         </Boxed>

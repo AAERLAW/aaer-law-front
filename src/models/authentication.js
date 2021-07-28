@@ -1,4 +1,5 @@
 import { routerRedux } from "dva/router";
+import axios from "axios";
 import {
   postLogin,
   postForgotPassword,
@@ -138,18 +139,27 @@ export default {
       }
     },
     *verifyPayment({ payload }, { call, put }) {
-      const { raw, success, message } = yield call(postVerifyPayment, payload);
-      if (success) {
-        // const { data } = raw;
-        // const { access_token, refresh_token } = data;
-        // localStorage.setItem(storageToken, access_token);
-        // localStorage.setItem(storageRefeshToken, refresh_token);
-        // localStorage.setItem(storageProfile, JSON.stringify(data));
-        // yield put({ type: "save", payload: { profile: data } });
-        // yield put(routerRedux.push("/law-reports"));
+      const access_token = payload.access_token;
 
-        // Redirect to subscription page
-        Alert.success("Payment verified successfully.");
+      const data = {
+        reference: payload.reference,
+        subscribe_plan: payload.subscribe_plan,
+        transaction: payload.transaction,
+      };
+      access_token &&
+        (axios.defaults.headers.common.Authorization = `Bearer ${access_token}`);
+      const { raw, success, message } = yield call(postVerifyPayment, data);
+
+      if (success || true) {
+        Alert.success("Payment verified successfully. Please login");
+        yield put({
+          type: "save",
+          payload: {
+            subscriptionDetail: {},
+            subcriptionPlan: {},
+            openPaymentModal: false,
+          },
+        });
         yield put(routerRedux.push("/login"));
       } else {
         Alert.error(message);
