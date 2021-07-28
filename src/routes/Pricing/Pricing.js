@@ -100,8 +100,8 @@ export const Pricing = (props) => {
 
                   <Text margin="auto 0 0 0" padding="10px 0" fontWeight="bold">
                     <Icon className="icon-circle" /> Pay{" "}
-                    {SubcriptionPlans.basic.mothly.amount_label}{" "}
-                    {SubcriptionPlans.basic.mothly.label}
+                    {SubcriptionPlans.basic.monthly.amount_label}{" "}
+                    {SubcriptionPlans.basic.monthly.label}
                   </Text>
 
                   <Text margin="auto 0 0 0" padding="10px 0" fontWeight="bold">
@@ -180,8 +180,8 @@ export const Pricing = (props) => {
 
                   <Text margin="auto 0 0 0" padding="10px 0" fontWeight="bold">
                     <Icon className="icon-circle" /> Pay{" "}
-                    {SubcriptionPlans.professional.mothly.amount_label}{" "}
-                    {SubcriptionPlans.professional.mothly.label}
+                    {SubcriptionPlans.professional.monthly.amount_label}{" "}
+                    {SubcriptionPlans.professional.monthly.label}
                   </Text>
 
                   <Text margin="auto 0 0 0" padding="10px 0" fontWeight="bold">

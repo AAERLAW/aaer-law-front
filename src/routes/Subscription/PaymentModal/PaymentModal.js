@@ -62,6 +62,8 @@ export const PaymentModal = (props) => {
     }
   };
 
+  let actualPlan = getPaystackPlan(plan);
+
   const callback = (response) => {
     console.log({ response });
     // card charged successfully, get reference here
@@ -70,7 +72,7 @@ export const PaymentModal = (props) => {
         let data = {
           reference: response.reference,
           transaction: response.transaction,
-          subscribe_plan: getPaystackPlan(plan),
+          subscribe_plan: actualPlan,
           access_token,
         };
         let close = closeModal;
@@ -83,8 +85,6 @@ export const PaymentModal = (props) => {
         break;
     }
   };
-
-  let actualPlan = getPaystackPlan(plan);
 
   let errors;
   return (

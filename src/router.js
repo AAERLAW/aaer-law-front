@@ -62,7 +62,8 @@ export function RouterConfig({ history, app }) {
   console.log("am callled: RouterConfig");
   console.log({ history });
   console.log({ app });
-  console.log({ location: window.location.pathname });
+  console.log({ location: window.location });
+  console.log({ location_2: window.location.pathname });
   return (
     <ConnectedRouter history={history}>
       <App openRoutes={openRoutes} history={history}>
