@@ -173,7 +173,7 @@ export default {
         (axios.defaults.headers.common.Authorization = `Bearer ${access_token}`);
       const { raw, success, message } = yield call(postVerifyPayment, data);
 
-      if (success || true) {
+      if (success) {
         Alert.success("Payment verified successfully.");
         yield put({
           type: "authentication/postLogin",
