@@ -64,12 +64,6 @@ const openRoutes = [
 ];
 
 export function RouterConfig({ history, app }) {
-  console.log(routerRedux);
-  console.log("am callled: RouterConfig");
-  console.log({ history });
-  console.log({ app });
-  console.log({ location: window.location });
-  console.log({ location_2: window.location.pathname });
   return (
     <ConnectedRouter history={history}>
       <App openRoutes={openRoutes} history={history}>
@@ -204,10 +198,6 @@ export function RouterConfig({ history, app }) {
           {/* #########   E N D :    G U A R D E D      U R L S   #########*/}
           <Route
             render={(props) => {
-              console.log("am callled: last ROUTE");
-              console.log({ location: window.location.pathname });
-              console.log({ history: history });
-              console.log({ props });
               return <Redirect to={{ pathname: "/login" }} />;
             }}
           />

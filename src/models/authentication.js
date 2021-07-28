@@ -57,16 +57,28 @@ export default {
       const { raw, success, message } = yield call(postLogin, payload);
       if (success) {
         const { data } = raw;
-        // const { access_token, refresh_token } = data;
-        // localStorage.setItem(storageToken, access_token);
-        // localStorage.setItem(storageRefeshToken, refresh_token);
-        // localStorage.setItem(storageProfile, JSON.stringify(data));
-        // yield put({ type: "save", payload: { profile: data } });
-        // yield put(routerRedux.push("/law-reports"));
-
-        // Redirect to subscription page
-        yield put({ type: "save", payload: { subscriptionDetail: data } });
-        yield put(routerRedux.push("/subscription"));
+        const isAdmin = data?.roles?.includes("ADMIN");
+        if (isAdmin) {
+          // If account is an admin
+          yield put({
+            type: "authentication/postLogin",
+            payload: { data: data },
+          });
+        } else {
+          // Normal user account
+          const isSubscribed = data?.subscription?.status;
+          if (isSubscribed) {
+            // Subscribed User
+            yield put({
+              type: "authentication/postLogin",
+              payload: { data: data },
+            });
+          } else {
+            // Non Subscribed User
+            yield put({ type: "save", payload: { subscriptionDetail: data } });
+            yield put(routerRedux.push("/subscription"));
+          }
+        }
       } else {
         Alert.error(message);
       }
