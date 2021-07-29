@@ -13,7 +13,7 @@ import { Text } from "../../components/Text.components";
 import { Alert } from "../../components/Alert.components";
 import { StyledTabs, Icon } from "../../components/style";
 
-import { calcViewMode, getBase64 } from "../../utils/utils";
+import { calcViewMode, getBase64, truncateText } from "../../utils/utils";
 import { Theme } from "../../utils/theme";
 
 import { StyledReader } from "./style";
@@ -146,7 +146,7 @@ export const Reader = (props) => {
                 eventKey={item.id}
                 title={
                   <Text fontWeight="bold">
-                    {item?.data?.name}{" "}
+                    {truncateText(item?.data?.name, 15)}{" "}
                     <Icon
                       onClick={() => removeItem(item)}
                       className="icon icon-x"
