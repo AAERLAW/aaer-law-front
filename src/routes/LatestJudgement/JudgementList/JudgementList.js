@@ -46,7 +46,7 @@ export const JudgementList = (props) => {
 
   const columns = [
     {
-      title: "Case Tiltle",
+      title: "Case Title",
       dataIndex: "case_title",
       key: "case_title",
       render: (text, record) => (
