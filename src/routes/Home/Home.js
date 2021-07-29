@@ -59,10 +59,10 @@ export const Home = (props) => {
             <Boxed pad="20px 10px" display="flex">
               <Boxed margin="auto 0">
                 <Text margin="10px 0 " fontSize="24px" fontWeight="bold">
-                  All your legal resource in one space.
+                  All your legal resources in one space.
                 </Text>
                 <Text color={Theme.SecondaryTextColor} margin="15px 0">
-                  Connect to our recent reported judgement, precedents and other reference tool
+                  Connect to our recent reported judgements, precedents and other reference tools.
                 </Text>
               </Boxed>
             </Boxed>
@@ -73,7 +73,7 @@ export const Home = (props) => {
                   Why AAER?
                 </Text>
                 <Text color={Theme.SecondaryTextColor} margin="15px 0">
-                  "All your legal 'resources' in one space." "Legal research made easy with 'a' clear and unambiguous subject matter index... 'Laws of the Federation', case commentaries, forms and precedents, textbooks 'and other valuable resources.'
+                  All your legal resources in one space. Legal research made easy with a clear and unambiguous subject matter index, up-to-date Laws of the Federation, case commentaries, forms and precedents, textbooks and other valuable resources.
                 </Text>
               </Boxed>
             </Boxed>
