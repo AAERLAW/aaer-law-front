@@ -119,7 +119,7 @@ export const Subscription = (props) => {
                     From {SubcriptionPlans?.basic?.monthly?.amount_label}
                   </Text>
                   <Text color={Theme.SecondaryTextColor}>
-                    Pay Monthly or Anually
+                    Pay Monthly or Annually
                   </Text>
 
                   <Button
@@ -194,7 +194,7 @@ export const Subscription = (props) => {
                     From {SubcriptionPlans?.professional?.monthly?.amount_label}
                   </Text>
                   <Text color={Theme.SecondaryTextColor}>
-                    Pay Monthly or Anually
+                    Pay Monthly or Annually
                   </Text>
 
                   <Button
