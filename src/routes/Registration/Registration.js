@@ -9,6 +9,7 @@ import { Button } from "../../components/Button.components";
 import { calcViewMode } from "../../utils/utils";
 
 import LOGO from "../../assets/img/logo.png";
+import LOGIN_BG from "../../assets/img/login-bg.png";
 import { Theme } from "../../utils/theme";
 
 export const Registration = (props) => {
@@ -84,8 +85,8 @@ export const Registration = (props) => {
             {viewMode !== "mobile" && (
               <Boxed display="flex" width="100%" height="100%">
                 <img
-                  src={LOGO}
-                  height="64px"
+                  src={LOGIN_BG}
+                  height="600px"
                   alt="app_logo"
                   style={{ margin: "auto" }}
                 />
