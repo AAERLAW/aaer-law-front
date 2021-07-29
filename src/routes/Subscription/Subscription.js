@@ -78,8 +78,7 @@ export const Subscription = (props) => {
                     {SubcriptionPlans?.basic?.plan}
                   </Text>
                   <Text color={Theme.SecondaryTextColor}>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vel
-                    blandit non id varius.
+                    The fundamental plan to get you started and increase your productivity as a legal Practitioner.
                   </Text>
                   <SubscribeList>
                     <li>
@@ -154,8 +153,7 @@ export const Subscription = (props) => {
                     {SubcriptionPlans?.professional?.plan}
                   </Text>
                   <Text color={Theme.SecondaryTextColor}>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vel
-                    blandit non id varius.
+                    Get Access to Basic feature and all the new features coming on AAER.
                   </Text>
                   <SubscribeList>
                     <li>
