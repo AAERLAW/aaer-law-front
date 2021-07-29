@@ -30,22 +30,22 @@ export const Home = (props) => {
         <Boxed maxWidth="1080px" width="100%" margin="0 auto">
           <Boxed padding="60px 5px" align="center">
             <Text margin="45px auto" fontWeight="bold" fontSize="36px">
-            Connect with AAER, <br /> your all time legal companion. 
-              
+              Connect with AAER, <br /> your all time legal companion.
+
             </Text>
             <Text
               margin="20px auto"
               color={Theme.SecondaryTextColor}
               fontSize="18px"
             >
-              AAER is an exceptional tool for your legal research work and courtroom practice. 
+              AAER is an exceptional tool for your legal research work and courtroom practice.
             </Text>
             <Button margin="15px 0" onClick={() => redirect("/registration")}>
               Register
             </Button>
           </Boxed>
           <Boxed align="center" pad="20px">
-            <img src={HOME_1} alt="home-1" width="100%" />
+            {/* <img src={HOME_1} alt="home-1" width="100%" /> */}
           </Boxed>
 
           <Grid
@@ -59,10 +59,10 @@ export const Home = (props) => {
             <Boxed pad="20px 10px" display="flex">
               <Boxed margin="auto 0">
                 <Text margin="10px 0 " fontSize="24px" fontWeight="bold">
-                All your legal resource in one space.
+                  All your legal resource in one space.
                 </Text>
                 <Text color={Theme.SecondaryTextColor} margin="15px 0">
-                Connect to our recent reported judgement, precedents and other reference tool
+                  Connect to our recent reported judgement, precedents and other reference tool
                 </Text>
               </Boxed>
             </Boxed>
@@ -70,10 +70,10 @@ export const Home = (props) => {
             <Boxed pad="20px 10px" display="flex">
               <Boxed margin="auto 0">
                 <Text margin="10px 0 " fontSize="24px" fontWeight="bold">
-                Why AAER?
+                  Why AAER?
                 </Text>
                 <Text color={Theme.SecondaryTextColor} margin="15px 0">
-                "All your legal 'resources' in one space." "Legal research made easy with 'a' clear and unambiguous subject matter index... 'Laws of the Federation', case commentaries, forms and precedents, textbooks 'and other valuable resources.'
+                  "All your legal 'resources' in one space." "Legal research made easy with 'a' clear and unambiguous subject matter index... 'Laws of the Federation', case commentaries, forms and precedents, textbooks 'and other valuable resources.'
                 </Text>
               </Boxed>
             </Boxed>
@@ -87,7 +87,7 @@ export const Home = (props) => {
             <Boxed pad="20px 10px" display="flex">
               <Boxed margin="auto 0">
                 <Text margin="10px 0 " fontSize="24px" fontWeight="bold">
-                A subscription plan for everyone.
+                  A subscription plan for everyone.
                 </Text>
                 <Text color={Theme.SecondaryTextColor} margin="15px 0">
                   AAER puts the knowlegde of law right in your pockets.
@@ -121,10 +121,10 @@ export const Home = (props) => {
           align="center"
           pad="1rem 10px"
         >
-          
+
           <Boxed padding="45px 5px" align="center">
             <Text margin="40px auto" fontWeight="bold" fontSize="24px">
-            Are you ready to take your legal research game to the next level?
+              Are you ready to take your legal research game to the next level?
             </Text>
             <Button margin="25px 0" onClick={() => redirect("/registration")}>Get Started</Button>
           </Boxed>
@@ -134,4 +134,5 @@ export const Home = (props) => {
     </>
   );
 };
+
 
