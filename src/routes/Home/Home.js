@@ -38,7 +38,7 @@ export const Home = (props) => {
               color={Theme.SecondaryTextColor}
               fontSize="18px"
             >
-              AAER is an easy and exceptional legal resource tool for your research work and courtroom practice. 
+              AAER is an exceptional tool for your legal research work and courtroom practice. 
             </Text>
             <Button margin="15px 0" onClick={() => redirect("/registration")}>
               Register
@@ -73,7 +73,7 @@ export const Home = (props) => {
                 Why AAER?
                 </Text>
                 <Text color={Theme.SecondaryTextColor} margin="15px 0">
-                Legal research made easy with clear and unambiguous ratio, subject matter index, up-to-date laws of the federation, precedents, Case commentaries, journal articles, textbooks, and other reference tools.
+                "All your legal 'resources' in one space." "Legal research made easy with 'a' clear and unambiguous subject matter index... 'Laws of the Federation', case commentaries, forms and precedents, textbooks 'and other valuable resources.'
                 </Text>
               </Boxed>
             </Boxed>
@@ -87,7 +87,7 @@ export const Home = (props) => {
             <Boxed pad="20px 10px" display="flex">
               <Boxed margin="auto 0">
                 <Text margin="10px 0 " fontSize="24px" fontWeight="bold">
-                  Best Price rate for unlimited access.
+                A subscription plan for everyone.
                 </Text>
                 <Text color={Theme.SecondaryTextColor} margin="15px 0">
                   AAER puts the knowlegde of law right in your pockets.
@@ -124,13 +124,16 @@ export const Home = (props) => {
           
           <Boxed padding="45px 5px" align="center">
             <Text margin="40px auto" fontWeight="bold" fontSize="24px">
-            A 21st Century legal resource and reference tool.
+            Are you ready to take your legal research game to the next level?
             </Text>
-            <Button margin="25px 0">Get Started</Button>
+            <Button margin="25px 0" onClick={() => redirect("/registration")}>Get Started</Button>
           </Boxed>
         </Boxed>
       </Boxed>
       <Footer />
     </>
+  );
+};
+
   );
 };
