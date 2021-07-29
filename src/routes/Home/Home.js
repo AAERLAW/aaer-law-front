@@ -45,7 +45,7 @@ export const Home = (props) => {
             </Button>
           </Boxed>
           <Boxed align="center" pad="20px">
-            <img src={HOME_1} alt="home-1" width="100%" />
+            {/* <img src={HOME_1} alt="home-1" width="100%" />*/}
           </Boxed>
 
           <Grid
