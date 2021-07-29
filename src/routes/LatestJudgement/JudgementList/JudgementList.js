@@ -56,22 +56,22 @@ export const JudgementList = (props) => {
       ),
     },
     {
-      title: "Suit Number",
-      dataIndex: "suit_number",
-      key: "suit_number",
+      title: "Citation",
+      dataIndex: "citation",
+      key: "citation",
     },
     {
       title: "Lead Judgment by",
       dataIndex: "lead_judgement_by",
       key: "lead_judgement_by",
     },
-    {
-      title: "Date",
-      dataIndex: "judgement_date",
-      key: "judgement_date",
-      align: "right",
-      render: (text) => text && formatDate(text),
-    },
+//     {
+//       title: "Date",
+//       dataIndex: "judgement_date",
+//       key: "judgement_date",
+//       align: "right",
+//       render: (text) => text && formatDate(text),
+//     },
   ];
 
   return (
