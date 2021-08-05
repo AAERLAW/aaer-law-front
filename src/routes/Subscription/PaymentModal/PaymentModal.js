@@ -12,9 +12,9 @@ import { ModalComponent } from "../../../components/Modal.components";
 import {
   PAYSTACK_KEY,
   PAYSTACK_BASIC,
-  PAYSTACK_BASIC_ONEOFF,
+  PAYSTACK_BASIC_YEARLY,
   PAYSTACK_PROF,
-  PAYSTACK_PROF_ONEOFF,
+  PAYSTACK_PROF_YEARLY,
 } from "../../../utils/config";
 import { calcViewMode, hash } from "../../../utils/utils";
 import { Theme } from "../../../utils/theme";
@@ -43,29 +43,28 @@ export const PaymentModal = (props) => {
     return answer;
   };
 
-  let plan = `${subscriptionPlan ? subscriptionPlan.plan : ""}${
-    autorenew ? "" : "_ONEOFF"
+  let plan = `${subscriptionPlan ? subscriptionPlan.plan : ""}-${
+    subscriptionPlan ? subscriptionPlan.label : ""
   }`;
 
   const getPaystackPlan = (plan) => {
     switch (plan) {
-      case "BASIC":
+      case "BASIC-Monthly":
         return PAYSTACK_BASIC;
-      case "BASIC_ONEOFF":
-        return PAYSTACK_BASIC_ONEOFF;
-      case "PROFESSIONAL":
+      case "BASIC-Annually":
+        return PAYSTACK_BASIC_YEARLY;
+      case "PROFESSIONAL-Monthly":
         return PAYSTACK_PROF;
-      case "PROFESSIONAL_ONEOFF":
-        return PAYSTACK_PROF_ONEOFF;
+      case "PROFESSIONAL-Annually":
+        return PAYSTACK_PROF_YEARLY;
       default:
-        return PAYSTACK_BASIC;
+        return console.log("Unknow plan");
     }
   };
 
   let actualPlan = getPaystackPlan(plan);
 
   const callback = (response) => {
-    console.log({ response });
     // card charged successfully, get reference here
     switch (response.status) {
       case "success":
@@ -129,22 +128,18 @@ export const PaymentModal = (props) => {
           <Text>
             You are subscribing to the{" "}
             <b>
-              {`${subscriptionPlan ? subscriptionPlan?.monthly?.label : " "}`}{" "}
+              {`${subscriptionPlan ? subscriptionPlan?.label : " "}`}{" "}
               {`${subscriptionPlan ? subscriptionPlan.plan : " "}`}
             </b>{" "}
             plan. <br />
             Billing will take place{" "}
-            <b>{`${
-              subscriptionPlan ? subscriptionPlan?.monthly?.label : " "
-            }`}</b>{" "}
-            .{/* if you choose to autorenew. */}
+            <b>{`${subscriptionPlan ? subscriptionPlan?.label : " "}`}</b> .
+            {/* if you choose to autorenew. */}
           </Text>
           <Text fontWeight="normal">
             Your account will be charged{" "}
             <b>{`${
-              subscriptionPlan
-                ? subscriptionPlan?.monthly?.amount_label
-                : "-- --"
+              subscriptionPlan ? subscriptionPlan?.amount_label : "-- --"
             }`}</b>
             , plus applicable taxes for 1 active user[s].
             {/* <br /> We will automatically renew your plan{" "}

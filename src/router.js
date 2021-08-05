@@ -18,6 +18,7 @@ import ResetPassword from "./routes/ResetPassword/index";
 import Features from "./routes/Features/index";
 import Pricing from "./routes/Pricing/index";
 import EmailConfirmation from "./routes/EmailConfirmation/index";
+import SocialLogin from "./routes/Login/SocialLogin/index";
 
 import Dashboard from "./routes/Dashboard/index";
 import Subscription from "./routes/Subscription/index";
@@ -55,6 +56,7 @@ const PrivateRoute = (props) => {
 const openRoutes = [
   "/",
   "/login",
+  "/social",
   "/pricing",
   "/features",
   "/forgotpassword",
@@ -82,6 +84,13 @@ export function RouterConfig({ history, app }) {
             exact
             render={(props) => {
               return <Login {...props} />;
+            }}
+          />
+          <Route
+            path="/social"
+            exact
+            render={(props) => {
+              return <SocialLogin {...props} />;
             }}
           />
           <Route

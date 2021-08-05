@@ -35,9 +35,14 @@ export async function postResendActivation(data) {
   const url = `${endpoint}/signup/resend`;
   return await request({ url, method: "POST", data, formatData: true });
 }
-export async function getLogOut(data) {
+export async function postLogOut(data) {
   const url = `${endpoint}/auth/logout`;
   return await request({ url, method: "POST", data, formatData: true });
+}
+
+export async function getProfile() {
+  const url = `${endpoint}/users/userprofile`;
+  return await request({ url, method: "GET" });
 }
 
 export async function getSubscriptionPlans(data) {

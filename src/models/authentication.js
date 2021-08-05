@@ -9,7 +9,8 @@ import {
   postCompleteRegistration,
   getSubscriptionPlans,
   postVerifyPayment,
-  getLogOut,
+  getProfile,
+  postLogOut,
 } from "../services/authentication";
 import { Alert } from "../components/Alert.components";
 
@@ -38,7 +39,6 @@ export default {
       //Persist token details logic
       try {
         let profile = localStorage.getItem(storageProfile);
-        console.log({ profile });
         if (profile) {
           let profileData = JSON.parse(profile);
           dispatch({
@@ -66,7 +66,7 @@ export default {
           });
         } else {
           // Normal user account
-          const isExpiredSubscribe = data?.subscription?.status;
+          const isExpiredSubscribe = data?.subscription?.expired;
           if (!isExpiredSubscribe) {
             // Subscribed User
             yield put({
@@ -81,6 +81,19 @@ export default {
         }
       } else {
         Alert.error(message);
+      }
+    },
+    *socialLogin({ payload }, { call, put }) {
+      console.log({ payload });
+      const { access_token } = payload;
+      access_token &&
+        (axios.defaults.headers.common.Authorization = `Bearer ${access_token}`);
+      const { success, raw, message } = yield call(getProfile);
+      if (success) {
+        // login user into postLogin Effect
+      } else {
+        Alert.error(message);
+        // yield put(routerRedux.push({ pathname: "/login" }));
       }
     },
 
@@ -196,7 +209,7 @@ export default {
     },
     *logOut({ payload }, { call, put }) {
       const { refresh_token } = payload;
-      call(getLogOut, { refresh_token });
+      call(postLogOut, { refresh_token });
       localStorage.clear();
       yield put(routerRedux.push("/login"));
     },

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Grid } from "../../components/Grid.components";
 import { Boxed } from "../../components/Boxed.components";
@@ -25,6 +25,8 @@ export const Subscription = (props) => {
   // dispatch props recieved
   const { redirect, openModal } = props;
 
+  const [planType, setPlanType] = useState("monthly");
+
   // useEffect(() => {
   //   getAllSubscriptionPlans();
   // }, []);
@@ -49,6 +51,28 @@ export const Subscription = (props) => {
           Choose your subscription plan
         </Text>
         <Text color={Theme.SecondaryTextColor}>Select your plan</Text>
+        <Boxed display="flex">
+          <Boxed
+            bColor={Theme.TertiaryDark}
+            pad="5px"
+            borderRadius={Theme.PrimaryRadius}
+            border={`1px dashed ${Theme.PrimaryColor}`}
+            margin="10px auto"
+          >
+            <Button
+              pale={planType !== "monthly"}
+              onClick={() => setPlanType("monthly")}
+            >
+              Monthly
+            </Button>
+            <Button
+              pale={planType !== "annually"}
+              onClick={() => setPlanType("annually")}
+            >
+              Annually
+            </Button>
+          </Boxed>
+        </Boxed>
       </Boxed>
       <Boxed
         width="100%"
@@ -78,7 +102,8 @@ export const Subscription = (props) => {
                     {SubcriptionPlans?.basic?.plan}
                   </Text>
                   <Text color={Theme.SecondaryTextColor}>
-                    The fundamental plan to get you started and increase your productivity as a legal Practitioner.
+                    The fundamental plan to get you started and increase your
+                    productivity as a legal Practitioner.
                   </Text>
                   <SubscribeList>
                     <li>
@@ -116,16 +141,16 @@ export const Subscription = (props) => {
                     padding="20px 0 5px 0"
                     fontWeight="bold"
                   >
-                    From {SubcriptionPlans?.basic?.monthly?.amount_label}
+                    From {SubcriptionPlans?.basic[planType]?.amount_label}
                   </Text>
                   <Text color={Theme.SecondaryTextColor}>
-                    Pay Monthly or Annually
+                    Pay {SubcriptionPlans?.basic[planType]?.label}
                   </Text>
 
                   <Button
                     margin="20px 0 0 0"
                     block
-                    onClick={() => openModal(SubcriptionPlans.basic)}
+                    onClick={() => openModal(SubcriptionPlans.basic[planType])}
                   >
                     Select
                   </Button>
@@ -153,7 +178,8 @@ export const Subscription = (props) => {
                     {SubcriptionPlans?.professional?.plan}
                   </Text>
                   <Text color={Theme.SecondaryTextColor}>
-                    Get Access to Basic feature and all the new features coming on AAER.
+                    Get Access to Basic feature and all the new features coming
+                    on AAER.
                   </Text>
                   <SubscribeList>
                     <li>
@@ -191,16 +217,19 @@ export const Subscription = (props) => {
                     padding="20px 0 5px 0"
                     fontWeight="bold"
                   >
-                    From {SubcriptionPlans?.professional?.monthly?.amount_label}
+                    From{" "}
+                    {SubcriptionPlans?.professional[planType]?.amount_label}
                   </Text>
                   <Text color={Theme.SecondaryTextColor}>
-                    Pay Monthly or Annually
+                    Pay {SubcriptionPlans?.basic[planType]?.label}
                   </Text>
 
                   <Button
                     margin="20px 0 0 0"
                     block
-                    onClick={() => openModal(SubcriptionPlans.professional)}
+                    onClick={() =>
+                      openModal(SubcriptionPlans.professional[planType])
+                    }
                   >
                     Select
                   </Button>
