@@ -41,7 +41,7 @@ export async function postLogOut(data) {
 }
 
 export async function getProfile() {
-  const url = `${endpoint}/users/userprofile`;
+  const url = `${endpoint}/users/profile`;
   return await request({ url, method: "GET" });
 }
 

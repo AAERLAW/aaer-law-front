@@ -83,6 +83,7 @@ export default {
         Alert.error(message);
       }
     },
+
     *socialLogin({ payload }, { call, put }) {
       console.log({ payload });
       const { access_token } = payload;
@@ -91,6 +92,30 @@ export default {
       const { success, raw, message } = yield call(getProfile);
       if (success) {
         // login user into postLogin Effect
+        let data = raw?.data ? raw?.data : {};
+        data["username"] = `${data.email}`;
+        const isAdmin = data?.roles?.includes("ADMIN");
+        if (isAdmin) {
+          // If account is an admin
+          yield put({
+            type: "authentication/postLogin",
+            payload: { data: data },
+          });
+        } else {
+          // Normal user account
+          const isExpiredSubscribe = data?.subscription?.expired;
+          if (!isExpiredSubscribe) {
+            // Subscribed User
+            yield put({
+              type: "authentication/postLogin",
+              payload: { data: data },
+            });
+          } else {
+            // Non Subscribed User
+            yield put({ type: "save", payload: { subscriptionDetail: data } });
+            yield put(routerRedux.push({ pathname: "/subscription" }));
+          }
+        }
       } else {
         Alert.error(message);
         // yield put(routerRedux.push({ pathname: "/login" }));
@@ -107,6 +132,7 @@ export default {
       // yield put(routerRedux.push("/law-reports"));
       yield put(routerRedux.push({ pathname: "/law-reports" }));
     },
+
     *register({ payload }, { call, put }) {
       const { raw, success, message } = yield call(postRegistration, payload);
       if (success) {
