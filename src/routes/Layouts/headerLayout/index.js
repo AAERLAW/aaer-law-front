@@ -26,7 +26,7 @@ export const mapStateToProps = (state, ownProps) => {
 export const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     redirect(pathname, search) {
-      dispatch(routerRedux.push({ pathname: `${pathname}`, search: search }));
+      dispatch(routerRedux.push({ pathname, search: search }));
     },
     setCollaspe(value) {
       dispatch({ type: "app/save", payload: { collaspe: value } });

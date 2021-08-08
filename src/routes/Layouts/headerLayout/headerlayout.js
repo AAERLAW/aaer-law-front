@@ -1,5 +1,4 @@
-import React from "react";
-import { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { ThemeContext } from "styled-components";
 
 import Container from "react-bootstrap/Container";
@@ -7,17 +6,18 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Dropdown from "react-bootstrap/Dropdown";
 
-import { Label } from "../../../components/Input.components";
+import { Label, Input } from "../../../components/Input.components";
+import { Button } from "../../../components/Button.components";
 import { Text } from "../../../components/Text.components";
 import { Boxed } from "../../../components/Boxed.components";
 import { Avatar } from "../../../components/Avatar.components";
 import { Icon, StyledDrpDown } from "../../../components/style";
 
 import maleImage from "../../../assets/img/male.png";
-import femaleImage from "../../../assets/img/female.png";
 import Logo from "../../../assets/img/logo.png";
 
 import { calcViewMode } from "../../../utils/utils";
+import { Grid } from "../../../components/Grid.components";
 // import { Theme } from "../../../utils/theme";
 
 export const HeaderLayout = (props) => {
@@ -29,11 +29,26 @@ export const HeaderLayout = (props) => {
 
   const Theme = useContext(ThemeContext);
 
+  const [showSearch, setShowSearch] = useState(false);
+  const [search, setSearch] = useState("");
+
   let genderImage = maleImage;
 
   let viewMode = calcViewMode();
 
   let navColor = Theme.SideBarColor;
+
+  const onSubmitSearch = () => {
+    if (search) {
+      setShowSearch(false);
+      redirect(`search`, `?search=${search}`);
+    }
+  };
+
+  const onEnter = (e) => {
+    e.stopPropagation();
+    e.key === "Enter" && onSubmitSearch();
+  };
 
   return (
     <Boxed
@@ -105,6 +120,7 @@ export const HeaderLayout = (props) => {
                     border={`1px solid ${Theme.SecondaryTextColor}`}
                     color={Theme.SecondaryTextColor}
                     borderRadius="50%"
+                    onClick={() => setShowSearch((prev) => !prev)}
                   />
                   <Icon
                     className="icon-moon"
@@ -146,6 +162,35 @@ export const HeaderLayout = (props) => {
             </Boxed>
           </Col>
         </Row>
+        <Boxed display="relative">
+          {showSearch && (
+            <Boxed
+              margin="5px auto"
+              display="absolute"
+              maxWidth="600px"
+              pad="5px"
+              borderRadius={Theme.SecondaryRadius}
+              bColor={Theme.TertiaryDark}
+              boxShadow={`0 0 4px 1px ${Theme.PrimaryTextColor}20`}
+            >
+              <Grid
+                desktop="auto 100px"
+                tablet="auto 100px"
+                mobile="auto 100px"
+              >
+                <Input
+                  type="text"
+                  placeholder="Search cases"
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  onKeyPress={onEnter}
+                  width="100%"
+                />
+                <Button onClick={() => onSubmitSearch()}> Search</Button>
+              </Grid>
+            </Boxed>
+          )}
+        </Boxed>
       </Container>
     </Boxed>
   );

@@ -112,7 +112,7 @@ export const Login = (props) => {
                   >
                     <Boxed align="center">
                       <a
-                        onClick={() => redirect(`${endpoint}/auth/facebook`)}
+                        href={`${endpoint}/auth/facebook`}
                         style={{ cursor: "pointer", textDecoration: "none" }}
                       >
                         <Facebook />

@@ -29,33 +29,8 @@ export const LatestJudgement = (props) => {
   let errors;
 
   return (
-    <Boxed
-      margin="20px"
-      pad="20px 0"
-      border={`1px solid ${Theme.PrimaryBorderColor}`}
-      borderRadius={Theme.TertiaryRadius}
-      bColor={Theme.TertiaryDark}
-    >
-      <StyledTabs>
-        <Tabs
-          id="controlled-tab-example"
-          activeKey={key}
-          onSelect={(k) => setKey(k)}
-        >
-          <Tab eventKey="ALL" title="ALL">
-            <JudgementList title="ALL REPORTS" />
-          </Tab>
-          {/* <Tab eventKey="SUPREME_COURT" title="SUPREME_COURT">
-            <JudgementList title="SUPREME COURT" />
-          </Tab>
-          <Tab eventKey="AAQR" title="AAQR">
-            <JudgementList title="AAQR" />
-          </Tab>
-          <Tab eventKey="DISABLED" title="DISABLED" disabled>
-            <JudgementList title="DISABLED" />
-          </Tab> */}
-        </Tabs>
-      </StyledTabs>
+    <Boxed margin="20px">
+      <JudgementList title="ALL REPORTS" />
     </Boxed>
   );
 };

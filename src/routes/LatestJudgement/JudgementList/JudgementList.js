@@ -1,6 +1,7 @@
 import React, { useEffect, useContext } from "react";
 import { ThemeContext } from "styled-components";
 
+import { Grid } from "../../../components/Grid.components";
 import { Boxed } from "../../../components/Boxed.components";
 import { Button } from "../../../components/Button.components";
 import { Loader } from "../../../components/Loader.components";
@@ -44,38 +45,8 @@ export const JudgementList = (props) => {
     getAllJudgements(data);
   }, []);
 
-  const columns = [
-    {
-      title: "Case Title",
-      dataIndex: "case_title",
-      key: "case_title",
-      render: (text, record) => (
-        <Text onClick={() => onRead(record)} cursor="pointer">
-          {text}
-        </Text>
-      ),
-    },
-    {
-      title: "Citation",
-      dataIndex: "citation",
-      key: "citation",
-    },
-    {
-      title: "Lead Judgment by",
-      dataIndex: "lead_judgement_by",
-      key: "lead_judgement_by",
-    },
-//     {
-//       title: "Date",
-//       dataIndex: "judgement_date",
-//       key: "judgement_date",
-//       align: "right",
-//       render: (text) => text && formatDate(text),
-//     },
-  ];
-
   return (
-    <Boxed pad="10px" bColor={Theme.TertiaryDark}>
+    <Boxed pad="10px">
       <Boxed display="flex">
         <PageTitle>{props.title}</PageTitle>
         <Icon className="icon-refresh-o" margin="0 0 0 auto" />
@@ -125,7 +96,51 @@ export const JudgementList = (props) => {
                       }}
                     />
                   </Boxed>
-                  <TableComponent columns={columns} data={judgementList} />
+
+                  {judgementList &&
+                    judgementList.map((item, index) => (
+                      <Boxed
+                        key={index}
+                        margin="5px 0"
+                        pad="20px"
+                        bColor={Theme.TertiaryDark}
+                        borderRadius={Theme.SecondaryRadius}
+                        boxShadow={Theme.PrimaryShadow}
+                        onClick={() => onRead(item)}
+                        cursor="pointer"
+                      >
+                        <Text fontWeight="bold">{item.case_title}</Text>
+
+                        <Grid
+                          desktop="repeat(2, 1fr)"
+                          tablet="repeat(2, 1fr)"
+                          mobile="repeat(1, 1fr)"
+                          pad="5px 0"
+                        >
+                          <Text
+                            color={Theme.SecondaryTextColor}
+                            fontSize={Theme.SecondaryFontSize}
+                          >
+                            Citation: <b>{item.citation}</b>
+                          </Text>
+                          <Text
+                            color={Theme.SecondaryTextColor}
+                            fontSize={Theme.SecondaryFontSize}
+                          >
+                            SuitNumber: <b>{item.suit_number}</b>
+                          </Text>
+                        </Grid>
+                        <Text
+                          padding="5px 0"
+                          color={Theme.SecondaryTextColor}
+                          fontSize={Theme.SecondaryFontSize}
+                        >
+                          Judged by: <b>{item.lead_judgement_by}</b> on{" "}
+                          <b>{formatDate(item.judgement_date)}</b>
+                        </Text>
+                      </Boxed>
+                    ))}
+
                   <Boxed pad="10px 0 ">
                     <PaginationComponent
                       total={judgementTotal}
