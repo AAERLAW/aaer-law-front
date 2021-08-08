@@ -6,10 +6,7 @@ import { Boxed } from "../../../components/Boxed.components";
 import { Button } from "../../../components/Button.components";
 import { Loader } from "../../../components/Loader.components";
 import { Text } from "../../../components/Text.components";
-import {
-  TableComponent,
-  PaginationComponent,
-} from "../../../components/Table.components";
+import { PaginationComponent } from "../../../components/Table.components";
 import { PageTitle, Icon } from "../../../components/style";
 
 import Wrapper from "../../Common/FilterWrapper/index";

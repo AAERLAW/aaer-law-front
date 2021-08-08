@@ -20,7 +20,7 @@ export const ForgotPassword = (props) => {
     validateFields((error, value) => {
       if (!error) {
         const data = {
-          username: value.username.trim(),
+          email: value.username.trim(),
         };
         forgotPassword(data);
       }

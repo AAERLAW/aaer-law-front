@@ -3,6 +3,7 @@ import axios from "axios";
 import {
   postLogin,
   postForgotPassword,
+  postResetPassword,
   postEmailConfirmation,
   postResendActivation,
   postRegistration,
@@ -31,7 +32,7 @@ const initialState = {
 export default {
   namespace: "authentication",
 
-  state: {},
+  state: { ...initialState },
 
   subscriptions: {
     setup({ dispatch, history }) {
@@ -146,7 +147,19 @@ export default {
     *forgotPassword({ payload }, { call, put }) {
       const { raw, success, message } = yield call(postForgotPassword, payload);
       if (success) {
-        console.log(raw);
+        Alert.success(
+          "Password reset initiated successfully. An email has been sent to your mail"
+        );
+        yield put(routerRedux.push({ pathname: "/login" }));
+      } else {
+        Alert.error(message);
+      }
+    },
+    *resetPassword({ payload }, { call, put }) {
+      const { raw, success, message } = yield call(postResetPassword, payload);
+      if (success) {
+        Alert.success("Password reset successfully. Please proceed to login");
+        yield put(routerRedux.push({ pathname: "/login" }));
       } else {
         Alert.error(message);
       }

@@ -12,7 +12,12 @@ export async function postLogin(data) {
 }
 
 export async function postForgotPassword(data) {
-  const url = `${endpoint}/auth/forgotpassword`;
+  const url = `${endpoint}/password-reset/initiate`;
+  return await request({ url, method: "POST", data, formatData: true });
+}
+
+export async function postResetPassword(data) {
+  const url = `${endpoint}/password-reset/complete`;
   return await request({ url, method: "POST", data, formatData: true });
 }
 
