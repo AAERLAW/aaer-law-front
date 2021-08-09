@@ -51,7 +51,7 @@ export const ResetPassword = (props) => {
       if (!error) {
         const data = {
           token,
-          password: value.password,
+          new_password: value.password,
           confirm_password: value.confirmPassword,
         };
         resetPassword(data);
