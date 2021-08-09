@@ -124,7 +124,7 @@ export const JudgementList = (props) => {
                             color={Theme.SecondaryTextColor}
                             fontSize={Theme.SecondaryFontSize}
                           >
-                            SuitNumber: <b>{item.suit_number}</b>
+                            Appeal No.: <b>{item.suit_number}</b>
                           </Text>
                         </Grid>
                         <Text
@@ -132,7 +132,7 @@ export const JudgementList = (props) => {
                           color={Theme.SecondaryTextColor}
                           fontSize={Theme.SecondaryFontSize}
                         >
-                          Judged by: <b>{item.lead_judgement_by}</b> on{" "}
+                          Lead Judgement: <b>{item.lead_judgement_by}</b> on{" "}
                           <b>{formatDate(item.judgement_date)}</b>
                         </Text>
                       </Boxed>
