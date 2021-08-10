@@ -149,21 +149,6 @@ export const JudgementList = (props) => {
                           <b>{formatDate(item.judgement_date)}</b>
                         </Text>
                         </Grid>
-                        <Text
-                          padding="5px 0"
-                          color={Theme.SecondaryTextColor}
-                          fontSize={Theme.SecondaryFontSize}
-                        >
-                          Lead Judgement: <b>{item.lead_judgement_by}</b>
-                        </Text>
-                        <Text
-                          padding="5px 0"
-                          color={Theme.SecondaryTextColor}
-                          fontSize={Theme.SecondaryFontSize}
-                        >
-                          Date of Judgement:
-                          <b>{formatDate(item.judgement_date)}</b>
-                        </Text>
                       </Boxed>
                     ))}
 
