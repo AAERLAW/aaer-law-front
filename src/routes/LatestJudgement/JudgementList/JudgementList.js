@@ -127,6 +127,28 @@ export const JudgementList = (props) => {
                             Appeal No.: <b>{item.suit_number}</b>
                           </Text>
                         </Grid>
+                        <Grid
+                          desktop="repeat(2, 1fr)"
+                          tablet="repeat(2, 1fr)"
+                          mobile="repeat(1, 1fr)"
+                          pad="5px 0"
+                        >
+                          <Text
+                          padding="5px 0"
+                          color={Theme.SecondaryTextColor}
+                          fontSize={Theme.SecondaryFontSize}
+                        >
+                          Lead Judgement: <b>{item.lead_judgement_by}</b>
+                        </Text>
+                          <Text
+                          padding="5px 0"
+                          color={Theme.SecondaryTextColor}
+                          fontSize={Theme.SecondaryFontSize}
+                        >
+                          Date of Judgement:
+                          <b>{formatDate(item.judgement_date)}</b>
+                        </Text>
+                        </Grid>
                         <Text
                           padding="5px 0"
                           color={Theme.SecondaryTextColor}
