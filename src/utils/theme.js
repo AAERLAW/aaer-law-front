@@ -70,7 +70,7 @@ export const Theme2 = {
 
   PrimaryDark: "#242424",
   SecondaryDark: "#2b2b2b",
-  TertiaryDark: "#000000",
+  TertiaryDark: "#1f1f1f",
   QuaternaryDark: QuaternaryDark,
 
   PrimaryBorderColor: "#d9d9d9",
