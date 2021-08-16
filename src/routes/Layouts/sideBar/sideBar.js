@@ -133,7 +133,7 @@ export const SideBar = (props) => {
       <Boxed display="flex">
         <img
           src={LOGO}
-          height={collaspe ? "50px" : "80px"}
+          height={collaspe ? "35px" : "50px"}
           style={{ margin: "auto", cursor: "pointer", padding: "5px" }}
           alt="app-logo"
           onClick={() => toggleSidebar(!collaspe)}
