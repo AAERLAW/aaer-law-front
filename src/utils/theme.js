@@ -48,7 +48,7 @@ export const Theme = {
 };
 
 export const Theme2 = {
-  PrimaryColor: "#9d52ff",
+  PrimaryColor: PrimaryColor,
   SecondaryColor: SecondaryColor,
 
   PrimaryFontSize: "14px",
