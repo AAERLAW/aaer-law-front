@@ -97,6 +97,7 @@ const SideList = styled.div`
 
     .active {
       color: ${(props) => props.theme.PrimaryColor};
+      background-color: ${(props) => props.theme.PrimaryDark};
     }
   }
 `;
