@@ -6,85 +6,85 @@ let SecondaryColor = "#C2B75E";
 let QuaternaryDark = "#222126";
 
 export const Theme = {
-  PrimaryColor: PrimaryColor,
-  SecondaryColor: SecondaryColor,
+    PrimaryColor: PrimaryColor,
+    SecondaryColor: SecondaryColor,
 
-  PrimaryFontSize: "14px",
-  SecondaryFontSize: "12px",
+    PrimaryFontSize: "14px",
+    SecondaryFontSize: "12px",
 
-  PrimaryFontFamily: "Montserrat",
-  SecondaryFontFamily: "CircularStd",
+    PrimaryFontFamily: "Gilroy",
+    SecondaryFontFamily: "CircularStd",
 
-  PrimaryFontColor: "#939393",
-  PrimaryLineHeight: "1.6rem",
+    PrimaryFontColor: "#939393",
+    PrimaryLineHeight: "1.6rem",
 
-  PrimaryRadius: "5px",
-  SecondaryRadius: "10px",
-  TertiaryRadius: "25px",
+    PrimaryRadius: "5px",
+    SecondaryRadius: "10px",
+    TertiaryRadius: "25px",
 
-  PrimaryTransition: "0.3s ease-out",
+    PrimaryTransition: "0.3s ease-out",
 
-  SideBarColor: "#ffffff",
+    SideBarColor: "#ffffff",
 
-  PrimaryDark: "#f2f2f2",
-  SecondaryDark: "#eaeaea",
-  TertiaryDark: "#FFFFFF",
-  QuaternaryDark: QuaternaryDark,
+    PrimaryDark: "#f2f2f2",
+    SecondaryDark: "#d2d2d2",
+    TertiaryDark: "#FFFFFF",
+    QuaternaryDark: QuaternaryDark,
 
-  PrimaryBorderColor: "#d9d9d9",
-  SecondaryBorderColor: "#707070",
+    PrimaryBorderColor: "#d9d9d9",
+    SecondaryBorderColor: "#707070",
 
-  PrimaryGreen: "#28a745",
-  PrimaryRed: "#FD0541",
-  PrimaryYellow: "#ffc107",
-  PrimaryBlue: "#2a78d0",
-  PrimaryGrey: "#979797",
+    PrimaryGreen: "#28a745",
+    PrimaryRed: "#FD0541",
+    PrimaryYellow: "#ffc107",
+    PrimaryBlue: "#2a78d0",
+    PrimaryGrey: "#979797",
 
-  PrimaryTextColor: "#000000",
-  SecondaryTextColor: "#858d8a",
-  TertiaryTextColor: PrimaryColor,
+    PrimaryTextColor: "#000000",
+    SecondaryTextColor: "#858d8a",
+    TertiaryTextColor: PrimaryColor,
 
-  PrimaryShadow: "0 21px 16px #00000010",
+    PrimaryShadow: "0 21px 16px #00000010",
 };
 
 export const Theme2 = {
-  PrimaryColor: PrimaryColor,
-  SecondaryColor: SecondaryColor,
+    PrimaryColor: "#9d52ff",
+    SecondaryColor: SecondaryColor,
 
-  PrimaryFontSize: "14px",
-  SecondaryFontSize: "12px",
+    PrimaryFontSize: "14px",
+    SecondaryFontSize: "12px",
 
-  PrimaryFontFamily: "Montserrat",
-  SecondaryFontFamily: "CircularStd",
+    PrimaryFontFamily: "Gilroy",
+    SecondaryFontFamily: "CircularStd",
 
-  PrimaryFontColor: "#ffffff",
-  PrimaryLineHeight: "1.6rem",
+    PrimaryFontColor: "#ffffff",
+    PrimaryLineHeight: "1.6rem",
 
-  PrimaryRadius: "5px",
-  SecondaryRadius: "10px",
-  TertiaryRadius: "25px",
+    PrimaryRadius: "5px",
+    SecondaryRadius: "10px",
+    TertiaryRadius: "25px",
 
-  PrimaryTransition: "0.3s ease-out",
+    PrimaryTransition: "0.3s ease-out",
 
-  SideBarColor: "#181818",
+    SideBarColor: "#000000",
 
-  PrimaryDark: "#242424",
-  SecondaryDark: "#2b2b2b",
-  TertiaryDark: "#1f1f1f",
-  QuaternaryDark: QuaternaryDark,
+    PrimaryDark: "#242424",
+    SecondaryDark: "#4d4d4d",
+    TertiaryDark: "#000000",
+    QuaternaryDark: QuaternaryDark,
 
-  PrimaryBorderColor: "#d9d9d9",
-  SecondaryBorderColor: "#707070",
+    PrimaryBorderColor: "#d9d9d9",
+    SecondaryBorderColor: "#707070",
 
-  PrimaryGreen: "#28a745",
-  PrimaryRed: "#FD0541",
-  PrimaryYellow: "#ffc107",
-  PrimaryBlue: "#2a78d0",
-  PrimaryGrey: "#979797",
+    PrimaryGreen: "#28a745",
+    PrimaryRed: "#FD0541",
+    PrimaryYellow: "#ffc107",
+    PrimaryBlue: "#2a78d0",
+    PrimaryGrey: "#979797",
 
-  PrimaryTextColor: "#ffffff",
-  SecondaryTextColor: "#858d8a",
-  TertiaryTextColor: PrimaryColor,
+    PrimaryTextColor: "#ffffff",
+    SecondaryTextColor: "#858d8a",
+    TertiaryTextColor: PrimaryColor,
 
-  PrimaryShadow: "0 21px 16px #ffffff10",
+    PrimaryShadow: "0 21px 16px #ffffff10",
 };
