@@ -123,14 +123,14 @@ export const Pricing = (props) => {
 
                   <Text margin="auto 0 0 0" padding="10px 0" fontWeight="bold">
                     <Icon className="icon-circle" /> Pay{" "}
-                    {SubcriptionPlans.basic.mothly.amount_label}{" "}
-                    {SubcriptionPlans.basic.mothly.label}
+                    {/* {SubcriptionPlans.basic.mothly.amount_label}{" "}
+                    {SubcriptionPlans.basic.mothly.label} */}
                   </Text>
 
                   <Text margin="auto 0 0 0" padding="10px 0" fontWeight="bold">
                     <Icon className="icon-circle" /> Pay{" "}
-                    {SubcriptionPlans.basic.annually.amount_label}{" "}
-                    {SubcriptionPlans.basic.annually.label}
+                    {/* {SubcriptionPlans.basic.annually.amount_label}{" "}
+                    {SubcriptionPlans.basic.annually.label} */}
                   </Text>
                   {/* <Text color={Theme.SecondaryTextColor}>
                     Pay Monthly or Anually
@@ -202,14 +202,14 @@ export const Pricing = (props) => {
 
                   <Text margin="auto 0 0 0" padding="10px 0" fontWeight="bold">
                     <Icon className="icon-circle" /> Pay{" "}
-                    {SubcriptionPlans.professional.mothly.amount_label}{" "}
-                    {SubcriptionPlans.professional.mothly.label}
+                    {/* {SubcriptionPlans.professional.mothly.amount_label}{" "}
+                    {SubcriptionPlans.professional.mothly.label} */}
                   </Text>
 
                   <Text margin="auto 0 0 0" padding="10px 0" fontWeight="bold">
                     <Icon className="icon-circle" /> Pay{" "}
-                    {SubcriptionPlans.professional.annually.amount_label}{" "}
-                    {SubcriptionPlans.professional.annually.label}
+                    {/* {SubcriptionPlans.professional.annually.amount_label}{" "}
+                    {SubcriptionPlans.professional.annually.label} */}
                   </Text>
                   {/* <Text color={Theme.SecondaryTextColor}>
                     Pay Monthly or Anually
