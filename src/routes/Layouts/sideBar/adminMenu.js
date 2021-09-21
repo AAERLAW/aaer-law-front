@@ -2,7 +2,7 @@ const artistMenu = [
   {
     title: " ",
     list: [
-      // { icon: "icon-grid", label: "Dashboard", pathname: "/dashboard" },
+      { icon: "icon-grid", label: "Dashboard", pathname: "/dashboard" },
       // {
       //   icon: "icon-book",
       //   label: "Latest Judgement",
