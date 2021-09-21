@@ -2,7 +2,7 @@ const usersMenu = [
   {
     title: " ",
     list: [
-      // { icon: "icon-grid", label: "Dashboard", pathname: "/dashboard" },
+      { icon: "icon-grid", label: "Dashboard", pathname: "/dashboard" },
       {
         icon: "icon-clipboard",
         label: "Law Reports",
