@@ -59,7 +59,7 @@ const SideList = styled.div`
     & li {
       font-size: 12px;
       padding: ${(props) => (props.collaspe ? "0.5rem" : "0.5rem 0.5rem")};
-      color: ${(props) => props.theme.PrimaryTextColor};
+      color: ${(props) => props.theme.SecondaryTextColor};
       cursor: pointer;
       display: flex;
       overflow: hidden;
