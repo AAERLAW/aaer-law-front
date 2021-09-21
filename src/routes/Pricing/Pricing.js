@@ -60,7 +60,7 @@ export const Pricing = (props) => {
                   pad="40px 20px 0px 40px"
                   margin="10px 20px"
                   bColor="#eb4149"
-                  background={`linear-gradient(to bottom right, ${Theme.PrimaryColor}, ${Theme.PrimaryDark}80)`}
+//                   background={`linear-gradient(to bottom right, ${Theme.PrimaryColor}, ${Theme.PrimaryDark}80)`}
                   maxWidth="350px"
                   boxShadow="0 6px 20px rgba(56, 125, 255, 0.2)"
                   borderRadius="25px"
