@@ -86,5 +86,5 @@ export const Theme2 = {
     SecondaryTextColor: "#858d8a",
     TertiaryTextColor: PrimaryColor,
 
-    PrimaryShadow: "0 21px 16px #ffffff10",
+    PrimaryShadow: "0 21px 16px #0000008",
 };
