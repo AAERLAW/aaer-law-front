@@ -48,7 +48,7 @@ export const Theme = {
 };
 
 export const Theme2 = {
-    PrimaryColor: "#9d52ff",
+    PrimaryColor: "#df1e28",
     SecondaryColor: SecondaryColor,
 
     PrimaryFontSize: "14px",
@@ -66,11 +66,11 @@ export const Theme2 = {
 
     PrimaryTransition: "0.3s ease-out",
 
-    SideBarColor: "#000000",
+    SideBarColor: "#191919",
 
     PrimaryDark: "#242424",
     SecondaryDark: "#4d4d4d",
-    TertiaryDark: "#000000",
+    TertiaryDark: "#191919",
     QuaternaryDark: QuaternaryDark,
 
     PrimaryBorderColor: "#d9d9d9",
