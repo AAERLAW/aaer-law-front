@@ -84,7 +84,7 @@ export const Dashboard = (props) => {
             margin="0.25rem"
             pad="20px"
             borderRadius={Theme.SecondaryRadius}
-            background={`linear-gradient(to bottom right, ${Theme.PrimaryDark}, ${Theme.PrimaryBlue}40)`}
+            background={`linear-gradient(to bottom right, ${Theme.PrimaryDark}, ${Theme.PrimaryYellow}40)`}
             boxShadow={Theme.PrimaryShadow}
           >
             <Text fontWeight="bold" display="flex">
