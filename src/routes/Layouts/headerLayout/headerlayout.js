@@ -137,7 +137,7 @@ export const HeaderLayout = (props) => {
                       <Dropdown.Toggle variant id="dropdown-basic">
                         <Label fontSize="13px" lineHeight="33px" pad="0">
                           <Avatar src={genderImage} size="35px" />{" "}
-                          {profile?.username}
+                          /* {profile?.username} */}
                           <i
                             className="icon icon-angle-down"
                             fontSize="16px"
