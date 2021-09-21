@@ -9,6 +9,7 @@ import { Button } from "../../components/Button.components";
 import { PageTitle, Icon } from "../../components/style";
 
 import { calcViewMode, formatDate } from "../../utils/utils";
+import { Thumb } from "../../assets/svg/thumb.js";
 
 import LOGO from "../../assets/img/logo.png";
 // import { Theme } from "../../utils/theme";
@@ -27,8 +28,8 @@ export const Dashboard = (props) => {
 
   return (
     <Boxed pad="20px" display="flex">
-      <Boxed maxWidth="1080px" margin="0 auto" width="100%">
-        <PageTitle>Welcome back,</PageTitle>
+      <Boxed margin="0 auto" pad="5% 0 0 0" width="100%">
+        <PageTitle fontSize="18px">Welcome back  <Thumb />,  </PageTitle>
         <Text fontSize="24px">{profile?.username}</Text>
         <Grid
           desktop="repeat(3, 1fr)"
@@ -55,7 +56,7 @@ export const Dashboard = (props) => {
             <Text fontWeight="bold" padding="15px 0 5px 0" fontSize="24px">
               5k+
             </Text>
-            <Text fontWeight="bold">15 New Update</Text>
+            <Text fontWeight="light">15 New Update</Text>
           </Boxed>
 
           <Boxed
@@ -77,7 +78,7 @@ export const Dashboard = (props) => {
             <Text fontWeight="bold" padding="15px 0 5px 0" fontSize="24px">
               1.2k+
             </Text>
-            <Text fontWeight="bold">12 New Update</Text>
+            <Text fontWeight="light">12 New Update</Text>
           </Boxed>
 
           <Boxed
@@ -98,8 +99,8 @@ export const Dashboard = (props) => {
         </Grid>
         <Grid
           desktop="repeat(3, 1fr)"
-          tablet="repeat(3, 1fr)"
-          mobile="repeat(2, 1fr)"
+          tablet="repeat(2, 1fr)"
+          mobile="repeat(1, 1fr)"
         >
           <Boxed
             background={Theme.TertiaryDark}
