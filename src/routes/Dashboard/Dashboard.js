@@ -28,14 +28,16 @@ export const Dashboard = (props) => {
 
   return (
     <Boxed pad="20px" display="flex">
-      <Boxed margin="0 auto" pad="5% 0 0 0" width="100%">
-        <PageTitle fontSize="18px">Welcome back  <Thumb />,  </PageTitle>
-        <Text fontSize="24px">{profile?.username}</Text>
+      <Boxed margin="0 auto" pad="3% 0 0 0" width="100%">
+        <Boxed margin="0 0 0 40px">
+          <PageTitle fontSize="24px" color={Theme.PrimaryTextColor}>Welcome back  <Thumb />,  </PageTitle>
+          <Text fontSize="24px">{profile?.username}</Text>
+        </Boxed>
         <Grid
           desktop="repeat(3, 1fr)"
           tablet="repeat(3, 1fr)"
           mobile="repeat(1, 1fr)"
-          pad="20px 0"
+          pad="20px 0 0 0"
         >
           <Boxed
             margin="0.25rem"
@@ -56,7 +58,7 @@ export const Dashboard = (props) => {
             <Text fontWeight="bold" padding="15px 0 5px 0" fontSize="24px">
               5k+
             </Text>
-            <Text fontWeight="light">15 New Update</Text>
+            <Text fontWeight="light">15 New Updates</Text>
           </Boxed>
 
           <Boxed
@@ -78,7 +80,7 @@ export const Dashboard = (props) => {
             <Text fontWeight="bold" padding="15px 0 5px 0" fontSize="24px">
               1.2k+
             </Text>
-            <Text fontWeight="light">12 New Update</Text>
+            <Text fontWeight="light">12 New Updates</Text>
           </Boxed>
 
           <Boxed
@@ -92,15 +94,17 @@ export const Dashboard = (props) => {
               YOU ARE CURRENTLY USING THE BASIC PLAN
             </Text>
 
-            <Text padding="25px 0 0 0" fontWeight="bold">
-              335 Days to go
+            <Text padding="25px 0 0 0" fontWeight="bold" fontSize="24px">
+              335 
             </Text>
+            <Text fontWeight="light">Days to go</Text>
           </Boxed>
         </Grid>
         <Grid
           desktop="repeat(3, 1fr)"
           tablet="repeat(2, 1fr)"
           mobile="repeat(1, 1fr)"
+          pad="20px 0 0 0"
         >
           <Boxed
             background={Theme.TertiaryDark}
