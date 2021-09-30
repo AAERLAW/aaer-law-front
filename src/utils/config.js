@@ -1,5 +1,5 @@
 let BASE_URL = `https://www.aaerlawapp.com`;
-let SERVER = `:8180/api`;
+let SERVER = `/api`;
 
 // PAYSTACK DETAILS DEMO
 // let PAYSTACK_KEY = `pk_test_e54eee45276d2070cae3c28ba2e9ec0c255c347a`;

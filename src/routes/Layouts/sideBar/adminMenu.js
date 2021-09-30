@@ -48,6 +48,11 @@ const artistMenu = [
         label: "Reader",
         pathname: "/reader",
       },
+      {
+        icon: "icon-users",
+        label: "User Management",
+        pathname: "/users-management",
+      },
     ],
   },
 ];

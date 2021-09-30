@@ -33,6 +33,7 @@ import CourtFormsItem from "./routes/CourtFormsItem/index";
 import Form from "./routes/Form/index";
 import Search from "./routes/Search/index";
 import Reader from "./routes/Reader/index.js";
+import UsersManagement from "./routes/UserManagement/index";
 
 const { ConnectedRouter } = routerRedux;
 
@@ -145,7 +146,7 @@ export function RouterConfig({ history, app }) {
           />
           {/* #########   E N D :    O P E N      U R L S   #########*/}
           {/* #########   S T A R T :   G U A R D E D      U R L S   #########*/}
-          <PrivateRoute
+          <Route
             path="/dashboard"
             exact
             render={(props) => {
@@ -204,6 +205,15 @@ export function RouterConfig({ history, app }) {
             path="/court-management"
             exact
             render={(props) => <CourtManagement />}
+          />
+
+          <Route
+            path="/users-management"
+            exact
+            render={(props) => {
+              registerModel(app, require("./models/users").default);
+              return <UsersManagement />;
+            }}
           />
 
           <PrivateRoute path="/search" exact render={(props) => <Search />} />

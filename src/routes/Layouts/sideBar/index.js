@@ -13,7 +13,7 @@ const mapStateToProps = (state, ownProps) => {
 
   let dataList = usersMenu;
   const isAdmin = profile?.roles?.includes("ADMIN");
-  console.log({ isAdmin });
+
   if (isAdmin) {
     dataList = adminMenu;
   }

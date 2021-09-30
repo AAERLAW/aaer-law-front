@@ -242,3 +242,15 @@ export const getBase64 = (file) => {
     reader.onerror = (error) => reject(error);
   });
 };
+
+function round(value, precision) {
+  var multiplier = Math.pow(10, precision || 0);
+  return Math.round(value * multiplier) / multiplier;
+}
+
+export const formatCount = (value) => {
+  if (1000 > value) return `${value}`;
+  if (1000000 > value) return `${round(value / 1000, 1)}k`;
+  if (1000000000 > value) return `${round(value / 1000000, 1)}M`;
+  return value;
+};

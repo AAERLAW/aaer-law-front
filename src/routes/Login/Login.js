@@ -97,7 +97,7 @@ export const Login = (props) => {
 
                 <Button
                   disabled={isLoading}
-                  progess={isLoading}
+                  progress={isLoading}
                   block
                   onClick={onLogin}
                 >

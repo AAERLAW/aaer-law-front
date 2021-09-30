@@ -2,15 +2,25 @@ import { connect } from "dva";
 import { UserManagement } from "./UserManagement";
 import { routerRedux } from "dva/router";
 
+const fetchActionURL = "users/getAllUsers";
+
 export const mapStateToProps = (state, ownProps) => {
-  const { loading } = state;
-  return {};
+  const { loading, users } = state;
+  const { usersTotal, usersList, createUsersModal } = users;
+  const isLoading = loading.effects[fetchActionURL];
+  return { usersTotal, usersList, isLoading, createUsersModal, fetchActionURL };
 };
 
 export const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     redirect(pathname) {
       dispatch(routerRedux.push({ pathname: `${pathname}` }));
+    },
+    getAllUsers(data) {
+      dispatch({ type: fetchActionURL, payload: data });
+    },
+    openCreateModal() {
+      dispatch({ type: "users/save", payload: { createUsersModal: true } });
     },
   };
 };

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { ThemeContext } from "styled-components";
 
 import { Input } from "../../components/Input.components";
@@ -8,19 +8,34 @@ import { Text } from "../../components/Text.components";
 import { Button } from "../../components/Button.components";
 import { PageTitle, Icon } from "../../components/style";
 
-import { calcViewMode, formatDate } from "../../utils/utils";
+import { calcViewMode, formatDate, formatCount } from "../../utils/utils";
 
 import LOGO from "../../assets/img/logo.png";
 // import { Theme } from "../../utils/theme";
 
 export const Dashboard = (props) => {
   // state props recieved
-  const { profile } = props;
+  const {
+    profile,
+    judgementList,
+    judgementTotal,
+    regulationItemsList,
+    regulationItemsTotal,
+    formList,
+    formTotal,
+    loadingReports,
+    loadingRegulationItems,
+    loadingForms,
+  } = props;
 
   // dispatch props received
-  const { redirect } = props;
+  const { redirect, getDashboardStats } = props;
 
   const Theme = useContext(ThemeContext);
+
+  useEffect(() => {
+    getDashboardStats({ page: 1, size: 10 });
+  }, []);
 
   let viewMode = calcViewMode();
   let errors;
@@ -53,7 +68,7 @@ export const Dashboard = (props) => {
               />
             </Text>
             <Text fontWeight="bold" padding="15px 0 5px 0" fontSize="24px">
-              5k+
+              {formatCount(judgementTotal || 0)}+
             </Text>
             <Text fontWeight="bold">15 New Update</Text>
           </Boxed>
@@ -75,7 +90,7 @@ export const Dashboard = (props) => {
               />
             </Text>
             <Text fontWeight="bold" padding="15px 0 5px 0" fontSize="24px">
-              1.2k+
+              {formatCount(regulationItemsTotal || 0)}+
             </Text>
             <Text fontWeight="bold">12 New Update</Text>
           </Boxed>
@@ -108,22 +123,33 @@ export const Dashboard = (props) => {
             margin="0.2rem"
           >
             <Text fontWeight="bold" padding="15px 10px">
-              LATEST BLOG POST
+              Latest Judgement
             </Text>
 
-            <Grid desktop="auto 40px" tablet="auto 40px" mobile="auto 40px">
-              <Boxed pad="10px ">
-                <Text color={Theme.SecondaryTextColor}>
-                  Alpha - File Hosting Service
-                </Text>
-                <Text color={Theme.SecondaryTextColor}>
-                  {formatDate("24/08/2020")}
-                </Text>
-              </Boxed>
-              <Boxed display="flex">
-                <Icon margin="auto" className="icon icon-file-text" />
-              </Boxed>
-            </Grid>
+            {judgementList.length > 0 &&
+              judgementList.map((item, index) => (
+                <Grid
+                  key={index}
+                  desktop="auto 40px"
+                  tablet="auto 40px"
+                  mobile="auto 40px"
+                >
+                  <Boxed pad="10px ">
+                    <Text color={Theme.SecondaryTextColor} fontWeight>
+                      {item.case_title}
+                    </Text>
+                    <Text
+                      color={Theme.SecondaryTextColor}
+                      fontSize={Theme.SecondaryFontSize}
+                    >
+                      {formatDate(item.judgement_date)}
+                    </Text>
+                  </Boxed>
+                  <Boxed display="flex">
+                    <Icon margin="auto" className="icon icon-file-text" />
+                  </Boxed>
+                </Grid>
+              ))}
 
             <Grid
               desktop="auto 40px"
