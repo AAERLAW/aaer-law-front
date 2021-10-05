@@ -5,10 +5,19 @@ import { routerRedux } from "dva/router";
 const fetchActionURL = "users/getAllUsers";
 
 export const mapStateToProps = (state, ownProps) => {
-  const { loading, users } = state;
+  const { loading, users, authentication } = state;
   const { usersTotal, usersList, createUsersModal } = users;
   const isLoading = loading.effects[fetchActionURL];
-  return { usersTotal, usersList, isLoading, createUsersModal, fetchActionURL };
+  const { profile } = authentication;
+  const isAdmin = profile?.roles?.includes("ADMIN");
+  return {
+    usersTotal,
+    usersList,
+    isLoading,
+    createUsersModal,
+    fetchActionURL,
+    isAdmin,
+  };
 };
 
 export const mapDispatchToProps = (dispatch, ownProps) => {

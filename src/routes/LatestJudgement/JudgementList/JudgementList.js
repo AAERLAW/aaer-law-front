@@ -7,9 +7,10 @@ import { Button } from "../../../components/Button.components";
 import { Loader } from "../../../components/Loader.components";
 import { Text } from "../../../components/Text.components";
 import { PaginationComponent } from "../../../components/Table.components";
-import { PageTitle, Icon } from "../../../components/style";
+import { PageTitle, Icon, StyledDrpDown } from "../../../components/style";
 
 import Wrapper from "../../Common/FilterWrapper/index";
+import Dropdown from "react-bootstrap/Dropdown";
 
 import { calcViewMode, formatDate } from "../../../utils/utils";
 import { pageOptions } from "../../../utils/constant";
@@ -27,8 +28,14 @@ export const JudgementList = (props) => {
     isAdmin,
   } = props;
   // dispatch props received
-  const { fetchActionURL, getAllJudgements, openCreateJudgementModal, onRead } =
-    props;
+  const {
+    fetchActionURL,
+    getAllJudgements,
+    openCreateJudgementModal,
+    openEditJudgement,
+    onRead,
+    deleteJudgement,
+  } = props;
 
   const Theme = useContext(ThemeContext);
   let viewMode = calcViewMode();
@@ -41,6 +48,13 @@ export const JudgementList = (props) => {
     };
     getAllJudgements(data);
   }, []);
+
+  const onDelete = (item) => {
+    const confirmation = window.confirm(
+      `You are about to delete "${item.case_title}".`
+    );
+    confirmation && deleteJudgement(item);
+  };
 
   return (
     <Boxed pad="10px">
@@ -103,10 +117,44 @@ export const JudgementList = (props) => {
                         bColor={Theme.TertiaryDark}
                         borderRadius={Theme.SecondaryRadius}
                         boxShadow={Theme.PrimaryShadow}
-                        onClick={() => onRead(item)}
-                        cursor="pointer"
                       >
-                        <Text fontWeight="bold">{item.case_title}</Text>
+                        <Grid
+                          desktop="auto 30px"
+                          tablet="auto 30px"
+                          mobile="auto 30px"
+                        >
+                          <Text
+                            fontWeight="bold"
+                            onClick={() => onRead(item)}
+                            cursor="pointer"
+                          >
+                            {item.case_title}
+                          </Text>
+                          {isAdmin && (
+                            <Boxed>
+                              <StyledDrpDown style={{ margin: "auto 0" }}>
+                                <Dropdown>
+                                  <Dropdown.Toggle variant id="dropdown-basic">
+                                    <Icon className="icon icon-more-vertical" />
+                                  </Dropdown.Toggle>
+
+                                  <Dropdown.Menu>
+                                    <Dropdown.Item
+                                      onClick={() => openEditJudgement(item)}
+                                    >
+                                      Edit
+                                    </Dropdown.Item>
+                                    <Dropdown.Item
+                                      onClick={() => onDelete(item)}
+                                    >
+                                      Delete
+                                    </Dropdown.Item>
+                                  </Dropdown.Menu>
+                                </Dropdown>
+                              </StyledDrpDown>
+                            </Boxed>
+                          )}
+                        </Grid>
 
                         <Grid
                           desktop="repeat(2, 1fr)"
@@ -124,17 +172,31 @@ export const JudgementList = (props) => {
                             color={Theme.SecondaryTextColor}
                             fontSize={Theme.SecondaryFontSize}
                           >
-                            SuitNumber: <b>{item.suit_number}</b>
+                            Appeal No.: <b>{item.suit_number}</b>
                           </Text>
                         </Grid>
-                        <Text
-                          padding="5px 0"
-                          color={Theme.SecondaryTextColor}
-                          fontSize={Theme.SecondaryFontSize}
+                        <Grid
+                          desktop="repeat(2, 1fr)"
+                          tablet="repeat(2, 1fr)"
+                          mobile="repeat(1, 1fr)"
+                          pad="5px 0"
                         >
-                          Judged by: <b>{item.lead_judgement_by}</b> on{" "}
-                          <b>{formatDate(item.judgement_date)}</b>
-                        </Text>
+                          <Text
+                            padding="5px 0"
+                            color={Theme.SecondaryTextColor}
+                            fontSize={Theme.SecondaryFontSize}
+                          >
+                            Lead Judgement: <b>{item.lead_judgement_by}</b>
+                          </Text>
+                          <Text
+                            padding="5px 0"
+                            color={Theme.SecondaryTextColor}
+                            fontSize={Theme.SecondaryFontSize}
+                          >
+                            Date of Judgement:
+                            <b>{formatDate(item.judgement_date)}</b>
+                          </Text>
+                        </Grid>
                       </Boxed>
                     ))}
 

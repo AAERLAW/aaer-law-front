@@ -5,10 +5,15 @@ export const HeaderNav = styled.ul`
   list-style: none;
   display: flex;
   margin: 0 auto;
+  position: sticky;
+  background: #ffffff;
+  height: 60px;
+  z-index: 999;
+  justify-content: center;
 
   > li {
     font-size: 18px;
-    font-weight: 600;
+    font-weight: normal;
     color: ${Theme.PrimaryTextColor};
     margin: auto 25px;
     cursor: pointer;
@@ -49,6 +54,42 @@ export const SubscribeList = styled.ul`
   padding-left: 0;
   margin: 10px 0;
   li {
-    font-weight: light;
+    font-weight: normal;
+  }
+  
+`;
+
+export const MobileIcon = styled.div`
+  display: none;
+
+  @media screen and (max-width: 550px) {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(-15%, 50%);
+    font-size: 1.8rem;
+    cursor: pointer;
   }
 `;
+
+export const NavMenu = styled.ul`
+  display: flex;
+  align-items: center;
+  list-style: none;
+  text-align: center;
+
+  @media screen and (max-width: 550px) {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 90vh;
+    position: absolute;
+    top: 80px;
+    left: ${({ click }) => (click ? 0 : '-100%')};
+    opacity: 1;
+    transition: all 0.5s ease;
+    background: #ffffff;
+  }
+`;
+

@@ -131,8 +131,12 @@ export const UserManagement = (props) => {
   ];
 
   useEffect(() => {
-    let data = { size: 10, page: 1 };
-    getAllUsers(data);
+    if (isAdmin) {
+      let data = { size: 10, page: 1 };
+      getAllUsers(data);
+    } else {
+      redirect("/dashboard");
+    }
   }, []);
 
   return (

@@ -34,6 +34,12 @@ export const mapDispatchToProps = (dispatch, ownProps) => {
     readLaw(data) {
       dispatch({ type: "law/readLaw", payload: data });
     },
+    deleteLaw(data) {
+      dispatch({
+        type: "law/deleteLaw",
+        payload: data,
+      });
+    },
   };
 };
 

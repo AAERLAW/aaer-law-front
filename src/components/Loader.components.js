@@ -96,84 +96,54 @@ const SpinnerLoader = styled.div`
     `};
 
   .spinner {
-    -moz-animation: rotate 10s infinite linear;
-    -webkit-animation: rotate 10s infinite linear;
-    animation: rotate 10s infinite linear;
-    position: relative;
-    display: block;
-    margin: auto;
-    width: 72px;
-    height: 72px;
+    height: 100%;
+  width: 100%;
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
   }
   .spinner i {
-    -moz-animation: rotate 3s infinite cubic-bezier(0.09, 0.6, 0.8, 0.03);
-    -webkit-animation: rotate 3s infinite cubic-bezier(0.09, 0.6, 0.8, 0.03);
-    animation: rotate 3s infinite cubic-bezier(0.09, 0.6, 0.8, 0.03);
-    -moz-transform-origin: 50% 100% 0;
-    -webkit-transform-origin: 50% 100% 0;
-    transform-origin: 50% 100% 0;
-    position: absolute;
-    display: inline-block;
-    top: 50%;
-    left: 50%;
-    border: solid 6px transparent;
-    border-bottom: none;
+    width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: ${Theme.PrimaryColor};
+  animation: move 500ms linear 0ms infinite;
+  margin-right: 30px;
   }
   .spinner i:nth-child(1) {
-    -moz-animation-timing-function: cubic-bezier(0.09, 0.3, 0.12, 0.03);
-    -webkit-animation-timing-function: cubic-bezier(0.09, 0.3, 0.12, 0.03);
-    animation-timing-function: cubic-bezier(0.09, 0.3, 0.12, 0.03);
-    width: 44px;
-    height: 22px;
-    margin-top: -22px;
-    margin-left: -22px;
-    border-color: #ed3237;
-    border-top-left-radius: 36px;
-    border-top-right-radius: 36px;
+    position: absolute;
+  top: 0;
+  left: 0;
+  animation: grow 500ms linear 0ms infinite;
   }
   .spinner i:nth-child(2) {
-    -moz-animation-timing-function: cubic-bezier(0.09, 0.6, 0.24, 0.03);
-    -webkit-animation-timing-function: cubic-bezier(0.09, 0.6, 0.24, 0.03);
-    animation-timing-function: cubic-bezier(0.09, 0.6, 0.24, 0.03);
-    width: 58px;
-    height: 29px;
-    margin-top: -29px;
-    margin-left: -29px;
-    border-color: #ed3236;
-    border-top-left-radius: 42px;
-    border-top-right-radius: 42px;
+    
   }
-  .spinner i:nth-child(3) {
-    -moz-animation-timing-function: cubic-bezier(0.09, 0.9, 0.36, 0.03);
-    -webkit-animation-timing-function: cubic-bezier(0.09, 0.9, 0.36, 0.03);
-    animation-timing-function: cubic-bezier(0.09, 0.9, 0.36, 0.03);
-    width: 72px;
-    height: 36px;
-    margin-top: -36px;
-    margin-left: -36px;
-    border-color: #ed3235;
-    border-top-left-radius: 48px;
-    border-top-right-radius: 48px;
+  .spinner i:nth-child(4) {
+    position: absolute;
+  top: 0;
+  right: 0;
+  margin-right: 0;
+  animation: grow 500ms linear 0s infinite reverse;
   }
 
-  @-moz-keyframes rotate {
+  @keyframes grow {
+    from {
+      transform: scale(0, 0);
+      opacity: 0;
+    }
     to {
-      -moz-transform: rotate(360deg);
-      transform: rotate(360deg);
+      transform: scale(1, 1);
+      opacity: 1;
     }
   }
-  @-webkit-keyframes rotate {
-    to {
-      -webkit-transform: rotate(360deg);
-      transform: rotate(360deg);
+  @keyframes move {
+    from {
+      transform: translateX(0px);
     }
-  }
-  @keyframes rotate {
     to {
-      -moz-transform: rotate(360deg);
-      -ms-transform: rotate(360deg);
-      -webkit-transform: rotate(360deg);
-      transform: rotate(360deg);
+      transform: translateX(45px);
     }
   }
 `;
@@ -183,6 +153,7 @@ export const Loader = (props) => {
   return (
     <SpinnerLoader margin={margin}>
       <div className="spinner">
+        <i></i>
         <i></i>
         <i></i>
         <i></i>

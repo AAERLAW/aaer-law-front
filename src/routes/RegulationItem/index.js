@@ -37,6 +37,9 @@ export const mapDispatchToProps = (dispatch, ownProps) => {
     openReader(data) {
       dispatch({ type: "mda/onRead", payload: data });
     },
+    deleteRegulationItem(data) {
+      dispatch({ type: "mda/deleteRegulationItem", payload: data });
+    },
   };
 };
 

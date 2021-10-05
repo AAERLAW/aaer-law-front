@@ -18,11 +18,30 @@ export async function getSingleReport(data) {
 }
 
 export async function postReports(data) {
-  const url = `${endpoint}/reports?`;
+  const url = `${endpoint}/reports`;
   return await request({
     url,
     method: "POST",
     data,
     formatData: true,
+  });
+}
+
+export async function putReports(data) {
+  const url = `${endpoint}/reports`;
+  return await request({
+    url,
+    method: "PUT",
+    data,
+    formatData: true,
+  });
+}
+
+export async function deleteReport(data) {
+  const url = `${endpoint}/reports/${data.id}`;
+  return await request({
+    url,
+    method: "DELETE",
+    formatData: false,
   });
 }

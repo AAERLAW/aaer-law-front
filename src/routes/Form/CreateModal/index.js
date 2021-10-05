@@ -19,7 +19,7 @@ export const mapDispatchToProps = (dispatch, ownProps) => {
       dispatch(routerRedux.push({ pathname: `${pathname}` }));
     },
     createForm(data) {
-      dispatch({ type: "court/createForm", payload: data });
+      dispatch({ type: "court/createForms", payload: data });
     },
     closeModal() {
       dispatch({ type: "court/save", payload: { createFormModal: false } });

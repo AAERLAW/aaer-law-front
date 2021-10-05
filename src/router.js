@@ -19,6 +19,7 @@ import Features from "./routes/Features/index";
 import Pricing from "./routes/Pricing/index";
 import EmailConfirmation from "./routes/EmailConfirmation/index";
 import SocialLogin from "./routes/Login/SocialLogin/index";
+import Privacy from "./routes/Privacy/index";
 
 import Dashboard from "./routes/Dashboard/index";
 import Subscription from "./routes/Subscription/index";
@@ -65,6 +66,7 @@ const openRoutes = [
   "/subscription",
   "/registration",
   "/activation",
+  "/privacy",
 ];
 
 export function RouterConfig({ history, app }) {
@@ -207,7 +209,7 @@ export function RouterConfig({ history, app }) {
             render={(props) => <CourtManagement />}
           />
 
-          <Route
+          <PrivateRoute
             path="/users-management"
             exact
             render={(props) => {
@@ -220,6 +222,8 @@ export function RouterConfig({ history, app }) {
 
           <PrivateRoute path="/reader" exact render={(props) => <Reader />} />
           {/* #########   E N D :    G U A R D E D      U R L S   #########*/}
+          <Route path="/privacy" exact render={(props) => <Privacy />} />
+
           <Route
             render={(props) => {
               return <Redirect to={{ pathname: "/login" }} />;

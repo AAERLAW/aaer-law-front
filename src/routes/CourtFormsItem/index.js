@@ -6,7 +6,7 @@ import qs from "query-string";
 export const mapStateToProps = (state, ownProps) => {
   let params = qs.parse(window.location.search);
   const { loading, court, authentication } = state;
-  const { courtFormsItemList, courtFormsItemTotal, createCourtItemModal } =
+  const { courtFormsItemList, courtFormsItemTotal, createCourtFormItemModal } =
     court;
   const { profile } = authentication;
   const isAdmin = profile?.roles?.includes("ADMIN");
@@ -14,7 +14,7 @@ export const mapStateToProps = (state, ownProps) => {
   return {
     courtFormsItemList,
     courtFormsItemTotal,
-    createCourtItemModal,
+    createCourtFormItemModal,
     params,
     isLoading,
     isAdmin,
@@ -32,7 +32,10 @@ export const mapDispatchToProps = (dispatch, ownProps) => {
       dispatch({ type: fetchActionURL, payload: data });
     },
     openCreateModal() {
-      dispatch({ type: "court/save", payload: { createCourtItemModal: true } });
+      dispatch({
+        type: "court/save",
+        payload: { createCourtFormItemModal: true },
+      });
     },
   };
 };

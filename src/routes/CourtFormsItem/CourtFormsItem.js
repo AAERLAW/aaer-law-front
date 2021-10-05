@@ -23,7 +23,7 @@ export const CourtFormsItem = (props) => {
     courtFormsItemList,
     courtFormsItemTotal,
     params,
-    createCourtItemModal,
+    createCourtFormItemModal,
     fetchActionURL,
     isLoading,
     isAdmin,
@@ -144,7 +144,7 @@ export const CourtFormsItem = (props) => {
           );
         }}
       />
-      {createCourtItemModal ? (
+      {createCourtFormItemModal ? (
         <CreateModal
           court_form_id={params.court_form_id}
           court_form_name={params.name}

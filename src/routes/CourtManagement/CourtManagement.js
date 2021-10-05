@@ -51,8 +51,12 @@ export const CourtManagement = (props) => {
   let errors;
 
   useEffect(() => {
-    let data = { size: 10, page: 1 };
-    getAllCourts(data);
+    if (isAdmin) {
+      let data = { size: 10, page: 1 };
+      getAllCourts(data);
+    } else {
+      redirect("/dashboard");
+    }
   }, []);
 
   return (

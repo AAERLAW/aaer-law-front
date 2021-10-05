@@ -147,6 +147,7 @@ export default {
         const oldList = yield select(({ court }) => court.courtFormsItemList);
         const newList = [data, ...oldList];
         Alert.success("Successfully created court form item.");
+
         yield put({
           type: "save",
           payload: {

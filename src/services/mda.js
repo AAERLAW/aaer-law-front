@@ -19,6 +19,13 @@ export async function postCreateRegulation(data) {
     formatData: true,
   });
 }
+export async function deleteRegulation(data) {
+  const url = `${endpoint}/regulations/${data.id}`;
+  return await request({
+    url,
+    method: "DELETE",
+  });
+}
 
 export async function getRegulationItems(data) {
   const url = `${endpoint}/regulationitems/paginated?`;
@@ -43,5 +50,13 @@ export async function postCreateRegulationItem(data) {
     method: "POST",
     data,
     formatData: true,
+  });
+}
+
+export async function deleteRegulationItem(data) {
+  const url = `${endpoint}/regulationitems/${data.id}`;
+  return await request({
+    url,
+    method: "DELETE",
   });
 }

@@ -30,12 +30,28 @@ export const mapDispatchToProps = (dispatch, ownProps) => {
     openCreateJudgementModal() {
       dispatch({
         type: "judgement/save",
-        payload: { createJudgementModal: true },
+        payload: { createJudgementModal: true, editData: {}, editMode: false },
+      });
+    },
+    openEditJudgement(data) {
+      dispatch({
+        type: "judgement/save",
+        payload: {
+          createJudgementModal: true,
+          editData: data,
+          editMode: true,
+        },
       });
     },
     onRead(data) {
       dispatch({
         type: "judgement/onRead",
+        payload: data,
+      });
+    },
+    deleteJudgement(data) {
+      dispatch({
+        type: "judgement/deleteJudgements",
         payload: data,
       });
     },

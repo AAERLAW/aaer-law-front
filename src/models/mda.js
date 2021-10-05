@@ -5,8 +5,10 @@ import {
   getRegulations,
   postCreateRegulation,
   getRegulationItems,
+  deleteRegulation,
   getSingleRegulationItem,
   postCreateRegulationItem,
+  deleteRegulationItem,
 } from "../services/mda";
 
 const initialState = {
@@ -75,6 +77,26 @@ export default {
         Alert.error(message);
       }
     },
+    *deleteRegulation({ payload }, { call, put, select }) {
+      const { raw, success, message } = yield call(deleteRegulation, payload);
+      if (success) {
+        const oldList = yield select(({ mda }) => mda.regulationList);
+        let newList = [...oldList];
+        const existIndex = newList.findIndex((item) => item.id === payload.id);
+        if (existIndex > -1) {
+          newList.splice(existIndex, 1);
+          yield put({
+            type: "save",
+            payload: {
+              regulationList: newList,
+            },
+          });
+        }
+        Alert.success("Successfully deleted a Regulation.");
+      } else {
+        Alert.error(message);
+      }
+    },
     *createRegulationItem({ payload }, { call, put, select }) {
       const { raw, success, message } = yield call(
         postCreateRegulationItem,
@@ -89,6 +111,29 @@ export default {
           type: "save",
           payload: { createRegItemModal: false, regulationItemsList: newList },
         });
+      } else {
+        Alert.error(message);
+      }
+    },
+    *deleteRegulationItem({ payload }, { call, put, select }) {
+      const { raw, success, message } = yield call(
+        deleteRegulationItem,
+        payload
+      );
+      if (success) {
+        const oldList = yield select(({ mda }) => mda.regulationItemsList);
+        let newList = [...oldList];
+        const existIndex = newList.findIndex((item) => item.id === payload.id);
+        if (existIndex > -1) {
+          newList.splice(existIndex, 1);
+          yield put({
+            type: "save",
+            payload: {
+              regulationItemsList: newList,
+            },
+          });
+        }
+        Alert.success("Successfully deleted a Regulation Item.");
       } else {
         Alert.error(message);
       }

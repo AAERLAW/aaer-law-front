@@ -3,16 +3,16 @@ import { Dashboard } from "./Dashboard";
 import { routerRedux } from "dva/router";
 
 const reportEffectURL = "judgement/getAllJudgements";
-const regulationItemsEffectURL = "mda/getAllRegulationItems";
+const regulationItemsEffectURL = "mda/getAllRegulations";
 const formsEffectURL = "court/getAllForms";
 
 const mapStateToProps = (state, ownProps) => {
   const { loading, authentication, judgement, mda, court } = state;
   const { judgementList, judgementTotal } = judgement;
-  const { regulationItemsList, regulationItemsTotal } = mda;
+  const { regulationList, regulationTotal } = mda;
   const { formList, formTotal } = court;
   const { profile } = authentication;
-
+  const isAdmin = profile?.roles?.includes("ADMIN");
   const loadingReports = loading.effects[reportEffectURL];
   const loadingRegulationItems = loading.effects[regulationItemsEffectURL];
   const loadingForms = loading.effects[formsEffectURL];
@@ -21,13 +21,14 @@ const mapStateToProps = (state, ownProps) => {
     profile,
     judgementList,
     judgementTotal,
-    regulationItemsList,
-    regulationItemsTotal,
+    regulationList,
+    regulationTotal,
     formList,
     formTotal,
     loadingReports,
     loadingRegulationItems,
     loadingForms,
+    isAdmin,
   };
 };
 

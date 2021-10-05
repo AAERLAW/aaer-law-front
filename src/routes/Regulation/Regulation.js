@@ -1,10 +1,14 @@
 import React, { useEffect, useContext } from "react";
 import { ThemeContext } from "styled-components";
 
+import Dropdown from "react-bootstrap/Dropdown";
+
 import { Button } from "../../components/Button.components";
 import { Boxed } from "../../components/Boxed.components";
 import { Text } from "../../components/Text.components";
 import { PaginationComponent } from "../../components/Table.components";
+import { Loader } from "../../components/Loader.components";
+import { PageTitle, StyledDrpDown, Icon } from "../../components/style";
 
 import Wrapper from "../Common/FilterWrapper/index";
 
@@ -13,7 +17,6 @@ import { pageOptions } from "../../utils/constant";
 // import { Theme } from "../../utils/theme";
 
 import CreateModal from "./CreateModal/index";
-import { Loader } from "../../components/Loader.components";
 
 export const MDAs = (props) => {
   // State props received
@@ -27,7 +30,7 @@ export const MDAs = (props) => {
   } = props;
 
   //dispatch props receieved
-  const { redirect, getRegulations, openCreateModal } = props;
+  const { redirect, getRegulations, openCreateModal, deleteRegulation } = props;
 
   const Theme = useContext(ThemeContext);
 
@@ -42,8 +45,16 @@ export const MDAs = (props) => {
     getRegulations(data);
   }, []);
 
+  const onDelete = (item) => {
+    const confirmation = window.confirm(
+      `You are about to delete "${item.name}".`
+    );
+    confirmation && deleteRegulation(item);
+  };
+
   return (
     <Boxed pad="20px">
+      <PageTitle>Regulation of M.D.A.'s</PageTitle>
       <Boxed pad="10px 0" display="flex">
         {isAdmin && (
           <Button margin="0 0 0 auto" onClick={() => openCreateModal()}>
@@ -103,14 +114,41 @@ export const MDAs = (props) => {
                               bColor={Theme.TertiaryDark}
                               hoverBColor={`${Theme.PrimaryColor}20`}
                               borderRadius="15px"
-                              onClick={() =>
-                                redirect(
-                                  "/regulation/items",
-                                  `?regulation_id=${item.id}&name=${item.name}`
-                                )
-                              }
                             >
-                              {item.name}
+                              <span
+                                onClick={() =>
+                                  redirect(
+                                    "/regulation/items",
+                                    `?regulation_id=${item.id}&name=${item.name}`
+                                  )
+                                }
+                              >
+                                {item.name}
+                              </span>
+                              {isAdmin && (
+                                <Boxed display="inline-block">
+                                  <StyledDrpDown
+                                    style={{ margin: "auto 0 auto 10px" }}
+                                  >
+                                    <Dropdown>
+                                      <Dropdown.Toggle
+                                        variant
+                                        id="dropdown-basic"
+                                      >
+                                        <Icon className="icon icon-more-vertical" />
+                                      </Dropdown.Toggle>
+
+                                      <Dropdown.Menu>
+                                        <Dropdown.Item
+                                          onClick={() => onDelete(item)}
+                                        >
+                                          Delete
+                                        </Dropdown.Item>
+                                      </Dropdown.Menu>
+                                    </Dropdown>
+                                  </StyledDrpDown>
+                                </Boxed>
+                              )}
                             </Text>
                           );
                         })

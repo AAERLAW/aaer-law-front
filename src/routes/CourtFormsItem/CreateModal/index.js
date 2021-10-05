@@ -5,11 +5,11 @@ import { routerRedux } from "dva/router";
 
 export const mapStateToProps = (state, ownProps) => {
   const { loading, court, auxillary } = state;
-  const { createCourtItemModal } = court;
+  const { createCourtFormItemModal } = court;
   const { stateList } = auxillary;
   const isLoading = loading.effects["court/createCourtFormsItem"];
   return {
-    createCourtItemModal,
+    createCourtFormItemModal,
     stateList,
     isLoading,
   };
@@ -29,7 +29,7 @@ export const mapDispatchToProps = (dispatch, ownProps) => {
     closeModal() {
       dispatch({
         type: "court/save",
-        payload: { createCourtItemModal: false },
+        payload: { createCourtFormItemModal: false },
       });
     },
   };

@@ -27,3 +27,11 @@ export async function getSingleLaw(data) {
     method: "GET",
   });
 }
+
+export async function deleteLaw(data) {
+  const url = `${endpoint}/laws/${data.id}`;
+  return await request({
+    url,
+    method: "DELETE",
+  });
+}

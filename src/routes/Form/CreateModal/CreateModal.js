@@ -65,7 +65,7 @@ export const CreateModal = (props) => {
       if (!error) {
         if (file.base64) {
           const data = {
-            name: value.name.trim(),
+            title: value.title.trim(),
             file: file.base64,
             extension: "pdf",
             court_form_item_id: court_form_item_id,
@@ -105,12 +105,14 @@ export const CreateModal = (props) => {
         <Boxed pad="10px 0">
           <Input
             type="text"
-            label="Form Name"
-            placeholder="Enter Form name..."
+            label="Form Title"
+            placeholder="Enter Form title..."
             error={
-              (errors = getFieldError("name")) ? "Form name is required" : null
+              (errors = getFieldError("title"))
+                ? "Form title is required"
+                : null
             }
-            {...getFieldProps("name", {
+            {...getFieldProps("title", {
               initialValue: "",
               rules: [{ required: true }],
             })}

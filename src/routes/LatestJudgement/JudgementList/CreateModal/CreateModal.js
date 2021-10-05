@@ -7,6 +7,7 @@ import {
   Input,
   AsyncSelect,
   Textarea,
+  Checkbox,
 } from "../../../../components/Input.components";
 import { Grid } from "../../../../components/Grid.components";
 import { Boxed } from "../../../../components/Boxed.components";
@@ -22,15 +23,24 @@ import { PageTitle } from "../../../../components/style";
 
 export const CreateJudgement = (props) => {
   // State props
-  const { createJudgementModal, isLoading, courts, isCourtsLoading } = props;
+  const {
+    createJudgementModal,
+    isLoading,
+    courts,
+    isCourtsLoading,
+    editMode,
+    editData,
+  } = props;
 
   // Dispatch props
-  const { form, createJudgement, closeModal, getAllCourts } = props;
+  const { form, createJudgement, editJudgement, closeModal, getAllCourts } =
+    props;
   const { getFieldProps, getFieldError, validateFields } = form;
 
   const Theme = useContext(ThemeContext);
 
   const [file, setFile] = useState({});
+  const [changeFile, setChangeFile] = useState(false);
 
   useEffect(() => {
     let data = {
@@ -75,6 +85,7 @@ export const CreateJudgement = (props) => {
     validateFields((error, value) => {
       if (!error) {
         if (file.base64) {
+          console.log(value);
           const data = {
             case_title: value.case_title.trim(),
             suit_number: value.suit_number.trim(),
@@ -94,23 +105,51 @@ export const CreateJudgement = (props) => {
     });
   };
 
+  const onEdit = () => {
+    validateFields((error, value) => {
+      if (!error) {
+        let data = {
+          id: editData.id,
+          case_title: value.case_title.trim(),
+          suit_number: value.suit_number.trim(),
+          citation: value.citation.trim(),
+          lead_judgement_by: value.lead_judgement_by.trim(),
+          summary: value.summary.trim(),
+          judgement_date: moment(value.judgement_date).format("DD-MM-YYYY"),
+        };
+        if (changeFile && file.base64) {
+          data["file"] = file.base64;
+          data["extension"] = "pdf";
+        }
+        console.log(data);
+        editJudgement(data);
+      }
+    });
+  };
+
   const modiCourts =
     courts && courts.map((item) => ({ value: item.id, label: item.name }));
   let errors;
+
+  console.log(changeFile);
 
   return (
     <>
       <ModalComponent
         show={createJudgementModal}
         onHide={closeModal}
-        title={<PageTitle>Create Report</PageTitle>}
+        title={<PageTitle>{editMode ? "Edit" : "Create"} Report</PageTitle>}
         footer={
           <>
             <Button pale onClick={closeModal}>
               Cancel
             </Button>
-            <Button diabled={isLoading} progess={isLoading} onClick={onSubmit}>
-              Create Report
+            <Button
+              diabled={isLoading}
+              progress={isLoading}
+              onClick={editMode ? onEdit : onSubmit}
+            >
+              {`${editMode ? "Edit" : "Create"} Report`}
             </Button>
           </>
         }
@@ -126,7 +165,7 @@ export const CreateJudgement = (props) => {
                 : null
             }
             {...getFieldProps("case_title", {
-              initialValue: "",
+              initialValue: editMode ? editData?.case_title : "",
               rules: [{ required: true }],
             })}
           />
@@ -142,7 +181,7 @@ export const CreateJudgement = (props) => {
                 : null
             }
             {...getFieldProps("lead_judgement_by", {
-              initialValue: "",
+              initialValue: editMode ? editData?.lead_judgement_by : "",
               rules: [{ required: true }],
             })}
           />
@@ -163,7 +202,7 @@ export const CreateJudgement = (props) => {
                   : null
               }
               {...getFieldProps("suit_number", {
-                initialValue: "",
+                initialValue: editMode ? editData?.suit_number : "",
                 rules: [{ required: true }],
               })}
             />
@@ -179,7 +218,7 @@ export const CreateJudgement = (props) => {
                   : null
               }
               {...getFieldProps("citation", {
-                initialValue: "",
+                initialValue: editMode ? editData?.citation : "",
                 rules: [{ required: true }],
               })}
             />
@@ -195,27 +234,34 @@ export const CreateJudgement = (props) => {
                   : null
               }
               {...getFieldProps("judgement_date", {
-                initialValue: "",
+                initialValue: editMode ? editData?.judgement_date : "",
                 rules: [{ required: true }],
               })}
             />
           </Boxed>
           <Boxed pad="10px 0 ">
-            <AsyncSelect
-              label="Court"
-              placeholder="Enter Court..."
-              options={modiCourts}
-              isloading={isCourtsLoading}
-              error={
-                (errors = getFieldError("court_id"))
-                  ? "Court is required"
-                  : null
-              }
-              {...getFieldProps("court_id", {
-                initialValue: "",
-                rules: [{ required: true }],
-              })}
-            />
+            {!editMode && (
+              <AsyncSelect
+                label="Court"
+                placeholder="Enter Court..."
+                options={modiCourts}
+                isloading={isCourtsLoading}
+                error={
+                  (errors = getFieldError("court_id"))
+                    ? "Court is required"
+                    : null
+                }
+                {...getFieldProps("court_id", {
+                  initialValue: editMode
+                    ? {
+                        value: editData?.court?.id,
+                        label: editData?.court?.name,
+                      }
+                    : "",
+                  rules: [{ required: true }],
+                })}
+              />
+            )}
           </Boxed>
         </Grid>
         <Boxed pad="10px 0">
@@ -228,54 +274,65 @@ export const CreateJudgement = (props) => {
               (errors = getFieldError("summary")) ? "Summary is required" : null
             }
             {...getFieldProps("summary", {
-              initialValue: "",
+              initialValue: editMode ? editData?.summary : "",
               rules: [{ required: true }],
             })}
           />
         </Boxed>
-        <Boxed pad="10px 0">
-          <Text fontWeight="bold" fontSize={Theme.SecondaryFontSize}>
-            Case File
-          </Text>
-          {file.base64 ? (
-            <Boxed display="flex">
-              <Icon
-                className="icon-file-text"
-                fontSize="25px"
-                margin="auto 5px auto 0"
-                color={Theme.PrimaryTextColor}
-              />{" "}
-              <Text margin="auto 5px"> {file.name}</Text>{" "}
-              <Button xs pale margin="auto 0" onClick={() => setFile({})}>
-                Remove
-              </Button>
-            </Boxed>
-          ) : (
-            <Upload
-              type="drap"
-              multiple={false}
-              beforeUpload={(pdf) => beforeUpload(pdf)}
-              onChange={() => {}}
-            >
-              <Boxed
-                height="150px"
-                width="100%"
-                border={`1px dashed ${Theme.SecondaryTextColor}`}
-                bColor={`${Theme.SecondaryDark}50`}
-                display="flex"
-              >
-                <Boxed margin="auto" align="center">
-                  <Icon
-                    className="icon-upload-cloud"
-                    fontSize="35px"
-                    color={Theme.PrimaryTextColor}
-                  />
-                  <Text>Click or drag pdf file here to upload. </Text>
-                </Boxed>
+        {editMode && (
+          <Boxed pad="10px 0 5px 0">
+            <Checkbox
+              checked={changeFile}
+              label="Change Upload file"
+              onClick={() => setChangeFile((prev) => !prev)}
+            />
+          </Boxed>
+        )}
+        {(!editMode || changeFile) && (
+          <Boxed pad="5px 0 10px 0">
+            <Text fontWeight="bold" fontSize={Theme.SecondaryFontSize}>
+              Case File
+            </Text>
+            {file.base64 ? (
+              <Boxed display="flex">
+                <Icon
+                  className="icon-file-text"
+                  fontSize="25px"
+                  margin="auto 5px auto 0"
+                  color={Theme.PrimaryTextColor}
+                />{" "}
+                <Text margin="auto 5px"> {file.name}</Text>{" "}
+                <Button xs pale margin="auto 0" onClick={() => setFile({})}>
+                  Remove
+                </Button>
               </Boxed>
-            </Upload>
-          )}
-        </Boxed>
+            ) : (
+              <Upload
+                type="drap"
+                multiple={false}
+                beforeUpload={(pdf) => beforeUpload(pdf)}
+                onChange={() => {}}
+              >
+                <Boxed
+                  height="150px"
+                  width="100%"
+                  border={`1px dashed ${Theme.SecondaryTextColor}`}
+                  bColor={`${Theme.SecondaryDark}50`}
+                  display="flex"
+                >
+                  <Boxed margin="auto" align="center">
+                    <Icon
+                      className="icon-upload-cloud"
+                      fontSize="35px"
+                      color={Theme.PrimaryTextColor}
+                    />
+                    <Text>Click or drag pdf file here to upload. </Text>
+                  </Boxed>
+                </Boxed>
+              </Upload>
+            )}
+          </Boxed>
+        )}
       </ModalComponent>
     </>
   );

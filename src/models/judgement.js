@@ -5,12 +5,16 @@ import {
   getReports,
   postReports,
   getSingleReport,
+  putReports,
+  deleteReport,
 } from "../services/judgement";
 
 const initialState = {
   judgementList: [],
   judgementTotal: 0,
   createJudgementModal: false,
+  editMode: false,
+  editData: {},
 };
 export default {
   namespace: "judgement",
@@ -45,11 +49,64 @@ export default {
           ({ judgement }) => judgement.judgementList
         );
         const newList = [data, ...oldList];
-        Alert.success("Successfully created case.");
+        Alert.success("Successfully created a report.");
         yield put({
           type: "save",
           payload: { createJudgementModal: false, judgementList: newList },
         });
+      } else {
+        Alert.error(message);
+      }
+    },
+    *editJudgement({ payload }, { call, put, select }) {
+      const { raw, success, message } = yield call(putReports, payload);
+      if (success) {
+        let newPayload = {
+          createJudgementModal: false,
+        };
+        console.log(raw);
+        const data = raw?.data;
+        console.log(raw);
+        const oldList = yield select(
+          ({ judgement }) => judgement.judgementList
+        );
+        let newList = [...oldList];
+
+        const existIndex = newList.findIndex((item) => item.id === data.id);
+        console.log("existIndex", existIndex);
+        if (existIndex > -1) {
+          newList = newList.splice(existIndex, 1, data);
+          newPayload["judgementList"] = newList;
+        }
+
+        Alert.success("Successfully edited a report.");
+        yield put({
+          type: "save",
+          payload: newPayload,
+        });
+      } else {
+        Alert.error(message);
+      }
+    },
+    *deleteJudgements({ payload }, { call, put, select }) {
+      const { raw, success, message } = yield call(deleteReport, payload);
+      if (success) {
+        const oldList = yield select(
+          ({ judgement }) => judgement.judgementList
+        );
+        let newList = [...oldList];
+        const existIndex = newList.findIndex((item) => item.id === payload.id);
+        if (existIndex > -1) {
+          newList.splice(existIndex, 1);
+          yield put({
+            type: "save",
+            payload: {
+              judgementList: newList,
+            },
+          });
+        }
+
+        Alert.success("Successfully delete a report.");
       } else {
         Alert.error(message);
       }

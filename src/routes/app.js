@@ -29,7 +29,6 @@ const App = (props) => {
 
   let pageLoader = false;
   readURL.forEach((item) => {
-    console.log(`item: ${item}, effect: ${loading.effects[item]}`);
     loading.effects[item] && (pageLoader = true);
   });
 

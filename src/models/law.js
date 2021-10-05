@@ -1,7 +1,12 @@
 import { routerRedux } from "dva/router";
 import { Alert } from "../components/Alert.components";
 
-import { getLaws, postCreateLaw, getSingleLaw } from "../services/law";
+import {
+  getLaws,
+  postCreateLaw,
+  getSingleLaw,
+  deleteLaw,
+} from "../services/law";
 
 export default {
   namespace: "law",
@@ -44,6 +49,27 @@ export default {
           type: "save",
           payload: { createLawModal: false, lawsList: newList },
         });
+      } else {
+        Alert.error(message);
+      }
+    },
+    *deleteLaw({ payload }, { call, put, select }) {
+      const { raw, success, message } = yield call(deleteLaw, payload);
+      if (success) {
+        const oldList = yield select(({ law }) => law.lawsList);
+        let newList = [...oldList];
+        const existIndex = newList.findIndex((item) => item.id === payload.id);
+        if (existIndex > -1) {
+          newList.splice(existIndex, 1);
+          yield put({
+            type: "save",
+            payload: {
+              lawsList: newList,
+            },
+          });
+        }
+
+        Alert.success("Successfully delete a law.");
       } else {
         Alert.error(message);
       }

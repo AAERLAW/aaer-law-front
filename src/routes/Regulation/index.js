@@ -30,6 +30,9 @@ export const mapDispatchToProps = (dispatch, ownProps) => {
     openCreateModal() {
       dispatch({ type: "mda/save", payload: { createModal: true } });
     },
+    deleteRegulation(data) {
+      dispatch({ type: "mda/deleteRegulation", payload: data });
+    },
   };
 };
 

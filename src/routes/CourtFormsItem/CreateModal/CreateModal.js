@@ -12,8 +12,12 @@ import { PageTitle, Icon } from "../../../components/style";
 
 export const CreateModal = (props) => {
   // State props
-  const { createCourtItemModal, isLoading, court_form_name, court_form_id } =
-    props;
+  const {
+    createCourtFormItemModal,
+    isLoading,
+    court_form_name,
+    court_form_id,
+  } = props;
 
   // Dispatch props
   const { form, createCourtFormsItem, closeModal } = props;
@@ -24,7 +28,7 @@ export const CreateModal = (props) => {
     validateFields((error, value) => {
       if (!error) {
         const data = {
-          name: value.name.trim(),
+          title: value.title.trim(),
           year: value.year,
           court_form_id: court_form_id,
         };
@@ -37,7 +41,7 @@ export const CreateModal = (props) => {
   return (
     <>
       <ModalComponent
-        show={createCourtItemModal}
+        show={createCourtFormItemModal}
         onHide={closeModal}
         title={<PageTitle>Create Court Form Item</PageTitle>}
         footer={
@@ -64,9 +68,9 @@ export const CreateModal = (props) => {
             label="Item Name"
             placeholder="Enter Item name..."
             error={
-              (errors = getFieldError("name")) ? "Item name is required" : null
+              (errors = getFieldError("title")) ? "Item name is required" : null
             }
-            {...getFieldProps("name", {
+            {...getFieldProps("title", {
               initialValue: "",
               rules: [{ required: true }],
             })}

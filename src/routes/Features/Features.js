@@ -7,7 +7,8 @@ import { Button } from "../../components/Button.components";
 
 import { calcViewMode } from "../../utils/utils";
 
-import HOME_2 from "../../assets/img/home-2.png";
+import Text_Speech from "../../assets/img/text-to-speech.jpg";
+import Text_Editor from "../../assets/img/text-editor.png";
 
 import { Theme } from "../../utils/theme";
 
@@ -31,24 +32,32 @@ export const Features = (props) => {
         minHeight="60vh"
       >
         <Boxed maxWidth="1080px" width="100%" margin="0 auto">
-          <Grid desktop="60% 40%" tablet="50% 50%" mobile="100%">
-            <Boxed margin="0 0 0.5rem 0" display="flex" width="100%">
-              <Boxed pad="20px 10px" margin="auto" minHeight="300px">
-                <img src={HOME_2} width="100%" alt="home-2" />
-              </Boxed>
+          <Grid desktop="50% 50%" tablet="50% 50%" mobile="100%">
+            <Boxed pad="20px 15px" minHeight="300px">
+              <img src={Text_Speech} width="100%" alt="home-2" />
             </Boxed>
-            <Boxed margin="0 0 0.5rem 0" display="flex" width="100%">
+            <Boxed pad="20px 20px" display="flex">
               <Boxed margin="auto 0">
-                <Text margin="10px 0 " fontSize="24px" fontWeight="bold">
-                  All the features of AAER in one Dashboard
+                <Text margin="10px 0 " fontSize="48px" fontWeight="bold" lineHeight="45px">
+                  Powerful real-time speech synthesis.
                 </Text>
                 <Text color={Theme.SecondaryTextColor} margin="15px 0">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Dictum ipsum gravida augue sed id. bibendum a. In egestas
-                  facilisis consectetur a ut pellentesque blandit nisl odio. Sem
-                  odio nulla morbi sapien egestas volutpat.
+                  With Text-to-Speech Feature, you can listen to Cases and Judgements while multitasking.
                 </Text>
               </Boxed>
+            </Boxed>
+            <Boxed pad="20px 20px" display="flex">
+              <Boxed margin="auto 0">
+                <Text margin="10px 0 " fontSize="48px" fontWeight="bold" lineHeight="45px">
+                Customize your forms and documents online.
+                </Text>
+                <Text color={Theme.SecondaryTextColor} margin="15px 0">
+                  With Text-to-Speech Feature, you can listen to Cases and Judgements while multitasking.
+                </Text>
+              </Boxed>
+            </Boxed>
+            <Boxed pad="20px 15px" minHeight="300px">
+              <img src={Text_Editor} width="100%" alt="home-2" />
             </Boxed>
           </Grid>
         </Boxed>
