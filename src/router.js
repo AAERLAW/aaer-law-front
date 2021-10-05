@@ -20,6 +20,7 @@ import Pricing from "./routes/Pricing/index";
 import EmailConfirmation from "./routes/EmailConfirmation/index";
 import SocialLogin from "./routes/Login/SocialLogin/index";
 import Privacy from "./routes/Privacy/index";
+import FAQ from "./routes/FAQ/index";
 
 import Dashboard from "./routes/Dashboard/index";
 import Subscription from "./routes/Subscription/index";
@@ -67,6 +68,7 @@ const openRoutes = [
   "/registration",
   "/activation",
   "/privacy",
+  "/faq",
 ];
 
 export function RouterConfig({ history, app }) {
@@ -223,6 +225,7 @@ export function RouterConfig({ history, app }) {
           <PrivateRoute path="/reader" exact render={(props) => <Reader />} />
           {/* #########   E N D :    G U A R D E D      U R L S   #########*/}
           <Route path="/privacy" exact render={(props) => <Privacy />} />
+          <Route path="/faq" exact render={(props) => <FAQ />} />
 
           <Route
             render={(props) => {
