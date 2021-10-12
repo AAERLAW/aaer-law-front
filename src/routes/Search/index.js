@@ -8,12 +8,14 @@ export const mapStateToProps = (state, ownProps) => {
   const { loading, authentication, judgement } = state;
   const { profile } = authentication;
   const { judgementList, judgementTotal } = judgement;
+  const isLoading = loading.effects["judgement/getAllJudgements"];
   console.log({ params });
   return {
     profile,
     params,
     judgementList,
     judgementTotal,
+    isLoading,
   };
 };
 

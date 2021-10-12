@@ -131,12 +131,14 @@ export const Reader = (props) => {
               )}
               <hr />
               {file.base64 && (
-                <PDFViewer
-                  document={{
-                    //   url: "https://arxiv.org/pdf/quant-ph/0410100.pdf",
-                    base64: file.base64,
-                  }}
-                />
+                <StyledReader>
+                  <PDFViewer
+                    document={{
+                      //   url: "https://arxiv.org/pdf/quant-ph/0410100.pdf",
+                      base64: file.base64,
+                    }}
+                  />
+                </StyledReader>
               )}
             </Boxed>
           </Tab>
