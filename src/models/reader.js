@@ -6,6 +6,8 @@ export default {
   state: {
     bookList: [],
     activeTab: "",
+    editFormModal: false,
+    editFormData: {},
   },
 
   subscriptions: {

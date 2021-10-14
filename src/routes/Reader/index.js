@@ -4,10 +4,11 @@ import { routerRedux } from "dva/router";
 
 export const mapStateToProps = (state, ownProps) => {
   const { loading, reader } = state;
-  const { bookList, activeTab } = reader;
+  const { bookList, activeTab, editFormModal } = reader;
   return {
     bookList,
     activeTab,
+    editFormModal,
   };
 };
 
@@ -18,6 +19,12 @@ export const mapDispatchToProps = (dispatch, ownProps) => {
     },
     saveReader(data) {
       dispatch({ type: "reader/save", payload: data });
+    },
+    openEditForm(data) {
+      dispatch({
+        type: "reader/save",
+        payload: { editFormModal: true, editFormData: data },
+      });
     },
   };
 };

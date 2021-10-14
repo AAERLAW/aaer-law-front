@@ -195,7 +195,7 @@ export default {
         const data = { ...raw.data, name: raw?.data?.title };
         const book = {
           id: `Form-${raw?.data?.id}`,
-          type: `Form`,
+          type: `word`,
           data: data,
         };
         yield put({ type: "reader/addBook", payload: book });

@@ -254,3 +254,13 @@ export const formatCount = (value) => {
   if (1000000000 > value) return `${round(value / 1000000, 1)}M`;
   return value;
 };
+
+export const printView = (content) => {
+  const myWindow = window.open(
+    "data:text/html,",
+    "_blank",
+    "width=auto,height=auto"
+  );
+  myWindow.document.write(content);
+  myWindow.print();
+};

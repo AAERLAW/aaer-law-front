@@ -7,6 +7,7 @@ import { Text } from "../../../components/Text.components";
 import { Button } from "../../../components/Button.components";
 import { Alert } from "../../../components/Alert.components";
 import { ModalComponent } from "../../../components/Modal.components";
+import { EditorComponent } from "../../../components/Editor.components";
 
 import { calcViewMode, getBase64 } from "../../../utils/utils";
 import { PageTitle, Icon } from "../../../components/style";

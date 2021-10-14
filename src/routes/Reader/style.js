@@ -1,5 +1,7 @@
+import React from "react";
 import styled from "styled-components";
 import { darken, lighten, desaturate, transparentize } from "polished";
+import PDFViewer from "mgr-pdf-viewer-react";
 
 import { Theme } from "../../utils/theme";
 
@@ -64,3 +66,11 @@ export const StyledReader = styled.div`
     }
   }
 `;
+
+export const PDFReader = (props) => {
+  return (
+    <StyledReader>
+      <PDFViewer {...props} />
+    </StyledReader>
+  );
+};
