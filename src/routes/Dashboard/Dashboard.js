@@ -52,7 +52,6 @@ export const Dashboard = (props) => {
         <Boxed margin="0 0 0 40px">
           <PageTitle fontSize="24px" color={Theme.PrimaryTextColor}>
               Welcome back 👋🏽,{" "}
-// Welcome back <Thumb />,{" "}
           </PageTitle>
           <Text fontSize="24px">{profile?.username}</Text>
         </Boxed>
