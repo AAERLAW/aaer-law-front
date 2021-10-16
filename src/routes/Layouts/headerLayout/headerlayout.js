@@ -95,7 +95,7 @@ export const HeaderLayout = (props) => {
                 </Boxed>
               ) : null}
               {pageTitle && (
-                <Text margin="auto 5px" fontWeight="bold">
+                <Text margin="auto 5px" fontWeight="light">
                   {pageTitle}
                 </Text>
               )}
