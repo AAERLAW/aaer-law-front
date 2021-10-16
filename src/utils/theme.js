@@ -26,7 +26,7 @@ export const Theme = {
 
     SideBarColor: "#ffffff",
 
-    PrimaryDark: "#f5f5f5",
+    PrimaryDark: "#fff4f461",
     SecondaryDark: "#ebebeb",
     TertiaryDark: "#FFFFFF",
     QuaternaryDark: QuaternaryDark,
