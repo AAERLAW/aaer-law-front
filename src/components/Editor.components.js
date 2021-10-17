@@ -6,6 +6,7 @@ export const EditorComponent = (props) => {
   return (
     <Editor
       // initialValue="<p>Type something here...</p>"
+      apiKey="s3lkka8crsdddj4n1uo2qfldx61oxxbh75vac2wvk96zfssm"
       init={{
         height: 500,
         menubar: false,

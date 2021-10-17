@@ -95,7 +95,7 @@ export const HeaderLayout = (props) => {
                 </Boxed>
               ) : null}
               {pageTitle && (
-                <Text margin="auto 5px" fontWeight="bold">
+                <Text margin="auto 5px" fontSize="11px" fontWeight="light">
                   {pageTitle}
                 </Text>
               )}
@@ -117,7 +117,7 @@ export const HeaderLayout = (props) => {
                     margin="auto 5px"
                     pad="5px"
                     cursor="pointer"
-                    border={`1px solid ${Theme.SecondaryTextColor}`}
+                    border={`0px solid ${Theme.SecondaryTextColor}`}
                     color={Theme.SecondaryTextColor}
                     borderRadius="50%"
                     onClick={() => setShowSearch((prev) => !prev)}
@@ -127,7 +127,7 @@ export const HeaderLayout = (props) => {
                     margin="auto 5px"
                     pad="5px"
                     cursor="pointer"
-                    border={`1px solid ${Theme.SecondaryTextColor}`}
+                    border={`0px solid ${Theme.SecondaryTextColor}`}
                     color={Theme.SecondaryTextColor}
                     borderRadius="50%"
                     onClick={() => toggleNightMode(!nightMode)}
