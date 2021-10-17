@@ -114,13 +114,14 @@ export const Dashboard = (props) => {
               boxShadow={Theme.PrimaryShadow}
             >
               <Text fontWeight="bold" display="flex">
-                You are currently using the Basic Plan
+                You are currently using the {profile?.subscription?.title} Plan
               </Text>
 
-              <Text padding="25px 0 0 0" fontWeight="bold" fontSize="24px">
-                335
+              <Text padding="25px 0 0 0" fontWeight="bold" fontSize="16px">
+                {profile?.subscription?.end_date &&
+                  formatDate(profile.subscription.end_date)}
               </Text>
-              <Text fontWeight="light">Days to go</Text>
+              <Text fontWeight="light">End date.</Text>
             </Boxed>
           )}
         </Grid>
