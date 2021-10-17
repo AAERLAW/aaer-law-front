@@ -1,4 +1,5 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext } from "react";
+import { ThemeContext } from "styled-components";
 import Upload from "rc-upload";
 import ReactHtmlParser from "react-html-parser";
 
@@ -21,7 +22,7 @@ import {
   truncateText,
   printView,
 } from "../../utils/utils";
-import { Theme } from "../../utils/theme";
+// import { Theme } from "../../utils/theme";
 
 import { PDFReader } from "./style";
 
@@ -39,6 +40,7 @@ export const Reader = (props) => {
 
   const editorRef = useRef(null);
   const [form, setForm] = useState("");
+  const Theme = useContext(ThemeContext);
 
   const [key, setKey] = useState(activeTab);
   const [file, setFile] = useState({});
@@ -203,7 +205,7 @@ export const Reader = (props) => {
                     maxHeight="80vh"
                     overflowY="scroll"
                   >
-                    {ReactHtmlParser(dummyForm)}
+                    <Text>{ReactHtmlParser(dummyForm)}</Text>
                   </Boxed>
                 </Boxed>
               </Grid>
@@ -244,12 +246,12 @@ export const Reader = (props) => {
                       background={Theme.PrimaryDark}
                     >
                       <Boxed
-                        pad="10px"
+                        pad={viewMode === "mobile" ? "10px 5px" : "20px 30px"}
                         background={Theme.TertiaryDark}
                         maxHeight="80vh"
                         overflowY="scroll"
                       >
-                        {ReactHtmlParser(data?.file)}
+                        <Text>{ReactHtmlParser(data?.file)}</Text>
                       </Boxed>
                     </Boxed>
                   </Grid>
