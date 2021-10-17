@@ -39,7 +39,7 @@ export const CreateModal = (props) => {
         if (formFile) {
           const data = {
             title: value.title.trim(),
-            file: encodeURIComponent(formFile),
+            file: formFile,
             extension: "word",
             court_form_item_id: court_form_item_id,
           };

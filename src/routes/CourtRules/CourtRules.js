@@ -1,6 +1,8 @@
 import React, { useEffect, useContext } from "react";
 import { ThemeContext } from "styled-components";
 
+import Dropdown from "react-bootstrap/Dropdown";
+
 import { Boxed } from "../../components/Boxed.components";
 import { Text } from "../../components/Text.components";
 import { Button } from "../../components/Button.components";
@@ -9,7 +11,7 @@ import {
   TableComponent,
   PaginationComponent,
 } from "../../components/Table.components";
-import { PageTitle, Icon } from "../../components/style";
+import { PageTitle, Icon, StyledDrpDown } from "../../components/style";
 
 import Wrapper from "../Common/FilterWrapper/index";
 
@@ -31,7 +33,13 @@ export const CourtRules = (props) => {
   } = props;
 
   // dispatch props recieved
-  const { redirect, getAllRules, openCreateModal, openReader } = props;
+  const {
+    redirect,
+    getAllRules,
+    openCreateModal,
+    openReader,
+    deleteCourtRule,
+  } = props;
 
   const Theme = useContext(ThemeContext);
   let viewMode = calcViewMode();
@@ -66,6 +74,41 @@ export const CourtRules = (props) => {
       render: (text) => text && formatDate(text),
     },
   ];
+
+  const onDelete = (item) => {
+    const confirmation = window.confirm(
+      `You are about to delete "${item.title}".`
+    );
+    confirmation && deleteCourtRule(item);
+  };
+
+  const adminSection = {
+    title: "",
+    dataIndex: "action",
+    key: "action",
+    align: "right",
+    render: (text, record) => {
+      return (
+        <Boxed display="inline-block">
+          <StyledDrpDown style={{ margin: "auto 0 auto 10px" }}>
+            <Dropdown>
+              <Dropdown.Toggle variant id="dropdown-basic">
+                <Icon className="icon icon-more-vertical" />
+              </Dropdown.Toggle>
+
+              <Dropdown.Menu>
+                <Dropdown.Item onClick={() => onDelete(record)}>
+                  Delete
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          </StyledDrpDown>
+        </Boxed>
+      );
+    },
+  };
+
+  isAdmin && columns.push(adminSection);
 
   return (
     <Boxed pad="20px">

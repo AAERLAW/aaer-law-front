@@ -33,6 +33,9 @@ export const mapDispatchToProps = (dispatch, ownProps) => {
     openReader(data) {
       dispatch({ type: "court/onReadRule", payload: data });
     },
+    deleteCourtRule(data) {
+      dispatch({ type: "court/deleteCourtRule", payload: data });
+    },
   };
 };
 

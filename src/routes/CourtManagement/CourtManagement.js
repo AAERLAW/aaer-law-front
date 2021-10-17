@@ -1,12 +1,14 @@
 import React, { useEffect, useContext } from "react";
 import { ThemeContext } from "styled-components";
 
+import Dropdown from "react-bootstrap/Dropdown";
+
 import { Boxed } from "../../components/Boxed.components";
 import {
   TableComponent,
   PaginationComponent,
 } from "../../components/Table.components";
-import { PageTitle, Icon } from "../../components/style";
+import { StyledDrpDown, Icon } from "../../components/style";
 
 import Wrapper from "../Common/FilterWrapper/index";
 
@@ -16,21 +18,6 @@ import { pageOptions } from "../../utils/constant";
 
 import CourtModal from "./CreateCourt/index";
 import { Button } from "../../components/Button.components";
-
-const columns = [
-  {
-    title: "Name",
-    dataIndex: "name",
-    key: "name",
-  },
-  {
-    title: "Date",
-    dataIndex: "rule_date",
-    key: "rule_date",
-    align: "right",
-    render: (text) => text && formatDate(text),
-  },
-];
 
 export const CourtManagement = (props) => {
   // state props receieved
@@ -44,7 +31,7 @@ export const CourtManagement = (props) => {
   } = props;
 
   // dispatch props recieved
-  const { redirect, getAllCourts, openCourtModal } = props;
+  const { redirect, getAllCourts, openCourtModal, deleteCourt } = props;
 
   const Theme = useContext(ThemeContext);
   let viewMode = calcViewMode();
@@ -58,6 +45,46 @@ export const CourtManagement = (props) => {
       redirect("/dashboard");
     }
   }, []);
+
+  const onDelete = (item) => {
+    const confirmation = window.confirm(
+      `You are about to delete "${item.name}".`
+    );
+    confirmation && deleteCourt(item);
+  };
+
+  const columns = [
+    {
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
+    },
+    {
+      title: "Date",
+      dataIndex: "rule_date",
+      key: "rule_date",
+      align: "right",
+      render: (text, record) => {
+        return (
+          <Boxed display="inline-block">
+            <StyledDrpDown style={{ margin: "auto 0 auto 10px" }}>
+              <Dropdown>
+                <Dropdown.Toggle variant id="dropdown-basic">
+                  <Icon className="icon icon-more-vertical" />
+                </Dropdown.Toggle>
+
+                <Dropdown.Menu>
+                  <Dropdown.Item onClick={() => onDelete(record)}>
+                    Delete
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+            </StyledDrpDown>
+          </Boxed>
+        );
+      },
+    },
+  ];
 
   return (
     <Boxed pad="20px">

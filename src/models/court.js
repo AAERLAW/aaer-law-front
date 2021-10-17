@@ -4,8 +4,10 @@ import {
   getRules,
   getSingleRule,
   postRule,
+  deleteRule,
   getCourts,
   postCourts,
+  deleteCourt,
   getCourtForms,
   postCourtForms,
   deleteCourtForm,
@@ -73,6 +75,26 @@ export default {
         Alert.error(message);
       }
     },
+    *deleteCourtRule({ payload }, { call, put, select }) {
+      const { raw, success, message } = yield call(deleteRule, payload);
+      if (success) {
+        const oldList = yield select(({ court }) => court.rules);
+        let newList = [...oldList];
+        const existIndex = newList.findIndex((item) => item.id === payload.id);
+        if (existIndex > -1) {
+          newList.splice(existIndex, 1);
+          yield put({
+            type: "save",
+            payload: {
+              rules: newList,
+            },
+          });
+        }
+        Alert.success("Successfully delete a rule.");
+      } else {
+        Alert.error(message);
+      }
+    },
 
     *getAllCourts({ payload }, { call, put }) {
       const { raw, success, message } = yield call(getCourts, payload);
@@ -96,6 +118,27 @@ export default {
           type: "save",
           payload: { createCourtModal: false, courts: newList },
         });
+      } else {
+        Alert.error(message);
+      }
+    },
+    *deleteCourt({ payload }, { call, put, select }) {
+      const { raw, success, message } = yield call(deleteCourt, payload);
+      if (success) {
+        const oldList = yield select(({ court }) => court.courts);
+        let newList = [...oldList];
+        const existIndex = newList.findIndex((item) => item.id === payload.id);
+        if (existIndex > -1) {
+          newList.splice(existIndex, 1);
+          yield put({
+            type: "save",
+            payload: {
+              courts: newList,
+            },
+          });
+        }
+
+        Alert.success("Successfully delete a court form.");
       } else {
         Alert.error(message);
       }
@@ -261,12 +304,14 @@ export default {
     *onRead({ payload }, { call, put }) {
       const { raw, success, message } = yield call(getSingleForm, payload);
       if (success) {
+        console.log({ raw });
         const data = { ...raw.data, name: raw?.data?.title };
         const book = {
           id: `Form-${raw?.data?.id}`,
           type: `word`,
           data: data,
         };
+        console.log({ book });
         yield put({ type: "reader/addBook", payload: book });
         yield put(routerRedux.push("/reader"));
       } else {

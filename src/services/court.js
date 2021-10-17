@@ -29,6 +29,14 @@ export async function postRule(data) {
   });
 }
 
+export async function deleteRule(data) {
+  const url = `${endpoint}/rules/${data.id}`;
+  return await request({
+    url,
+    method: "DELETE",
+  });
+}
+
 export async function getCourts(data) {
   const url = `${endpoint}/courts/paginated?`;
   return await request({
@@ -45,6 +53,14 @@ export async function postCourts(data) {
     method: "POST",
     data,
     formatData: true,
+  });
+}
+
+export async function deleteCourt(data) {
+  const url = `${endpoint}/courts/${data.id}`;
+  return await request({
+    url,
+    method: "DELETE",
   });
 }
 
