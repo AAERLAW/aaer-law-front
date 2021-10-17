@@ -215,6 +215,8 @@ export const Reader = (props) => {
           {bookList.map((item) => {
             const { data, type, id } = item;
             if (type === "word") {
+              const file = data?.file ? data?.file : "";
+              const fileForm = decodeURIComponent(file);
               return (
                 <Boxed pad={viewMode === "mobile" ? "0" : "20px"}>
                   <Grid
@@ -251,7 +253,7 @@ export const Reader = (props) => {
                         maxHeight="80vh"
                         overflowY="scroll"
                       >
-                        <Text>{ReactHtmlParser(data?.file)}</Text>
+                        <Text>{ReactHtmlParser(fileForm)}</Text>
                       </Boxed>
                     </Boxed>
                   </Grid>

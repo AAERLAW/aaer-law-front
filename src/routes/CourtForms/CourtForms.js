@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useContext } from "react";
 import { ThemeContext } from "styled-components";
 
+import Dropdown from "react-bootstrap/Dropdown";
+
 import { Grid } from "../../components/Grid.components";
 import { AsyncSelect } from "../../components/Input.components";
 import { Boxed } from "../../components/Boxed.components";
@@ -8,7 +10,7 @@ import { Text } from "../../components/Text.components";
 import { Button } from "../../components/Button.components";
 import { Loader } from "../../components/Loader.components";
 import { PaginationComponent } from "../../components/Table.components";
-import { PageTitle } from "../../components/style";
+import { PageTitle, StyledDrpDown, Icon } from "../../components/style";
 
 import Wrapper from "../Common/FilterWrapper/index";
 
@@ -30,7 +32,8 @@ export const CourtForms = (props) => {
   } = props;
 
   // dispatch props recieved
-  const { redirect, getAllCourtForms, openCreateModal } = props;
+  const { redirect, getAllCourtForms, openCreateModal, deleteCourtForm } =
+    props;
 
   const Theme = useContext(ThemeContext);
 
@@ -46,6 +49,13 @@ export const CourtForms = (props) => {
     };
     getAllCourtForms(data);
   }, []);
+
+  const onDelete = (item) => {
+    const confirmation = window.confirm(
+      `You are about to delete "${item.title}".`
+    );
+    confirmation && deleteCourtForm(item);
+  };
 
   let externalParams = {};
   courtLevel && (externalParams["court_level"] = courtLevel);
@@ -129,22 +139,47 @@ export const CourtForms = (props) => {
                               hoverBColor={`${Theme.PrimaryColor}20`}
                               display="flex"
                               style={{ flexFlow: "column" }}
-                              onClick={() =>
-                                redirect(
-                                  `/court-forms/items`,
-                                  `?court_form_id=${item.id}&name=${item.title}`
-                                )
-                              }
                             >
-                              <Text>
-                                {item.title} <br />
-                              </Text>
-                              {/* <Text
-                                color={Theme.SecondaryTextColor}
-                                margin="auto 0 0 0"
+                              <Grid
+                                desktop="auto 20px"
+                                tablet="auto 20px"
+                                mobile="auto 20px"
                               >
-                                {item.year}
-                              </Text> */}
+                                <Text
+                                  onClick={() =>
+                                    redirect(
+                                      `/court-forms/items`,
+                                      `?court_form_id=${item.id}&name=${item.title}`
+                                    )
+                                  }
+                                >
+                                  {item.title}
+                                </Text>
+                                {isAdmin && (
+                                  <Boxed display="inline-block">
+                                    <StyledDrpDown
+                                      style={{ margin: "auto 0 auto 10px" }}
+                                    >
+                                      <Dropdown>
+                                        <Dropdown.Toggle
+                                          variant
+                                          id="dropdown-basic"
+                                        >
+                                          <Icon className="icon icon-more-vertical" />
+                                        </Dropdown.Toggle>
+
+                                        <Dropdown.Menu>
+                                          <Dropdown.Item
+                                            onClick={() => onDelete(item)}
+                                          >
+                                            Delete
+                                          </Dropdown.Item>
+                                        </Dropdown.Menu>
+                                      </Dropdown>
+                                    </StyledDrpDown>
+                                  </Boxed>
+                                )}
+                              </Grid>
                             </Boxed>
                           );
                         })

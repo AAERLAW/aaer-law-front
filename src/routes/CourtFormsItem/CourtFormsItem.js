@@ -1,12 +1,14 @@
 import React, { useEffect, useContext } from "react";
 import { ThemeContext } from "styled-components";
 
+import Dropdown from "react-bootstrap/Dropdown";
+
 import { Grid } from "../../components/Grid.components";
 import { Boxed } from "../../components/Boxed.components";
 import { Text } from "../../components/Text.components";
 import { Button } from "../../components/Button.components";
 import { PaginationComponent } from "../../components/Table.components";
-import { PageTitle } from "../../components/style";
+import { PageTitle, StyledDrpDown, Icon } from "../../components/style";
 
 import Wrapper from "../Common/FilterWrapper/index";
 
@@ -30,7 +32,12 @@ export const CourtFormsItem = (props) => {
   } = props;
 
   // dispatch props recieved
-  const { redirect, getAllCourtFormsItem, openCreateModal } = props;
+  const {
+    redirect,
+    getAllCourtFormsItem,
+    openCreateModal,
+    deleteCourtFormItem,
+  } = props;
 
   const Theme = useContext(ThemeContext);
 
@@ -45,6 +52,13 @@ export const CourtFormsItem = (props) => {
     };
     getAllCourtFormsItem(data);
   }, []);
+
+  const onDelete = (item) => {
+    const confirmation = window.confirm(
+      `You are about to delete "${item.title}".`
+    );
+    confirmation && deleteCourtFormItem(item);
+  };
 
   return (
     <Boxed pad="20px">
@@ -108,30 +122,64 @@ export const CourtFormsItem = (props) => {
                               <Boxed
                                 key={index}
                                 pad="5px 10px"
-                                cursor="pointer"
                                 borderRadius={Theme.PrimaryRadius}
-                                onClick={() => console.log(item.id)}
                                 margin="5px"
                                 bColor={Theme.TertiaryDark}
                                 hoverBColor={`${Theme.PrimaryColor}20`}
-                                display="flex"
-                                style={{ flexFlow: "column" }}
-                                onClick={() =>
-                                  redirect(
-                                    `/court-forms/form`,
-                                    `?court_form_item_id=${item.id}&name=${item.title}`
-                                  )
-                                }
                               >
-                                <Text>
-                                  {item.title} <br />
-                                </Text>
-                                <Text
-                                  color={Theme.SecondaryTextColor}
-                                  margin="auto 0 0 0"
+                                <Grid
+                                  desktop="auto 20px"
+                                  tablet="auto 20px"
+                                  mobile="auto 20px"
                                 >
-                                  {item.year}
-                                </Text>
+                                  <Boxed
+                                    display="flex"
+                                    style={{ flexFlow: "column" }}
+                                  >
+                                    <Text
+                                      cursor="pointer"
+                                      onClick={() =>
+                                        redirect(
+                                          `/court-forms/form`,
+                                          `?court_form_item_id=${item.id}&name=${item.title}`
+                                        )
+                                      }
+                                    >
+                                      {item.title} <br />
+                                    </Text>
+                                    <Text
+                                      color={Theme.SecondaryTextColor}
+                                      margin="auto 0 0 0"
+                                    >
+                                      {item.year}
+                                    </Text>
+                                  </Boxed>
+
+                                  {isAdmin && (
+                                    <Boxed display="inline-block">
+                                      <StyledDrpDown
+                                        style={{ margin: "auto 0 auto 10px" }}
+                                      >
+                                        <Dropdown>
+                                          <Dropdown.Toggle
+                                            variant
+                                            id="dropdown-basic"
+                                          >
+                                            <Icon className="icon icon-more-vertical" />
+                                          </Dropdown.Toggle>
+
+                                          <Dropdown.Menu>
+                                            <Dropdown.Item
+                                              onClick={() => onDelete(item)}
+                                            >
+                                              Delete
+                                            </Dropdown.Item>
+                                          </Dropdown.Menu>
+                                        </Dropdown>
+                                      </StyledDrpDown>
+                                    </Boxed>
+                                  )}
+                                </Grid>
                               </Boxed>
                             );
                           })

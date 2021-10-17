@@ -30,6 +30,9 @@ export const mapDispatchToProps = (dispatch, ownProps) => {
     openCreateModal() {
       dispatch({ type: "court/save", payload: { createCourtFormModal: true } });
     },
+    deleteCourtForm(data) {
+      dispatch({ type: "court/deleteCourtForm", payload: data });
+    },
   };
 };
 

@@ -39,11 +39,12 @@ export const CreateModal = (props) => {
         if (formFile) {
           const data = {
             title: value.title.trim(),
-            file: formFile,
+            file: encodeURIComponent(formFile),
             extension: "word",
             court_form_item_id: court_form_item_id,
           };
-          console.log(data);
+          // console.log(data);
+          // console.log(decodeURIComponent(data.file));
           createForm(data);
         } else {
           Alert.info("Form file is required");

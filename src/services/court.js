@@ -67,6 +67,14 @@ export async function postCourtForms(data) {
   });
 }
 
+export async function deleteCourtForm(data) {
+  const url = `${endpoint}/court-forms/${data.id}`;
+  return await request({
+    url,
+    method: "DELETE",
+  });
+}
+
 export async function getCourtFormsItem(data) {
   const url = `${endpoint}/court-form-items/paginated`;
   return await request({
@@ -83,6 +91,14 @@ export async function postCourtFormsItem(data) {
     method: "POST",
     data,
     formatData: true,
+  });
+}
+
+export async function deleteCourtFormItem(data) {
+  const url = `${endpoint}/court-form-items/${data.id}`;
+  return await request({
+    url,
+    method: "DELETE",
   });
 }
 
@@ -107,5 +123,13 @@ export async function postForms(data) {
     method: "POST",
     data,
     formatData: true,
+  });
+}
+
+export async function deleteForm(data) {
+  const url = `${endpoint}/forms/${data.id}`;
+  return await request({
+    url,
+    method: "DELETE",
   });
 }

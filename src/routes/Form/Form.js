@@ -1,12 +1,14 @@
 import React, { useEffect, useContext } from "react";
 import { ThemeContext } from "styled-components";
 
+import Dropdown from "react-bootstrap/Dropdown";
+
 import { Grid } from "../../components/Grid.components";
 import { Boxed } from "../../components/Boxed.components";
 import { Text } from "../../components/Text.components";
 import { Button } from "../../components/Button.components";
 import { PaginationComponent } from "../../components/Table.components";
-import { PageTitle } from "../../components/style";
+import { PageTitle, StyledDrpDown, Icon } from "../../components/style";
 
 import Wrapper from "../Common/FilterWrapper/index";
 
@@ -28,7 +30,8 @@ export const Form = (props) => {
   } = props;
 
   // dispatch props recieved
-  const { redirect, getAllForms, openCreateModal, openReader } = props;
+  const { redirect, getAllForms, openCreateModal, openReader, deleteForm } =
+    props;
 
   const Theme = useContext(ThemeContext);
   let viewMode = calcViewMode();
@@ -42,6 +45,13 @@ export const Form = (props) => {
     };
     getAllForms(data);
   }, []);
+
+  const onDelete = (item) => {
+    const confirmation = window.confirm(
+      `You are about to delete "${item.title}".`
+    );
+    confirmation && deleteForm(item);
+  };
 
   // onReader = (data) => {
   //   openReader(data);
@@ -104,22 +114,54 @@ export const Form = (props) => {
                             pad="5px 10px"
                             cursor="pointer"
                             borderRadius={Theme.PrimaryRadius}
-                            onClick={() => openReader(item)}
                             margin="5px"
                             bColor={Theme.TertiaryDark}
                             hoverBColor={`${Theme.PrimaryColor}20`}
-                            display="flex"
-                            style={{ flexFlow: "column" }}
                           >
-                            <Text>
-                              {item.title} <br />
-                            </Text>
-                            <Text
-                              color={Theme.SecondaryTextColor}
-                              margin="auto 0 0 0"
+                            <Grid
+                              desktop="auto 20px"
+                              tablet="auto 20px"
+                              mobile="auto 20px"
                             >
-                              {item.year}
-                            </Text>
+                              <Boxed
+                                display="flex"
+                                style={{ flexFlow: "column" }}
+                              >
+                                <Text onClick={() => openReader(item)}>
+                                  {item.title} <br />
+                                </Text>
+                                <Text
+                                  color={Theme.SecondaryTextColor}
+                                  margin="auto 0 0 0"
+                                >
+                                  {item.year}
+                                </Text>
+                              </Boxed>
+                              {isAdmin && (
+                                <Boxed display="inline-block">
+                                  <StyledDrpDown
+                                    style={{ margin: "auto 0 auto 10px" }}
+                                  >
+                                    <Dropdown>
+                                      <Dropdown.Toggle
+                                        variant
+                                        id="dropdown-basic"
+                                      >
+                                        <Icon className="icon icon-more-vertical" />
+                                      </Dropdown.Toggle>
+
+                                      <Dropdown.Menu>
+                                        <Dropdown.Item
+                                          onClick={() => onDelete(item)}
+                                        >
+                                          Delete
+                                        </Dropdown.Item>
+                                      </Dropdown.Menu>
+                                    </Dropdown>
+                                  </StyledDrpDown>
+                                </Boxed>
+                              )}
+                            </Grid>
                           </Boxed>
                         );
                       })

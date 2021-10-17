@@ -37,6 +37,12 @@ export const mapDispatchToProps = (dispatch, ownProps) => {
         payload: { createCourtFormItemModal: true },
       });
     },
+    deleteCourtFormItem(data) {
+      dispatch({
+        type: "court/deleteCourtFormItem",
+        payload: data,
+      });
+    },
   };
 };
 

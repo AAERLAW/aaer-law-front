@@ -22,10 +22,11 @@ export const Search = (props) => {
 
   const Theme = useContext(ThemeContext);
 
+  const search = params.search;
+
   useEffect(() => {
-    const search = params.search;
-    onSearch({ search, page: 1, size: 30 });
-  }, []);
+    search && onSearch({ search, page: 1, size: 30 });
+  }, [search]);
 
   let viewMode = calcViewMode();
   let errors;
