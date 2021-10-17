@@ -51,7 +51,7 @@ export const Dashboard = (props) => {
       <Boxed margin="0 auto" pad="3% 0 0 0" width="100%">
         <Boxed margin="0 0 0 40px">
           <PageTitle fontSize="24px" color={Theme.PrimaryTextColor}>
-              Welcome back 👋🏽,{" "}
+            Welcome back 👋🏽,{" "}
           </PageTitle>
           <Text fontSize="24px">{profile?.username}</Text>
         </Boxed>
@@ -187,20 +187,6 @@ export const Dashboard = (props) => {
             <Text fontWeight="bold" padding="15px 10px">
               LATEST FORMS
             </Text>
-
-            <Grid desktop="auto 40px" tablet="auto 40px" mobile="auto 40px">
-              <Boxed pad="10px ">
-                <Text color={Theme.SecondaryTextColor}>
-                  Alpha - File Hosting Service
-                </Text>
-                <Text color={Theme.SecondaryTextColor}>
-                  {formatDate("24/08/2020")}
-                </Text>
-              </Boxed>
-              <Boxed display="flex">
-                <Icon margin="auto" className="icon icon-file-text" />
-              </Boxed>
-            </Grid>
             {loadingReports ? (
               <Boxed display="flex" pad="10px">
                 <Loader margin="auto" />
@@ -218,13 +204,7 @@ export const Dashboard = (props) => {
                     >
                       <Boxed pad="10px ">
                         <Text color={Theme.SecondaryTextColor} fontWeight>
-                          {item.case_title && truncateText(item.case_title, 27)}
-                        </Text>
-                        <Text
-                          color={Theme.SecondaryTextColor}
-                          fontSize={Theme.SecondaryFontSize}
-                        >
-                          {formatDate(item.judgement_date)}
+                          {item.name && truncateText(item.name, 27)}
                         </Text>
                       </Boxed>
                       <Boxed display="flex">
