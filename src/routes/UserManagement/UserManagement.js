@@ -62,14 +62,29 @@ export const UserManagement = (props) => {
       title: "Subscription",
       dataIndex: "subscription",
       key: "subscription",
+      render: (item) => {
+        let status = (
+          <Text>
+            {item.title ? item.title : "-- : --"}
+            <br />
+            {item.expired ? (
+              <span style={{ color: Theme.PrimaryRed }}>Expired</span>
+            ) : (
+              <span style={{ color: Theme.PrimaryGreen }}>Active</span>
+            )}
+          </Text>
+        );
+        return status;
+      },
     },
     {
-      title: "Role",
-      dataIndex: "role",
-      key: "role",
+      title: "Roles",
+      dataIndex: "roles",
+      key: "roles",
       render: (text) => {
         let roles = "";
-        text && text.forEach((item) => (roles = `${roles} ${item},`));
+        text && text.forEach((item) => (roles = `${roles} ${item.name},`));
+        return roles;
       },
     },
     {
@@ -81,13 +96,10 @@ export const UserManagement = (props) => {
         if (text) {
           return (
             <Text
-              borderRadius={Theme.TertiaryRadius}
               display="inline-block"
-              padding="3px 8px"
-              style={{ border: `0.5px solid ${Theme.PrimaryGreen}` }}
-              bColor={`${Theme.PrimaryGreen}25`}
               fontSize={Theme.SecondaryFontSize}
               color={Theme.PrimaryGreen}
+              fontWeight="bold"
             >
               {" "}
               <Icon
@@ -121,13 +133,13 @@ export const UserManagement = (props) => {
         }
       },
     },
-    {
-      title: "Action",
-      dataIndex: "rule_date",
-      key: "rule_date",
-      align: "right",
-      render: (text) => text && formatDate(text),
-    },
+    // {
+    //   title: "Action",
+    //   dataIndex: "rule_date",
+    //   key: "rule_date",
+    //   align: "right",
+    //   render: (text) => text && formatDate(text),
+    // },
   ];
 
   useEffect(() => {

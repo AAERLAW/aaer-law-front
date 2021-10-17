@@ -165,7 +165,7 @@ export const Reader = (props) => {
                 value={form}
                 onEditorChange={(content) => setForm(content)}
               /> */}
-            <Boxed pad="20px">
+            <Boxed pad={viewMode === "mobile" ? "10px" : "20px"}>
               <Grid
                 desktop="200px auto"
                 tablet="200px auto"
@@ -198,7 +198,7 @@ export const Reader = (props) => {
                   background={Theme.PrimaryDark}
                 >
                   <Boxed
-                    pad="20px 30px"
+                    pad={viewMode === "mobile" ? "10px 5px" : "20px 30px"}
                     background={Theme.TertiaryDark}
                     maxHeight="80vh"
                     overflowY="scroll"
@@ -214,7 +214,7 @@ export const Reader = (props) => {
             const { data, type, id } = item;
             if (type === "word") {
               return (
-                <Boxed pad="20px">
+                <Boxed pad={viewMode === "mobile" ? "0" : "20px"}>
                   <Grid
                     desktop="200px auto"
                     tablet="200px auto"
