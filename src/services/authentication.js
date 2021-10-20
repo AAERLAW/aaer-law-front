@@ -50,6 +50,11 @@ export async function getProfile() {
   return await request({ url, method: "GET" });
 }
 
+export async function getDashboardStats(data) {
+  const url = `${endpoint}/dashboard`;
+  return await request({ url, method: "GET" });
+}
+
 export async function getSubscriptionPlans(data) {
   const url = `${endpoint}/subscription/plans`;
   return await request({ url, method: "GET" });

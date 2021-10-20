@@ -1,6 +1,7 @@
 import React, { useState, useRef, useContext } from "react";
 import { ThemeContext } from "styled-components";
-import Upload from "rc-upload";
+
+import { useSpeechSynthesis } from "react-speech-kit";
 import ReactHtmlParser from "react-html-parser";
 
 // import "bulma/css/bulma.css";
@@ -18,7 +19,7 @@ import { StyledTabs, Icon } from "../../components/style";
 
 import {
   calcViewMode,
-  getBase64,
+  formatDate,
   truncateText,
   printView,
 } from "../../utils/utils";
@@ -34,18 +35,14 @@ export const Reader = (props) => {
 
   //dispatch props receieved
   const { redirect, saveReader, openEditForm } = props;
-
-  const editorRef = useRef(null);
-  const [form, setForm] = useState("");
   const Theme = useContext(ThemeContext);
+  const { speak } = useSpeechSynthesis();
 
   const [key, setKey] = useState(activeTab);
-  const [file, setFile] = useState({});
 
   let viewMode = calcViewMode();
-  let errors;
 
-  //
+  // handles the closeing of tabs
   const removeItem = (data) => {
     let newList = [...bookList];
     const existIndex = newList.findIndex(
@@ -57,39 +54,6 @@ export const Reader = (props) => {
     } else {
       console.log(data);
     }
-  };
-  // handle logic for uploading an image
-  const beforeUpload = (file) => {
-    console.log(file);
-    const isPDF = file.type === "application/pdf";
-    if (!isPDF) {
-      Alert.error("You can only upload PDF file!");
-    }
-    const isLt100M = file.size / 1024 / 1024 < 100;
-    if (!isLt100M) {
-      Alert.error("Image must be smaller than 100MB!");
-    }
-    if (isPDF && isLt100M) {
-      handleFileUploader(file);
-      return isPDF && isLt100M;
-    }
-  };
-
-  const handleFileUploader = (file) => {
-    getBase64(file).then((data) => {
-      const base64Data = data.split(",")[1];
-      setFile({
-        pdf: file,
-        base64: base64Data,
-        format: file.type,
-        name: file.name,
-      });
-      console.log(base64Data);
-    });
-  };
-
-  const handleEditorChange = (content) => {
-    this.setForm(content);
   };
 
   return (
@@ -182,14 +146,81 @@ export const Reader = (props) => {
                     </Text>
                   }
                 >
-                  <Boxed pad="20px">
-                    {data?.file && (
-                      <PDFReader
-                        document={{
-                          base64: data?.file,
-                        }}
-                      />
-                    )}
+                  <Boxed pad={viewMode === "mobile" ? "10px" : "20px"}>
+                    <Text fontWeight="600">{data?.name}</Text>
+                    <Grid
+                      desktop="250px auto"
+                      tablet="250px auto"
+                      mobile="repeat(1, 1fr)"
+                    >
+                      <Boxed>
+                        {type === "Report" ? (
+                          <Boxed pad="10px 0">
+                            <Text
+                              color={Theme.SecondaryTextColor}
+                              fontSize={Theme.SecondaryFontSize}
+                            >
+                              #Info{" "}
+                            </Text>
+                            <Text>
+                              <ul
+                                style={{
+                                  margin: 0,
+                                  padding: "0.5rem 0",
+                                  listStyle: "none",
+                                }}
+                              >
+                                <li>
+                                  Citation : <b>{data?.citation}</b>
+                                </li>
+                                <li>
+                                  Suit Number : <b>{data?.suit_number}</b>
+                                </li>
+                                <li>
+                                  Lead Judge : <b>{data?.lead_judgement_by}</b>
+                                </li>
+                                <li>
+                                  Judgement Date :{" "}
+                                  <b>
+                                    {data?.judgement_date &&
+                                      formatDate(data?.judgement_date)}
+                                  </b>
+                                </li>
+                              </ul>
+                            </Text>
+                            {data?.summary && (
+                              <>
+                                <Text
+                                  color={Theme.SecondaryTextColor}
+                                  fontSize={Theme.SecondaryFontSize}
+                                >
+                                  #Summary{" "}
+                                </Text>
+                                <Text padding="10px">{data?.summary}</Text>
+                                <Button
+                                  block
+                                  pale
+                                  onClick={() => {
+                                    speak({ text: data?.summary });
+                                  }}
+                                >
+                                  Read Summary
+                                </Button>
+                              </>
+                            )}
+                          </Boxed>
+                        ) : null}
+                      </Boxed>
+                      <Boxed pad="20px">
+                        {data?.file && (
+                          <PDFReader
+                            document={{
+                              base64: data?.file,
+                            }}
+                          />
+                        )}
+                      </Boxed>
+                    </Grid>
                   </Boxed>
                 </Tab>
               );

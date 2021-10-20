@@ -114,7 +114,11 @@ export default {
     *onRead({ payload }, { call, put }) {
       const { raw, success, message } = yield call(getSingleReport, payload);
       if (success) {
-        const data = { ...raw.data, name: raw?.data?.case_title };
+        const data = {
+          summary: payload.summary,
+          ...raw.data,
+          name: raw?.data?.case_title,
+        };
         const book = {
           id: `Report-${raw?.data?.id}`,
           type: `Report`,

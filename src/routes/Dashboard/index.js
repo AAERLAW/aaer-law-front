@@ -2,45 +2,35 @@ import { connect } from "dva";
 import { Dashboard } from "./Dashboard";
 import { routerRedux } from "dva/router";
 
-const reportEffectURL = "judgement/getAllJudgements";
-const regulationItemsEffectURL = "mda/getAllRegulations";
-const formsEffectURL = "court/getAllForms";
+const getDashboardStatsURL = "authentication/getDashboardStats";
 
 const mapStateToProps = (state, ownProps) => {
-  const { loading, authentication, judgement, mda, court } = state;
-  const { judgementList, judgementTotal } = judgement;
-  const { regulationList, regulationTotal } = mda;
-  const { formList, formTotal } = court;
-  const { profile } = authentication;
+  const { loading, authentication } = state;
+  const { profile, dashboardStats } = authentication;
   const isAdmin = profile?.roles?.includes("ADMIN");
-  const loadingReports = loading.effects[reportEffectURL];
-  const loadingRegulationItems = loading.effects[regulationItemsEffectURL];
-  const loadingForms = loading.effects[formsEffectURL];
+  const loadingDashboard = loading.effects[getDashboardStatsURL];
 
   return {
     profile,
-    judgementList,
-    judgementTotal,
-    regulationList,
-    regulationTotal,
-    formList,
-    formTotal,
-    loadingReports,
-    loadingRegulationItems,
-    loadingForms,
     isAdmin,
+    loadingDashboard,
+    dashboardStats,
   };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    redirect(pathname) {
-      dispatch(routerRedux.push({ pathname: `${pathname}` }));
+    redirect(pathname, search) {
+      dispatch(routerRedux.push({ pathname, search }));
     },
     getDashboardStats(data) {
-      dispatch({ type: reportEffectURL, payload: data });
-      dispatch({ type: regulationItemsEffectURL, payload: data });
-      dispatch({ type: formsEffectURL, payload: data });
+      dispatch({ type: getDashboardStatsURL, payload: data });
+    },
+    onReadJudgement(data) {
+      dispatch({
+        type: "judgement/onRead",
+        payload: data,
+      });
     },
   };
 };

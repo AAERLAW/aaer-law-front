@@ -12,6 +12,7 @@ import {
   postVerifyPayment,
   getProfile,
   postLogOut,
+  getDashboardStats,
 } from "../services/authentication";
 import { Alert } from "../components/Alert.components";
 
@@ -27,6 +28,7 @@ const initialState = {
   subscriptionDetail: {},
   subcriptionPlan: {},
   openPaymentModal: false,
+  dashboardStats: {},
 };
 
 export default {
@@ -132,6 +134,16 @@ export default {
       yield put({ type: "save", payload: { profile: data } });
       // yield put(routerRedux.push("/law-reports"));
       yield put(routerRedux.push({ pathname: "/law-reports" }));
+    },
+
+    *getDashboardStats({ payload }, { call, put }) {
+      const { success, raw, message } = yield call(getDashboardStats, payload);
+      if (success) {
+        const data = raw?.data;
+        yield put({ type: "save", payload: { dashboardStats: data } });
+      } else {
+        Alert.error(message);
+      }
     },
 
     *register({ payload }, { call, put }) {

@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { ThemeContext } from "styled-components";
 
 import { Grid } from "../../components/Grid.components";
@@ -13,29 +13,20 @@ import {
   formatCount,
   truncateText,
 } from "../../utils/utils";
-import { Thumb } from "../../assets/svg/thumb.js";
-
-import LOGO from "../../assets/img/logo.png";
 // import { Theme } from "../../utils/theme";
 
 export const Dashboard = (props) => {
   // state props recieved
-  const {
-    profile,
-    judgementList,
-    judgementTotal,
-    regulationList,
-    regulationTotal,
-    formList,
-    formTotal,
-    loadingReports,
-    loadingRegulationItems,
-    loadingForms,
-    isAdmin,
-  } = props;
+  const { profile, isAdmin, loadingDashboard, dashboardStats } = props;
+  const { law_reports_count, rule_regulation_count } = dashboardStats;
+  const judgementList = dashboardStats.reports ? dashboardStats.reports : [];
+  const regulationList = dashboardStats.regulations
+    ? dashboardStats.regulations
+    : [];
+  const formList = dashboardStats.court_forms ? dashboardStats.court_forms : [];
 
   // dispatch props received
-  const { redirect, getDashboardStats } = props;
+  const { redirect, getDashboardStats, onReadJudgement } = props;
 
   const Theme = useContext(ThemeContext);
 
@@ -78,9 +69,9 @@ export const Dashboard = (props) => {
               />
             </Text>
             <Text fontWeight="bold" padding="15px 0 5px 0" fontSize="24px">
-              {formatCount(judgementTotal || 0)}+
+              {formatCount(law_reports_count || 0)}+
             </Text>
-            <Text fontWeight="light">3 New Updates</Text>
+            {/* <Text fontWeight="light">3 New Updates</Text> */}
           </Boxed>
 
           <Boxed
@@ -100,9 +91,9 @@ export const Dashboard = (props) => {
               />
             </Text>
             <Text fontWeight="bold" padding="15px 0 5px 0" fontSize="24px">
-              {formatCount(regulationTotal || 0)}+
+              {formatCount(rule_regulation_count || 0)}+
             </Text>
-            <Text fontWeight="light">2 New Updates</Text>
+            {/* <Text fontWeight="light">2 New Updates</Text> */}
           </Boxed>
 
           {!isAdmin && (
@@ -142,7 +133,7 @@ export const Dashboard = (props) => {
             <Text fontWeight="bold" padding="10px">
               Latest Reports
             </Text>
-            {loadingReports ? (
+            {loadingDashboard ? (
               <Boxed display="flex" pad="10px">
                 <Loader margin="auto" />
               </Boxed>
@@ -158,7 +149,11 @@ export const Dashboard = (props) => {
                       background={index % 2 > 0 && Theme.PrimaryDark}
                     >
                       <Boxed pad="10px ">
-                        <Text color={Theme.SecondaryTextColor} fontWeight>
+                        <Text
+                          color={Theme.SecondaryTextColor}
+                          cursor="pointer"
+                          onClick={() => onReadJudgement(item)}
+                        >
                           {item.case_title && truncateText(item.case_title, 27)}
                         </Text>
                         <Text
@@ -188,7 +183,7 @@ export const Dashboard = (props) => {
             <Text fontWeight="bold" padding="15px 10px">
               LATEST FORMS
             </Text>
-            {loadingReports ? (
+            {loadingDashboard ? (
               <Boxed display="flex" pad="10px">
                 <Loader margin="auto" />
               </Boxed>
@@ -204,8 +199,17 @@ export const Dashboard = (props) => {
                       background={index % 2 > 0 && Theme.PrimaryDark}
                     >
                       <Boxed pad="10px ">
-                        <Text color={Theme.SecondaryTextColor} fontWeight>
-                          {item.name && truncateText(item.name, 27)}
+                        <Text
+                          color={Theme.SecondaryTextColor}
+                          cursor="pointer"
+                          onClick={() =>
+                            redirect(
+                              `/court-forms/items`,
+                              `?court_form_id=${item.id}&name=${item.title}`
+                            )
+                          }
+                        >
+                          {item.title && truncateText(item.title, 27)}
                         </Text>
                       </Boxed>
                       <Boxed display="flex">
@@ -228,7 +232,7 @@ export const Dashboard = (props) => {
             <Text fontWeight="bold" padding="15px 10px">
               RECENT REGULATIONS
             </Text>
-            {loadingReports ? (
+            {loadingDashboard ? (
               <Boxed display="flex" pad="10px">
                 <Loader margin="auto" />
               </Boxed>
@@ -244,7 +248,16 @@ export const Dashboard = (props) => {
                       background={index % 2 > 0 && Theme.PrimaryDark}
                     >
                       <Boxed pad="10px ">
-                        <Text color={Theme.SecondaryTextColor} fontWeight>
+                        <Text
+                          color={Theme.SecondaryTextColor}
+                          cursor="pointer"
+                          onClick={() =>
+                            redirect(
+                              "/regulation/items",
+                              `?regulation_id=${item.id}&name=${item.name}`
+                            )
+                          }
+                        >
                           {item.name && truncateText(item.name, 27)}
                         </Text>
                       </Boxed>

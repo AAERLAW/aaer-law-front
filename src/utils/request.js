@@ -1,5 +1,6 @@
 import axios from "axios";
-import { storagePrefix, storageToken } from "./constant";
+import { storagePrefix, storageToken, storageRefeshToken } from "./constant";
+import { endpoint } from "./config";
 
 const fetch = (options) => {
   const AuthToken = localStorage.getItem(storageToken);
@@ -63,10 +64,42 @@ export default function request(options) {
       if (response && response instanceof Object) {
         const { data, statusText } = response;
         statusCode = response.status;
-        if (statusCode === 4038) {
-          localStorage.clear();
-          let origin = window.location.origin;
-          window.location.replace(origin);
+        console.log(response);
+        const infoText = data?.meta?.info;
+        if (statusCode === 401 && infoText === "expired token") {
+          console.log("fetch new token");
+          let authRefresh = localStorage.getItem(storageRefeshToken);
+          let refreshURL = `${endpoint}/auth/${authRefresh}`;
+
+          return axios
+            .post(refreshURL, {
+              meta: { source: "web" },
+              data: {},
+            })
+            .then((resp) => {
+              let refreshData = resp.data ? resp.data : {};
+              console.log(refreshData);
+              // let newToken = refreshData.accessToken;
+              // localStorage.setItem(storageToken, newToken);
+              // return request(options);
+            })
+            .catch((error) => {
+              let errResponse = error.response;
+              let errStatus = errResponse.status;
+
+              if (errStatus === 401 || errStatus === 404) {
+                // localStorage.clear();
+              }
+              return {
+                success: false,
+                statusCode,
+                message: response?.data?.meta?.info
+                  ? response?.data?.meta?.info
+                  : msg,
+                raw: response?.data,
+                meta: response?.data?.meta,
+              };
+            });
         }
         msg = data.message || statusText;
       } else {
