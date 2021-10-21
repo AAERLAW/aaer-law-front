@@ -60,7 +60,7 @@ export const Reader = (props) => {
     <Boxed
       margin="20px"
       pad="20px 0"
-      border={`1px solid ${Theme.PrimaryBorderColor}`}
+      border={`1px solid ${Theme.PrimaryDark}`}
       borderRadius={Theme.TertiaryRadius}
       bColor={Theme.TertiaryDark}
     >
@@ -79,7 +79,7 @@ export const Reader = (props) => {
                   <Tab
                     eventKey={id}
                     title={
-                      <Text fontWeight="bold">
+                      <Text fontWeight="bold" color={Theme.SecondaryDark}>
                         {truncateText(data?.name, 15)}{" "}
                         <Icon
                           onClick={() => removeItem(item)}
@@ -137,7 +137,7 @@ export const Reader = (props) => {
                 <Tab
                   eventKey={id}
                   title={
-                    <Text fontWeight="bold">
+                    <Text fontWeight="bold" color={Theme.SecondaryDark}>
                       {truncateText(data?.name, 15)}{" "}
                       <Icon
                         onClick={() => removeItem(item)}
@@ -149,18 +149,18 @@ export const Reader = (props) => {
                   <Boxed pad={viewMode === "mobile" ? "10px" : "20px"}>
                     <Text fontWeight="600">{data?.name}</Text>
                     <Grid
-                      desktop="250px auto"
-                      tablet="250px auto"
+                      desktop="30vw auto"
+                      tablet="repeat(1, 1fr)"
                       mobile="repeat(1, 1fr)"
                     >
                       <Boxed>
                         {type === "Report" ? (
                           <Boxed pad="10px 0">
                             <Text
-                              color={Theme.SecondaryTextColor}
+                              color={Theme.PrimaryColor}
                               fontSize={Theme.SecondaryFontSize}
                             >
-                              #Info{" "}
+                              🔖 Info{" "}
                             </Text>
                             <Text>
                               <ul
@@ -191,20 +191,24 @@ export const Reader = (props) => {
                             {data?.summary && (
                               <>
                                 <Text
-                                  color={Theme.SecondaryTextColor}
+                                  color={Theme.PrimaryColor}
                                   fontSize={Theme.SecondaryFontSize}
                                 >
-                                  #Summary{" "}
+                                  🔖 Summary{" "}
                                 </Text>
-                                <Text padding="10px">{data?.summary}</Text>
+                                <Text padding="10px" style={{
+                                  height: "50vh",
+                                  maxHeight: "50vh",
+                                  overflowY: "scroll",
+                                }} >{data?.summary}</Text>
                                 <Button
                                   block
-                                  pale
+                                  
                                   onClick={() => {
                                     speak({ text: data?.summary });
                                   }}
                                 >
-                                  Read Summary
+                                  Play Audio
                                 </Button>
                               </>
                             )}
@@ -212,6 +216,12 @@ export const Reader = (props) => {
                         ) : null}
                       </Boxed>
                       <Boxed pad="20px">
+                      <Text
+                                  color={Theme.PrimaryColor}
+                                  fontSize={Theme.SecondaryFontSize}
+                                >
+                                  🔖 Full Document{" "}
+                                </Text>
                         {data?.file && (
                           <PDFReader
                             document={{
