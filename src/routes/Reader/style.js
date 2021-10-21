@@ -24,7 +24,7 @@ export const StyledReader = styled.div`
     .mgrpdf-navigation__controls--previous,
     .mgrpdf-navigation__controls--next {
       cursor: pointer;
-      margin: 0 10px;
+      margin: 0 0px;
       height: 40px;
       padding: 10px 22px;
       font-size: 13px;
@@ -45,7 +45,7 @@ export const StyledReader = styled.div`
 
     .mgrpdf-navigation__controls--pages {
       border-radius: ${Theme.SecondaryRadius};
-      margin: 0 10px;
+      margin: 0 0px;
       height: 40px;
       padding: 10px 22px;
       font-size: 13px;
