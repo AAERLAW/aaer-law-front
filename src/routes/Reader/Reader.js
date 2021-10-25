@@ -200,6 +200,7 @@ export const Reader = (props) => {
                                   height: "50vh",
                                   maxHeight: "50vh",
                                   overflowY: "scroll",
+                                  whiteSpace: "pre-wrap",
                                 }} >{data?.summary}</Text>
                                 <Button
                                   block
