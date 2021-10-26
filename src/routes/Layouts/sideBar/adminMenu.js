@@ -37,13 +37,12 @@ const artistMenu = [
         icon: "icon-briefcase",
         label: "Court Forms",
         pathname: "/court-forms",
-      },
-      {
-        icon: "icon-copy",
-        label: "Precedents",
-        pathname: "/court-forms/items?court_form_id==8",
-//         search: "&name=Precedents",
-      },
+       },
+//       {
+//         icon: "icon-copy",
+//         label: "Precedents",
+//         pathname: "/court-forms/items?court_form_id==8",
+//       },
       {
         icon: "icon-book",
         label: "Reader",
