@@ -38,11 +38,11 @@ const artistMenu = [
         label: "Court Forms",
         pathname: "/court-forms",
       },
-      // {
-      //   icon: "icon-file-text",
-      //   label: "Forms & Agreement",
-      //   pathname: "/cases",
-      // },
+      {
+        icon: "icon-copy",
+        label: "Precedents",
+        pathname: "/court-forms/items?court_form_id=8&name=Precedents",
+      },
       {
         icon: "icon-book",
         label: "Reader",
