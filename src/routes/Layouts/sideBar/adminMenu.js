@@ -41,7 +41,8 @@ const artistMenu = [
       {
         icon: "icon-copy",
         label: "Precedents",
-        pathname: "/court-forms/items?court_form_id=8&name=Precedents",
+        pathname: "/court-forms",
+        search: "/items?court_form_id=8&name=Precedents",
       },
       {
         icon: "icon-book",
