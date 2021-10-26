@@ -62,7 +62,7 @@ export const CourtFormsItem = (props) => {
 
   return (
     <Boxed pad="20px">
-      <PageTitle>Court Forms / {params.name}</PageTitle>
+      <PageTitle>Forms / {params.name}</PageTitle>
       <Wrapper
         externalActionURL={fetchActionURL}
         externalParams={{ court_form: params.court_form_id }}
