@@ -3,6 +3,8 @@ export const storageToken = `${storagePrefix}token`;
 export const storageRefeshToken = `${storagePrefix}refresh_token`;
 export const storageProfile = `${storagePrefix}profile`;
 
+export const storageReaderModel = `${storagePrefix}reader_model`;
+
 export const countryList = [
   {
     value: "AF",

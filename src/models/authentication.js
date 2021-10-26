@@ -88,7 +88,6 @@ export default {
     },
 
     *socialLogin({ payload }, { call, put }) {
-      console.log({ payload });
       const { access_token } = payload;
       access_token &&
         (axios.defaults.headers.common.Authorization = `Bearer ${access_token}`);
@@ -262,6 +261,7 @@ export default {
       const { refresh_token } = payload;
       call(postLogOut, { refresh_token });
       localStorage.clear();
+      yield put({ type: "reader/reset" });
       yield put(routerRedux.push("/login"));
     },
   },

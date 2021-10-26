@@ -6,6 +6,8 @@ import { Theme } from "../../../utils/theme";
 
 import LOGO from "../../../assets/img/logo.png";
 import LOGO_FULL from "../../../assets/img/aaer-logo.png";
+import LOGO_SM_LIGHT from "../../../assets/img/logo-light-sm.png";
+import LOGO_FULL_LIGHT from "../../../assets/img/logo-light-full.png";
 import maleImage from "../../../assets/img/male.png";
 
 const SideList = styled.div`
@@ -17,7 +19,7 @@ const SideList = styled.div`
   overflow: hidden;
   transition: all 0.5s;
   -webkit-transition: all 0.25s;
-  height:100vh;
+  height: 100vh;
 
   ${(props) =>
     props.float &&
@@ -31,8 +33,8 @@ const SideList = styled.div`
     text-align: right;
     padding: 0.25rem 1rem;
     ${(props) =>
-    props.collaspe &&
-    css`
+      props.collaspe &&
+      css`
         transform: rotate(180deg);
         text-align: "center";
       `}
@@ -91,8 +93,8 @@ const SideList = styled.div`
         opacity: ${(props) => (props.collaspe ? "0" : "1")};
         margin: auto 0;
         ${(props) =>
-    props.collaspe &&
-    css`
+          props.collaspe &&
+          css`
             display: none;
           `}
       }
@@ -104,7 +106,7 @@ const SideList = styled.div`
     }
   }
 
-  .side-menu-footer{
+  .side-menu-footer {
     width: 100%;
     background: ${(props) => props.theme.PrimaryDark};
     position: absolute;
@@ -112,44 +114,42 @@ const SideList = styled.div`
     left: 0;
     padding: 20px;
     box-sizing: border-box;
-}
+  }
 
-.side-menu-footer .avatar{
+  .side-menu-footer .avatar {
     width: 40px;
     height: 40px;
     overflow: hidden;
     border-radius: 50%;
     display: inline-block;
-}
-.side-menu-footer .avatar img{
+  }
+  .side-menu-footer .avatar img {
     max-width: 100%;
-}
+  }
 
-.side-menu-footer .user-info{
+  .side-menu-footer .user-info {
     display: inline-block;
     margin: 0 10px;
-    color: ${Theme.PrimaryDark},;
+    color: ${Theme.PrimaryDark};
     position: absolute;
     opacity: 1;
-    transition: opacity .2s ease-in;
-}
+    transition: opacity 0.2s ease-in;
+  }
 
-.side-menu.inactive .side-menu-footer .user-info{
+  .side-menu.inactive .side-menu-footer .user-info {
     opacity: 1;
     width: 0;
     height: 0;
     overflow: hidden;
-}
+  }
 
-
-.side-menu-footer .user-info h5{
+  .side-menu-footer .user-info h5 {
     font-size: 15px;
-}
+  }
 
-
-.side-menu-footer .user-info p{
+  .side-menu-footer .user-info p {
     font-size: 14px;
-}
+  }
 `;
 
 export const SideBar = (props) => {
@@ -163,6 +163,7 @@ export const SideBar = (props) => {
     viewMode,
     profile,
     menuMode,
+    nightMode,
   } = props;
 
   // dispatch props received
@@ -178,11 +179,14 @@ export const SideBar = (props) => {
   float && collaspe && (btnLeft = "-100px");
   !float && collaspe && (btnLeft = "0.5rem");
 
+  const full_logo = nightMode ? LOGO_FULL_LIGHT : LOGO_FULL;
+  const sm_logo = nightMode ? LOGO_SM_LIGHT : LOGO;
+
   return (
     <SideList collaspe={collaspe} float={float}>
       <Boxed display="flex">
         <img
-          src={collaspe ? LOGO : LOGO_FULL}
+          src={collaspe ? sm_logo : full_logo}
           height={collaspe ? "35px" : "50px"}
           style={{ margin: "auto", cursor: "pointer", padding: "5px" }}
           alt="app-logo"

@@ -14,7 +14,8 @@ import { Avatar } from "../../../components/Avatar.components";
 import { Icon, StyledDrpDown } from "../../../components/style";
 
 import maleImage from "../../../assets/img/male.png";
-import Logo from "../../../assets/img/logo.png";
+import LOGO from "../../../assets/img/logo.png";
+import LOGO_SM_LIGHT from "../../../assets/img/logo-light-sm.png";
 
 import { calcViewMode } from "../../../utils/utils";
 import { Grid } from "../../../components/Grid.components";
@@ -87,7 +88,7 @@ export const HeaderLayout = (props) => {
                   </Boxed>
 
                   <img
-                    src={Logo}
+                    src={nightMode ? LOGO_SM_LIGHT : LOGO}
                     alt="logo"
                     height="40px"
                     onClick={() => redirect("/dashbaord")}

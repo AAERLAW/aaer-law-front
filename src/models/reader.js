@@ -1,18 +1,35 @@
 import { routerRedux } from "dva/router";
+import { storageReaderModel } from "../utils/constant";
+
+const initialState = {
+  bookList: [],
+  activeTab: "",
+  editFormModal: false,
+  editFormData: {},
+};
 
 export default {
   namespace: "reader",
 
   state: {
-    bookList: [],
-    activeTab: "",
-    editFormModal: false,
-    editFormData: {},
+    ...initialState,
   },
 
   subscriptions: {
     setup({ dispatch, history }) {
       // eslint-disable-line
+      try {
+        let reader_model = localStorage.getItem(storageReaderModel);
+        if (reader_model) {
+          let data = JSON.parse(reader_model);
+          dispatch({
+            type: "save",
+            payload: data,
+          });
+        }
+      } catch (err) {
+        console.log(err);
+      }
     },
   },
 
@@ -30,11 +47,24 @@ export default {
       );
 
       !(existingIndex > -1) && newBookList.push(action.payload);
-      return {
+
+      const newPayload = {
         ...state,
         bookList: [...newBookList],
         activeTab: action?.payload?.id,
       };
+
+      try {
+        let data = JSON.stringify(newPayload);
+        localStorage.setItem(storageReaderModel, data);
+      } catch (err) {
+        console.log(err);
+      }
+
+      return newPayload;
+    },
+    reset(state, action) {
+      return { ...initialState };
     },
   },
 };

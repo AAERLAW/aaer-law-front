@@ -7,7 +7,7 @@ import usersMenu from "./usersMenu";
 
 const mapStateToProps = (state, ownProps) => {
   const { app, authentication } = state;
-  const { openMediaMenu, menuMode } = app;
+  const { openMediaMenu, menuMode, nightMode } = app;
   const { profile } = authentication;
   const { collaspe } = ownProps;
 
@@ -25,6 +25,7 @@ const mapStateToProps = (state, ownProps) => {
     dataList,
     pathname: state.routing.location.pathname,
     menuMode,
+    nightMode,
   };
 };
 
