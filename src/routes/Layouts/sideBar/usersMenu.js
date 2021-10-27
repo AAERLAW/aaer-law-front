@@ -28,11 +28,11 @@ const usersMenu = [
         label: "Court Forms",
         pathname: "/court-forms",
       },
-//       {
-//         icon: "icon-copy",
-//         label: "Precedents",
-//         pathname: "/court-forms/items?court_form_id=8&name=Precedents",
-//       },
+      {
+        icon: "icon-copy",
+        label: "Precedents",
+        pathname: "/court-forms/items?court_form_id=8&name=Precedents",
+      },
       {
         icon: "icon-file-minus",
         label: "Reader",
