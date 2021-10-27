@@ -6,7 +6,7 @@ import { Text } from "../../components/Text.components";
 import { Button } from "../../components/Button.components";
 
 import HOME_1 from "../../assets/img/home-1.png";
-import HOME_2 from "../../assets/img/home-2.jpg";
+import HOME_2 from "../../assets/img/home-2.png";
 import HOME_3 from "../../assets/img/home-3.png";
 import HOME_4 from "../../assets/img/home-4.png";
 import login_bg from "../../assets/img/login-bg.png";
