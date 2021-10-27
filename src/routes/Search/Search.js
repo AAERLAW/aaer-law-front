@@ -10,7 +10,7 @@ import { PageTitle, Icon } from "../../components/style";
 
 import { calcViewMode, formatDate } from "../../utils/utils";
 
-import EMPTY from "../../assets/img/search-result.png";
+import EMPTY from "../../assets/img/search-results.png";
 import { Theme } from "../../utils/theme";
 
 export const Search = (props) => {
