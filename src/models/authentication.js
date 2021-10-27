@@ -132,7 +132,7 @@ export default {
       localStorage.setItem(storageProfile, JSON.stringify(data));
       yield put({ type: "save", payload: { profile: data } });
       // yield put(routerRedux.push("/law-reports"));
-      yield put(routerRedux.push({ pathname: "/law-reports" }));
+      yield put(routerRedux.push({ pathname: "/dashboard" }));
     },
 
     *getDashboardStats({ payload }, { call, put }) {
