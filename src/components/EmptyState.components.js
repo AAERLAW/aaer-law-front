@@ -12,7 +12,7 @@ export const EmptyState = (props) => {
       <img
         src={EMPTY_STATE}
         alt="empty_state"
-        height="400px"
+        height="280px"
         style={{ margin: "auto", padding: "10px" }}
       />
       <Text fontWeight="600" color={Theme.SecondaryTextColor}>
