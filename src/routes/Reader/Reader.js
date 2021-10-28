@@ -1,4 +1,4 @@
-import React, { useState, useRef, useContext } from "react";
+import React, { useState, useRef, useContext, useEffect } from "react";
 import { ThemeContext } from "styled-components";
 
 import { useSpeechSynthesis } from "react-speech-kit";
@@ -36,9 +36,10 @@ export const Reader = (props) => {
   //dispatch props receieved
   const { redirect, saveReader, openEditForm } = props;
   const Theme = useContext(ThemeContext);
-  const { speak } = useSpeechSynthesis();
+  const { speak, cancel } = useSpeechSynthesis();
 
   const [key, setKey] = useState(activeTab);
+  const [speaking, setSpeaking] = useState(false);
 
   let viewMode = calcViewMode();
 
@@ -55,6 +56,25 @@ export const Reader = (props) => {
       console.log(data);
     }
   };
+
+  // cancel Speaking
+  const handleEnd = () => {
+    setSpeaking(false);
+    cancel();
+    // onEnd();
+  };
+
+  const handleStart = ({ text }) => {
+    setSpeaking(true);
+    speak({ text: text, onEnd: handleEnd });
+  };
+
+  useEffect(() => {
+    return () => {
+      console.log("stop sound");
+      handleEnd();
+    };
+  }, []);
 
   return (
     <Boxed
@@ -196,33 +216,48 @@ export const Reader = (props) => {
                                 >
                                   🔖 Summary{" "}
                                 </Text>
-                                <Text padding="10px" style={{
-                                  height: "50vh",
-                                  maxHeight: "50vh",
-                                  overflowY: "scroll",
-                                  whiteSpace: "pre-wrap",
-                                }} >{data?.summary}</Text>
-                                <Button
-                                  block
-                                  
-                                  onClick={() => {
-                                    speak({ text: data?.summary });
+                                <Text
+                                  padding="10px"
+                                  style={{
+                                    height: "50vh",
+                                    maxHeight: "50vh",
+                                    overflowY: "scroll",
+                                    whiteSpace: "pre-wrap",
                                   }}
                                 >
-                                  Play Audio
-                                </Button>
+                                  {data?.summary}
+                                </Text>
+                                {!speaking ? (
+                                  <Button
+                                    block
+                                    onClick={() => {
+                                      handleStart({ text: data?.summary });
+                                    }}
+                                  >
+                                    Play Audio
+                                  </Button>
+                                ) : (
+                                  <Button
+                                    block
+                                    onClick={() => {
+                                      handleEnd();
+                                    }}
+                                  >
+                                    Stop Audio
+                                  </Button>
+                                )}
                               </>
                             )}
                           </Boxed>
                         ) : null}
                       </Boxed>
                       <Boxed pad="20px">
-                      <Text
-                                  color={Theme.PrimaryColor}
-                                  fontSize={Theme.SecondaryFontSize}
-                                >
-                                  🔖 Full Document{" "}
-                                </Text>
+                        <Text
+                          color={Theme.PrimaryColor}
+                          fontSize={Theme.SecondaryFontSize}
+                        >
+                          🔖 Full Document{" "}
+                        </Text>
                         {data?.file && (
                           <PDFReader
                             document={{

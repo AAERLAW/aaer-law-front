@@ -52,7 +52,6 @@ export const CreateJudgement = (props) => {
 
   // handle logic for uploading an image
   const beforeUpload = (file) => {
-    console.log(file);
     const isPDF = file.type === "application/pdf";
     if (!isPDF) {
       Alert.error("You can only upload PDF file!");
@@ -130,8 +129,6 @@ export const CreateJudgement = (props) => {
   const modiCourts =
     courts && courts.map((item) => ({ value: item.id, label: item.name }));
   let errors;
-
-  console.log(changeFile);
 
   return (
     <>

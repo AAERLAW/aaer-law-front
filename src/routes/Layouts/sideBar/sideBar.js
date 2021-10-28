@@ -182,6 +182,8 @@ export const SideBar = (props) => {
   const full_logo = nightMode ? LOGO_FULL_LIGHT : LOGO_FULL;
   const sm_logo = nightMode ? LOGO_SM_LIGHT : LOGO;
 
+  console.log({ profile });
+
   return (
     <SideList collaspe={collaspe} float={float}>
       <Boxed display="flex">

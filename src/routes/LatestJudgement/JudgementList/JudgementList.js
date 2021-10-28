@@ -1,7 +1,8 @@
-import React, { useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { ThemeContext } from "styled-components";
 
 import { Grid } from "../../../components/Grid.components";
+import { Input, AsyncSelect } from "../../../components/Input.components";
 import { Boxed } from "../../../components/Boxed.components";
 import { Button } from "../../../components/Button.components";
 import { Loader } from "../../../components/Loader.components";
@@ -26,6 +27,7 @@ export const JudgementList = (props) => {
     createJudgementModal,
     isLoading,
     isAdmin,
+    courtList,
   } = props;
   // dispatch props received
   const {
@@ -35,6 +37,7 @@ export const JudgementList = (props) => {
     openEditJudgement,
     onRead,
     deleteJudgement,
+    getAllCourts,
   } = props;
 
   const Theme = useContext(ThemeContext);
@@ -47,6 +50,7 @@ export const JudgementList = (props) => {
       size: 10,
     };
     getAllJudgements(data);
+    getAllCourts({ page: 0, size: 50 });
   }, []);
 
   const onDelete = (item) => {
@@ -55,6 +59,14 @@ export const JudgementList = (props) => {
     );
     confirmation && deleteJudgement(item);
   };
+
+  const [court, setCourt] = useState("");
+  let externalParams = {};
+  court.id && (externalParams["court_id"] = court.id);
+  console.log({ externalParams });
+
+  const modiCourts =
+    courtList && courtList.map((item) => ({ label: item.name, ...item }));
 
   return (
     <Boxed pad="10px">
@@ -73,11 +85,14 @@ export const JudgementList = (props) => {
         )}
       </Boxed>
       <Wrapper
+        externalParams={{ ...externalParams }}
+        externalActionURL={fetchActionURL}
         render={({
           changePageSize,
           handlePagination,
           currentPage,
           pageSize,
+          search,
           filter,
         }) => {
           return (
@@ -89,24 +104,49 @@ export const JudgementList = (props) => {
                 </Boxed>
               ) : (
                 <>
-                  <Boxed pad="10px 0 ">
-                    <PaginationComponent
-                      total={judgementTotal}
-                      onChange={(page) =>
-                        handlePagination(page, fetchActionURL)
-                      }
-                      current={currentPage}
-                      pageCounts={pageOptions}
-                      changePageSize={(pageSize) =>
-                        changePageSize(pageSize, fetchActionURL)
-                      }
-                      pageSize={pageSize}
-                      itemsDisplayed
-                      showTotal={(total, range) => {
-                        return `${range[0]} - ${range[1]} of ${judgementTotal} items`;
-                      }}
-                    />
-                  </Boxed>
+                  <Grid
+                    desktop="1fr 1fr 0.25fr 1.75fr"
+                    tablet="1fr 1fr 0.25fr 1.75fr"
+                    mobile="repear(1, 1fr)"
+                  >
+                    <Boxed pad="10px 0" margin="auto 0 0 0">
+                      <Input
+                        value={filter.search}
+                        placeholder="Search by report title"
+                        type="search"
+                        onChange={(e) => search(e, fetchActionURL)}
+                      />
+                    </Boxed>
+                    <Boxed pad="10px 0">
+                      <AsyncSelect
+                        label="Court"
+                        placeholder="Select court Item"
+                        isClearable
+                        options={modiCourts}
+                        onChange={(e) => setCourt(e)}
+                      />
+                    </Boxed>
+
+                    <Boxed pad="10px 0" />
+                    <Boxed pad="10px 0" margin="auto 0 0 0">
+                      <PaginationComponent
+                        total={judgementTotal}
+                        onChange={(page) =>
+                          handlePagination(page, fetchActionURL)
+                        }
+                        current={currentPage}
+                        pageCounts={pageOptions}
+                        changePageSize={(pageSize) =>
+                          changePageSize(pageSize, fetchActionURL)
+                        }
+                        pageSize={pageSize}
+                        itemsDisplayed
+                        showTotal={(total, range) => {
+                          return `${range[0]} - ${range[1]} of ${judgementTotal} items`;
+                        }}
+                      />
+                    </Boxed>
+                  </Grid>
 
                   {judgementList &&
                     judgementList.map((item, index) => (
@@ -139,11 +179,11 @@ export const JudgementList = (props) => {
                                   </Dropdown.Toggle>
 
                                   <Dropdown.Menu>
-                                    <Dropdown.Item
+                                    {/* <Dropdown.Item
                                       onClick={() => openEditJudgement(item)}
                                     >
                                       Edit
-                                    </Dropdown.Item>
+                                    </Dropdown.Item> */}
                                     <Dropdown.Item
                                       onClick={() => onDelete(item)}
                                     >
