@@ -31,7 +31,7 @@ const usersMenu = [
       {
         icon: "icon-copy",
         label: "Precedents",
-        pathname: "/court-forms/items?court_form_id=8&name=Precedents",
+        pathname: "/precedents",
       },
       {
         icon: "icon-file-minus",
