@@ -2,6 +2,7 @@ import React from "react";
 
 import styled, { css } from "styled-components";
 import { Boxed } from "../../../components/Boxed.components";
+import { Text } from "../../../components/Text.components";
 import { Theme } from "../../../utils/theme";
 
 import LOGO from "../../../assets/img/logo.png";
@@ -227,8 +228,18 @@ export const SideBar = (props) => {
           <img src={maleImage} alt="user" />
         </div>
         <div className="user-info">
-          <h5>{profile?.username}</h5>
-          <p>{profile?.email}</p>
+          <Text
+            fontSize={Theme.SecondaryFontSize}
+            color={Theme.SecondaryTextColor}
+          >
+            {profile?.username}
+          </Text>
+          <Text
+            fontSize={Theme.SecondaryFontSize}
+            color={Theme.SecondaryTextColor}
+          >
+            {profile?.email}
+          </Text>
         </div>
       </div>
     </SideList>
