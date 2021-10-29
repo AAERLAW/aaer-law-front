@@ -169,7 +169,7 @@ export const Reader = (props) => {
                   <Boxed pad={viewMode === "mobile" ? "10px" : "20px"}>
                     <Text fontWeight="600">{data?.name}</Text>
                     <Grid
-                      desktop="30vw auto"
+                      desktop="28vw auto"
                       tablet="repeat(1, 1fr)"
                       mobile="repeat(1, 1fr)"
                     >
@@ -251,20 +251,23 @@ export const Reader = (props) => {
                           </Boxed>
                         ) : null}
                       </Boxed>
-                      <Boxed pad="20px">
+                      <Boxed pad="5px 20px">
                         <Text
                           color={Theme.PrimaryColor}
                           fontSize={Theme.SecondaryFontSize}
+                          padding="10px 0"
                         >
                           🔖 Full Document{" "}
                         </Text>
-                        {data?.file && (
-                          <PDFReader
-                            document={{
-                              base64: data?.file,
-                            }}
-                          />
-                        )}
+                        <Boxed maxHeight="800px" overflowY="scroll">
+                          {data?.file && (
+                            <PDFReader
+                              document={{
+                                base64: data?.file,
+                              }}
+                            />
+                          )}
+                        </Boxed>
                       </Boxed>
                     </Grid>
                   </Boxed>

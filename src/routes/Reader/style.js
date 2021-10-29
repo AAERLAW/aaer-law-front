@@ -5,6 +5,13 @@ import PDFViewer from "mgr-pdf-viewer-react";
 
 import { Theme } from "../../utils/theme";
 
+// Import the main component
+import { Viewer } from "@react-pdf-viewer/core";
+
+// Import the styles
+import "@react-pdf-viewer/core/lib/styles/index.css";
+import { Worker } from "@react-pdf-viewer/core";
+
 export const StyledReader = styled.div`
   font-family: ${(props) => props.theme.PrimaryFontFamily};
   canvas {
@@ -67,10 +74,37 @@ export const StyledReader = styled.div`
   }
 `;
 
+const base64toBlob = (data) => {
+  // Cut the prefix `data:application/pdf;base64` from the raw base 64
+  const base64WithoutPrefix = data.substr(
+    "data:application/pdf;base64,".length
+  );
+
+  const bytes = atob(base64WithoutPrefix);
+  let length = bytes.length;
+  let out = new Uint8Array(length);
+
+  while (length--) {
+    out[length] = bytes.charCodeAt(length);
+  }
+
+  return new Blob([out], { type: "application/pdf" });
+};
+
+// `base64String` is the given base 64 data
+
 export const PDFReader = (props) => {
+  const { document } = props;
+  const { base64 } = document;
+  const blob = base64toBlob(base64);
+  const url = URL.createObjectURL(blob);
   return (
-    <StyledReader>
-      <PDFViewer {...props} />
-    </StyledReader>
+    <>
+      {/* <PDFViewer {...props} /> */}
+      {/* <Viewer fileUrl="/path/to/document.pdf" /> */}
+      <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.6.347/build/pdf.worker.min.js">
+        <Viewer fileUrl={url} />
+      </Worker>
+    </>
   );
 };

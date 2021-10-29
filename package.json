@@ -4,6 +4,7 @@
 	"private": true,
 	"dependencies": {
 		"@phuocng/react-pdf-viewer": "^1.7.0",
+		"@react-pdf-viewer/core": "^2.10.1",
 		"@testing-library/jest-dom": "^5.11.4",
 		"@testing-library/react": "^11.1.0",
 		"@testing-library/user-event": "^12.1.10",
@@ -21,6 +22,7 @@
 		"mgr-pdf-viewer-react": "^1.0.3",
 		"moment": "2.24.0",
 		"pdf-viewer-reactjs": "^2.2.3",
+		"pdfjs-dist": "^2.6.347",
 		"pluralize": "^8.0.0",
 		"polished": "3.4.1",
 		"pretty-checkbox": "3.0.3",
