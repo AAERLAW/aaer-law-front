@@ -107,9 +107,9 @@ export const JudgementList = (props) => {
                   <Grid
                     desktop="1fr 1fr 0.25fr 1.75fr"
                     tablet="1fr 1fr 0.25fr 1.75fr"
-                    mobile="repear(1, 1fr)"
+                    mobile="repeat(1, 1fr)"
                   >
-                    <Boxed pad="10px 0" margin="auto 0 0 0">
+                    <Boxed pad="5px 0" margin="auto 0 0 0">
                       <Input
                         value={filter.search}
                         placeholder="Search by report title"
@@ -117,7 +117,7 @@ export const JudgementList = (props) => {
                         onChange={(e) => search(e, fetchActionURL)}
                       />
                     </Boxed>
-                    <Boxed pad="10px 0">
+                    <Boxed pad="5px 0">
                       <AsyncSelect
                         label="Court"
                         placeholder="Select court Item"
@@ -127,8 +127,8 @@ export const JudgementList = (props) => {
                       />
                     </Boxed>
 
-                    <Boxed pad="10px 0" />
-                    <Boxed pad="10px 0" margin="auto 0 0 0">
+                    <Boxed />
+                    <Boxed pad="5px 0" margin="auto 0 0 0">
                       <PaginationComponent
                         total={judgementTotal}
                         onChange={(page) =>

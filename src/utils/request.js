@@ -8,6 +8,7 @@ const fetch = (options) => {
     axios.defaults.headers.common.Authorization = `Bearer ${AuthToken}`;
   }
   let { method = "get", data, url, formatData } = options;
+
   if (formatData && method.toLowerCase() !== "get") {
     data = {
       meta: { source: "web" },
@@ -40,6 +41,45 @@ const fetch = (options) => {
   }
 };
 
+const refreshAction = async ({ options, statusCode, response }) => {
+  console.log("fetch new token");
+  let authRefresh = localStorage.getItem(storageRefeshToken);
+  const new_axios = axios;
+  console.log({ authRefresh });
+  await (new_axios.defaults.headers.common.Authorization = `Bearer ${authRefresh}`);
+  let refreshURL = `${endpoint}/auth/refreshtoken`;
+
+  return await new_axios
+    .post(refreshURL, {
+      meta: { source: "web" },
+      data: {},
+    })
+    .then((resp) => {
+      let refreshData = resp.data ? resp.data : {};
+      console.log(refreshData);
+      // let newToken = refreshData.accessToken;
+      // localStorage.setItem(storageToken, newToken);
+      // return request(options);
+    })
+    .catch((error) => {
+      let errResponse = error.response;
+      let errStatus = errResponse.status;
+
+      if (errStatus === 401 || errStatus === 404) {
+        // localStorage.clear();
+      }
+      return {
+        success: false,
+        statusCode,
+        message: response?.data?.meta?.info
+          ? response?.data?.meta?.info
+          : "Network Error",
+        raw: response?.data,
+        meta: response?.data?.meta,
+      };
+    });
+};
+
 export default function request(options) {
   return fetch(options)
     .then((response) => {
@@ -67,39 +107,7 @@ export default function request(options) {
         console.log(response);
         const infoText = data?.meta?.info;
         if (statusCode === 401 && infoText === "expired token") {
-          console.log("fetch new token");
-          let authRefresh = localStorage.getItem(storageRefeshToken);
-          let refreshURL = `${endpoint}/auth/${authRefresh}`;
-
-          return axios
-            .post(refreshURL, {
-              meta: { source: "web" },
-              data: {},
-            })
-            .then((resp) => {
-              let refreshData = resp.data ? resp.data : {};
-              console.log(refreshData);
-              // let newToken = refreshData.accessToken;
-              // localStorage.setItem(storageToken, newToken);
-              // return request(options);
-            })
-            .catch((error) => {
-              let errResponse = error.response;
-              let errStatus = errResponse.status;
-
-              if (errStatus === 401 || errStatus === 404) {
-                // localStorage.clear();
-              }
-              return {
-                success: false,
-                statusCode,
-                message: response?.data?.meta?.info
-                  ? response?.data?.meta?.info
-                  : msg,
-                raw: response?.data,
-                meta: response?.data?.meta,
-              };
-            });
+          refreshAction({ options, statusCode, response });
         }
         msg = data.message || statusText;
       } else {

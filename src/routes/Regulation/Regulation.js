@@ -4,10 +4,12 @@ import { ThemeContext } from "styled-components";
 import Dropdown from "react-bootstrap/Dropdown";
 
 import { Button } from "../../components/Button.components";
+import { Grid } from "../../components/Grid.components";
 import { Boxed } from "../../components/Boxed.components";
 import { Text } from "../../components/Text.components";
 import { PaginationComponent } from "../../components/Table.components";
 import { Loader } from "../../components/Loader.components";
+import { Input } from "../../components/Input.components";
 import { PageTitle, StyledDrpDown, Icon } from "../../components/style";
 
 import Wrapper from "../Common/FilterWrapper/index";
@@ -17,6 +19,7 @@ import { pageOptions } from "../../utils/constant";
 // import { Theme } from "../../utils/theme";
 
 import CreateModal from "./CreateModal/index";
+import { EmptyState } from "../../components/EmptyState.components";
 
 export const MDAs = (props) => {
   // State props received
@@ -69,26 +72,41 @@ export const MDAs = (props) => {
           handlePagination,
           currentPage,
           pageSize,
-          filter,
+          search,
         }) => {
           return (
             <>
-              <Boxed pad="10px 0 ">
-                <PaginationComponent
-                  total={regulationTotal}
-                  onChange={(page) => handlePagination(page, fetchActionURL)}
-                  current={currentPage}
-                  pageCounts={pageOptions}
-                  changePageSize={(pageSize) =>
-                    changePageSize(pageSize, fetchActionURL)
-                  }
-                  pageSize={pageSize}
-                  itemsDisplayed
-                  showTotal={(total, range) => {
-                    return `${range[0]} - ${range[1]} of ${regulationTotal} items`;
-                  }}
-                />
-              </Boxed>
+              <Grid
+                desktop="1fr 1fr 2fr"
+                tablet="1fr 0.5fr 2.5fr"
+                mobile="repeat(1, 1fr)"
+              >
+                <Boxed pad="10px 0">
+                  <Input
+                    type="search"
+                    placeholder="Search by name..."
+                    onChange={(value) => search(value, fetchActionURL)}
+                  />
+                </Boxed>
+                <Boxed />
+
+                <Boxed pad="10px 0 ">
+                  <PaginationComponent
+                    total={regulationTotal}
+                    onChange={(page) => handlePagination(page, fetchActionURL)}
+                    current={currentPage}
+                    pageCounts={pageOptions}
+                    changePageSize={(pageSize) =>
+                      changePageSize(pageSize, fetchActionURL)
+                    }
+                    pageSize={pageSize}
+                    itemsDisplayed
+                    showTotal={(total, range) => {
+                      return `${range[0]} - ${range[1]} of ${regulationTotal} items`;
+                    }}
+                  />
+                </Boxed>
+              </Grid>
 
               <Boxed
                 bColor={Theme.SecondaryDark}
@@ -103,56 +121,64 @@ export const MDAs = (props) => {
                   </Boxed>
                 ) : (
                   <>
-                    {regulationTotal > 0
-                      ? regulationList.map((item, index) => {
-                          return (
-                            <Text
-                              key={index}
-                              padding="5px 10px"
-                              margin="5px"
-                              cursor="pointer"
-                              bColor={Theme.TertiaryDark}
-                              hoverBColor={`${Theme.PrimaryColor}20`}
-                              borderRadius="15px"
-                            >
-                              <span
-                                onClick={() =>
-                                  redirect(
-                                    "/regulation/items",
-                                    `?regulation_id=${item.id}&name=${item.name}`
-                                  )
-                                }
-                              >
-                                {item.name}
-                              </span>
-                              {isAdmin && (
-                                <Boxed display="inline-block">
-                                  <StyledDrpDown
-                                    style={{ margin: "auto 0 auto 10px" }}
+                    {regulationTotal > 0 ? (
+                      <>
+                        {regulationTotal > 0
+                          ? regulationList.map((item, index) => {
+                              return (
+                                <Text
+                                  key={index}
+                                  padding="5px 10px"
+                                  margin="5px"
+                                  cursor="pointer"
+                                  bColor={Theme.TertiaryDark}
+                                  hoverBColor={`${Theme.PrimaryColor}20`}
+                                  borderRadius="15px"
+                                >
+                                  <span
+                                    onClick={() =>
+                                      redirect(
+                                        "/regulation/items",
+                                        `?regulation_id=${item.id}&name=${item.name}`
+                                      )
+                                    }
                                   >
-                                    <Dropdown>
-                                      <Dropdown.Toggle
-                                        variant
-                                        id="dropdown-basic"
+                                    {item.name}
+                                  </span>
+                                  {isAdmin && (
+                                    <Boxed display="inline-block">
+                                      <StyledDrpDown
+                                        style={{ margin: "auto 0 auto 10px" }}
                                       >
-                                        <Icon className="icon icon-more-vertical" />
-                                      </Dropdown.Toggle>
+                                        <Dropdown>
+                                          <Dropdown.Toggle
+                                            variant
+                                            id="dropdown-basic"
+                                          >
+                                            <Icon className="icon icon-more-vertical" />
+                                          </Dropdown.Toggle>
 
-                                      <Dropdown.Menu>
-                                        <Dropdown.Item
-                                          onClick={() => onDelete(item)}
-                                        >
-                                          Delete
-                                        </Dropdown.Item>
-                                      </Dropdown.Menu>
-                                    </Dropdown>
-                                  </StyledDrpDown>
-                                </Boxed>
-                              )}
-                            </Text>
-                          );
-                        })
-                      : null}
+                                          <Dropdown.Menu>
+                                            <Dropdown.Item
+                                              onClick={() => onDelete(item)}
+                                            >
+                                              Delete
+                                            </Dropdown.Item>
+                                          </Dropdown.Menu>
+                                        </Dropdown>
+                                      </StyledDrpDown>
+                                    </Boxed>
+                                  )}
+                                </Text>
+                              );
+                            })
+                          : null}
+                      </>
+                    ) : (
+                      <Boxed display="flex" width="100%">
+                        <EmptyState />
+                      </Boxed>
+                    )}
                   </>
                 )}
               </Boxed>

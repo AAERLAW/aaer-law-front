@@ -16,5 +16,14 @@ export async function postCreateUser(data) {
     url,
     method: "POST",
     data,
+    formatData: true,
+  });
+}
+
+export async function getRoles(data) {
+  const url = `${endpoint}/roles`;
+  return await request({
+    url,
+    method: "GET",
   });
 }

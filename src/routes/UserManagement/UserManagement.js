@@ -63,11 +63,11 @@ export const UserManagement = (props) => {
       dataIndex: "subscription",
       key: "subscription",
       render: (item) => {
-        let status = (
+        let status = item && (
           <Text>
-            {item.title ? item.title : "-- : --"}
+            {item?.title ? item?.title : "-- : --"}
             <br />
-            {item.expired ? (
+            {item?.expired ? (
               <span style={{ color: Theme.PrimaryRed }}>Expired</span>
             ) : (
               <span style={{ color: Theme.PrimaryGreen }}>Active</span>
@@ -176,20 +176,27 @@ export const UserManagement = (props) => {
             return (
               <Boxed pad="10px 0">
                 <Grid
-                  default="repeat(4, 1fr)"
+                  desktop="repeat(4, 1fr)"
                   tablet="repeat(4, 1fr)"
                   mobile="repeat(2, 1fr)"
                 >
-                  <Boxed pad="5px">
+                  <Boxed pad="10px 0">
                     <Input
                       type="search"
                       placeholder="search by name or email"
                       onChange={(value) => search(value, fetchActionURL)}
                     />
                   </Boxed>
+                  <Boxed />
+                  <Boxed />
+                  <Button margin="10px 0" onClick={() => openCreateModal()}>
+                    Create User
+                  </Button>
                 </Grid>
                 {isLoading ? (
-                  <Loader margin="2rem auto" />
+                  <Boxed pad="20px" display="flex">
+                    <Loader margin="2rem auto" />
+                  </Boxed>
                 ) : (
                   <>
                     <TableComponent columns={columns} data={usersList} />

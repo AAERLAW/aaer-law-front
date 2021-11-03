@@ -5,11 +5,14 @@ import { routerRedux } from "dva/router";
 
 export const mapStateToProps = (state, ownProps) => {
   const { loading, users } = state;
-  const { createUsersModal } = users;
-  const isLoading = loading.effects["court/createUser"];
+  const { createUsersModal, rolesList } = users;
+  const isLoading = loading.effects["users/createUser"];
+  const isLoadingRoles = loading.effects["users/getAllRoles"];
   return {
     createUsersModal,
     isLoading,
+    rolesList,
+    isLoadingRoles,
   };
 };
 
@@ -23,6 +26,9 @@ export const mapDispatchToProps = (dispatch, ownProps) => {
     },
     closeModal() {
       dispatch({ type: "users/save", payload: { createUsersModal: false } });
+    },
+    getAllRoles(data) {
+      dispatch({ type: "users/getAllRoles", payload: data });
     },
   };
 };

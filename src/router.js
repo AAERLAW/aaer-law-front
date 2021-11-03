@@ -56,6 +56,15 @@ const PrivateRoute = (props) => {
   }
 };
 
+const NonPrivateRoute = (props) => {
+  const AuthToken = localStorage.getItem(`${storageToken}`);
+  if (AuthToken) {
+    return <Redirect to={{ pathname: "/dashboard" }} />;
+  } else {
+    return <Route {...props} />;
+  }
+};
+
 const openRoutes = [
   "/",
   "/login",
@@ -84,7 +93,7 @@ export function RouterConfig({ history, app }) {
               return <Home {...props} />;
             }}
           />
-          <Route
+          <NonPrivateRoute
             path="/login"
             exact
             render={(props) => {
@@ -223,7 +232,14 @@ export function RouterConfig({ history, app }) {
           <PrivateRoute path="/search" exact render={(props) => <Search />} />
 
           <PrivateRoute path="/reader" exact render={(props) => <Reader />} />
-          <PrivateRoute path="/precedents" exact render={(props) => (window.location = "https://www.aaerlaw.com/court-forms/items?court_form_id=8&name=Precedents")} />
+          <PrivateRoute
+            path="/precedents"
+            exact
+            render={(props) =>
+              (window.location =
+                "https://www.aaerlaw.com/court-forms/items?court_form_id=8&name=Precedents")
+            }
+          />
           {/* #########   E N D :    G U A R D E D      U R L S   #########*/}
           <Route path="/privacy" exact render={(props) => <Privacy />} />
           <Route path="/faq" exact render={(props) => <FAQ />} />
