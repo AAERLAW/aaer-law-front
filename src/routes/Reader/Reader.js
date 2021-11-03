@@ -259,7 +259,7 @@ export const Reader = (props) => {
                         >
                           🔖 Full Document{" "}
                         </Text>
-                        <Boxed maxHeight="800px" overflowY="scroll">
+                        <Boxed maxHeight="60vh" overflowY="scroll">
                           {data?.file && (
                             <PDFReader
                               document={{
