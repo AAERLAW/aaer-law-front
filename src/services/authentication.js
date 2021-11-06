@@ -60,6 +60,21 @@ export async function getSubscriptionPlans(data) {
   return await request({ url, method: "GET" });
 }
 
+export async function getPaymentReference(data) {
+  const url = `${endpoint}/subscription/fee?plan_id=${data.id}&month_count=1`;
+  return await request({ url, method: "GET" });
+}
+
+export async function getPaymentURL(data) {
+  const url = `${endpoint}/payment/reference/${data.fee_id}`;
+  return await request({ url, method: "GET" });
+}
+
+export async function postPayStack({ data, token }) {
+  const url = `https://api.paystack.co/transaction/initialize`;
+  return await request({ url, method: "POST", data, token });
+}
+
 export async function postVerifyPayment(data) {
   const url = `${endpoint}/payment/verify/{reference}`;
   return await request({ url, method: "POST", data, formatData: true });

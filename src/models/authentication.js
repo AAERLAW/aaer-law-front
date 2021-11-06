@@ -9,10 +9,13 @@ import {
   postRegistration,
   postCompleteRegistration,
   getSubscriptionPlans,
+  getPaymentReference,
+  getPaymentURL,
   postVerifyPayment,
   getProfile,
   postLogOut,
   getDashboardStats,
+  postPayStack,
 } from "../services/authentication";
 import { Alert } from "../components/Alert.components";
 
@@ -29,6 +32,7 @@ const initialState = {
   subcriptionPlan: {},
   openPaymentModal: false,
   dashboardStats: {},
+  subscription_plans: [],
 };
 
 export default {
@@ -214,12 +218,54 @@ export default {
       }
     },
     *getAllSubscriptionPlans({ payload }, { call, put }) {
+      const { access_token } = payload;
+
+      axios.defaults.headers.common.Authorization = `Bearer ${access_token}`;
+
       const { raw, success, message } = yield call(
         getSubscriptionPlans,
         payload
       );
       if (success) {
         console.log(raw);
+        const data = raw.data;
+        const subscription_plans = data ? data.subscription_plans : [];
+        yield put({
+          type: "save",
+          payload: { subscription_plans: subscription_plans },
+        });
+      } else {
+        Alert.error(message);
+      }
+    },
+    *initiatePayment({ payload }, { call, put }) {
+      const { raw, success, message } = yield call(
+        getPaymentReference,
+        payload
+      );
+      if (success) {
+        const data = raw?.data;
+        const response_2 = yield call(getPaymentURL, data);
+        if (response_2.success) {
+          const data_2 = response_2?.raw?.data;
+          const payload_2 = {
+            reference: data_2.payment_reference,
+            amount: data_2.amount * 100,
+            email: data_2.email,
+          };
+          const response_3 = yield call(postPayStack, {
+            data: payload_2,
+            token: data_2.key,
+          });
+
+          if (response_3.success) {
+            window.location.replace(response_3?.data?.authorization_url);
+          } else {
+            Alert.error(response_3.message);
+          }
+        } else {
+          Alert.error(response_2.message);
+        }
       } else {
         Alert.error(message);
       }

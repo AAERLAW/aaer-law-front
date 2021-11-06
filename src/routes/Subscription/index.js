@@ -1,13 +1,16 @@
 import { connect } from "dva";
 import { Subscription } from "./Subscription";
 import { routerRedux } from "dva/router";
+import authentication from "../../models/authentication";
 
 export const mapStateToProps = (state, ownProps) => {
   const { loading, authentication } = state;
-  const { openPaymentModal, subscriptionDetail } = authentication;
+  const { openPaymentModal, subscriptionDetail, subscription_plans } =
+    authentication;
   return {
     openPaymentModal,
     subscriptionDetail,
+    subscription_plans,
   };
 };
 
@@ -22,12 +25,19 @@ export const mapDispatchToProps = (dispatch, ownProps) => {
         payload: { openPaymentModal: true, subscriptionPlan: data },
       });
     },
-    // getAllSubscriptionPlans(data) {
-    //   dispatch({
-    //     type: "authentication/getAllSubscriptionPlans",
-    //     payload: data,
-    //   });
-    // },
+    getAllSubscriptionPlans(data) {
+      dispatch({
+        type: "authentication/getAllSubscriptionPlans",
+        payload: data,
+      });
+    },
+
+    initiatePayment(data) {
+      dispatch({
+        type: "authentication/initiatePayment",
+        payload: data,
+      });
+    },
   };
 };
 

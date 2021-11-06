@@ -4,10 +4,14 @@ import { endpoint } from "./config";
 
 const fetch = (options) => {
   const AuthToken = localStorage.getItem(storageToken);
-  if (AuthToken) {
-    axios.defaults.headers.common.Authorization = `Bearer ${AuthToken}`;
+
+  let { method = "get", data, url, formatData, token } = options;
+
+  if (AuthToken || token) {
+    axios.defaults.headers.common.Authorization = token
+      ? token
+      : `Bearer ${AuthToken}`;
   }
-  let { method = "get", data, url, formatData } = options;
 
   if (formatData && method.toLowerCase() !== "get") {
     data = {
