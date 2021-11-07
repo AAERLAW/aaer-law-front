@@ -21,6 +21,7 @@ import EmailConfirmation from "./routes/EmailConfirmation/index";
 import SocialLogin from "./routes/Login/SocialLogin/index";
 import Privacy from "./routes/Privacy/index";
 import FAQ from "./routes/FAQ/index";
+import VerifyPayment from "./routes/PaymentVerification/index";
 
 import Dashboard from "./routes/Dashboard/index";
 import Subscription from "./routes/Subscription/index";
@@ -157,6 +158,13 @@ export function RouterConfig({ history, app }) {
               return <Subscription {...props} />;
             }}
           />
+          <Route
+            path="/verify-payment"
+            exact
+            render={(props) => {
+              return <VerifyPayment {...props} />;
+            }}
+          />
           {/* #########   E N D :    O P E N      U R L S   #########*/}
           {/* #########   S T A R T :   G U A R D E D      U R L S   #########*/}
           <Route
@@ -244,11 +252,11 @@ export function RouterConfig({ history, app }) {
           <Route path="/privacy" exact render={(props) => <Privacy />} />
           <Route path="/faq" exact render={(props) => <FAQ />} />
 
-          <Route
+          {/* <Route
             render={(props) => {
               return <Redirect to={{ pathname: "/login" }} />;
             }}
-          />
+          /> */}
         </Switch>
       </App>
     </ConnectedRouter>

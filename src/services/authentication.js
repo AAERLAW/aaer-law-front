@@ -71,11 +71,12 @@ export async function getPaymentURL(data) {
 }
 
 export async function postPayStack({ data, token }) {
+  console.log({ data });
   const url = `https://api.paystack.co/transaction/initialize`;
   return await request({ url, method: "POST", data, token });
 }
 
-export async function postVerifyPayment(data) {
-  const url = `${endpoint}/payment/verify/{reference}`;
-  return await request({ url, method: "POST", data, formatData: true });
+export async function getVerifyPayment(reference) {
+  const url = `${endpoint}/payment/verify/${reference}`;
+  return await request({ url, method: "POST" });
 }

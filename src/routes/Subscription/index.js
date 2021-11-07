@@ -22,7 +22,7 @@ export const mapDispatchToProps = (dispatch, ownProps) => {
     openModal(data) {
       dispatch({
         type: "authentication/save",
-        payload: { openPaymentModal: true, subscriptionPlan: data },
+        payload: { openPaymentModal: true },
       });
     },
     getAllSubscriptionPlans(data) {

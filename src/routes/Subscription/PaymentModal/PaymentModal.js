@@ -1,11 +1,11 @@
 import React, { useCallback, useState, useEffect } from "react";
-import { PaystackButton } from "react-paystack";
+
+import { usePaystackPayment } from "react-paystack";
 
 import { Boxed } from "../../../components/Boxed.components";
 import { Text } from "../../../components/Text.components";
 import { Button } from "../../../components/Button.components";
 import { Alert } from "../../../components/Alert.components";
-import { SwitchComp } from "../../../components/Switch.components";
 import { Checkbox } from "../../../components/Input.components";
 import { ModalComponent } from "../../../components/Modal.components";
 
@@ -16,15 +16,19 @@ import {
   PAYSTACK_PROF,
   PAYSTACK_PROF_YEARLY,
 } from "../../../utils/config";
-import { calcViewMode, hash } from "../../../utils/utils";
+import { calcViewMode, hash, formatCurrency } from "../../../utils/utils";
 import { Theme } from "../../../utils/theme";
 import { PageTitle, Icon } from "../../../components/style";
 
 export const PaymentModal = (props) => {
-  // const email = "bankiakid@gmail.com";
   // State props
-  const { openPaymentModal, subscriptionPlan, subscriptionDetail, isLoading } =
-    props;
+  const {
+    openPaymentModal,
+    subscriptionPlan,
+    subscriptionDetail,
+    isLoading,
+    paymentDetail,
+  } = props;
 
   // Dispatch props
   const { verifyPayment, closeModal, redirect } = props;
@@ -33,57 +37,47 @@ export const PaymentModal = (props) => {
   const redirectCallback = useCallback((value) => redirect(value), [redirect]);
 
   const [terms, setTerms] = useState(false);
-  const [autorenew, setAutorenew] = useState(false);
 
   let viewMode = calcViewMode();
-  const getReference = (email) => {
-    let today = new Date();
-    let hash_value = `${email ? email : ""}${today.toString()}`;
-    let answer = hash(hash_value);
-    return answer;
+
+  const config = {
+    reference: paymentDetail.reference,
+    email: paymentDetail.email,
+    amount: paymentDetail.amount,
+    publicKey: PAYSTACK_KEY,
   };
 
-  let plan = `${subscriptionPlan ? subscriptionPlan.plan : ""}-${
-    subscriptionPlan ? subscriptionPlan.label : ""
-  }`;
+  // you can call this function anything
+  const onSuccess = (response) => {
+    // Implementation for whatever you want to do with reference and after success call.
 
-  const getPaystackPlan = (plan) => {
-    switch (plan) {
-      case "BASIC-Monthly":
-        return PAYSTACK_BASIC;
-      case "BASIC-Annually":
-        return PAYSTACK_BASIC_YEARLY;
-      case "PROFESSIONAL-Monthly":
-        return PAYSTACK_PROF;
-      case "PROFESSIONAL-Annually":
-        return PAYSTACK_PROF_YEARLY;
-      default:
-        return console.log("Unknow plan");
-    }
+    let data = {
+      reference: response.reference,
+      access_token,
+      subscriptionDetail,
+    };
+    verifyPayment(data);
   };
 
-  let actualPlan = getPaystackPlan(plan);
+  // you can call this function anything
+  const onClose = () => {
+    // implementation for  whatever you want to do when the Paystack dialog closed.
 
-  const callback = (response) => {
-    // card charged successfully, get reference here
-    switch (response.status) {
-      case "success":
-        let data = {
-          reference: response.reference,
-          transaction: response.transaction,
-          subscribe_plan: actualPlan,
-          access_token,
-          subscriptionDetail,
-        };
-        let close = closeModal;
-        verifyPayment(data);
-        break;
-      default:
-        // redirect("/");
-        console.log(response);
-        Alert.error("Please authenticate your account detail.");
-        break;
-    }
+    closeModal();
+  };
+
+  const PaystackHookExample = () => {
+    const initializePayment = usePaystackPayment(config);
+    return (
+      <Button
+        disabled={!terms || isLoading}
+        onClick={() => {
+          initializePayment(onSuccess, onClose);
+        }}
+      >
+        Confirm
+      </Button>
+    );
   };
 
   let errors;
@@ -98,72 +92,23 @@ export const PaymentModal = (props) => {
             <Button pale onClick={closeModal}>
               Cancel
             </Button>
-            <PaystackButton
-              text={
-                <Button
-                  disabled={!terms || isLoading}
-                  loading={isLoading}
-                  block
-                  small
-                >
-                  CONFIRM
-                </Button>
-              }
-              class="payButton"
-              plan={actualPlan}
-              onClose={closeModal}
-              disabled={!terms}
-              embed={false}
-              reference={getReference(email)}
-              email={email}
-              amount={subscriptionPlan ? subscriptionPlan.amount : 0}
-              publicKey={PAYSTACK_KEY}
-              onSuccess={(reference) => callback(reference)}
-              tag="a"
-            ></PaystackButton>
+            <PaystackHookExample />
           </>
         }
       >
         <Boxed pad="10px 0">
-          <Text>
-            You are subscribing to the{" "}
-            <b>
-              {`${subscriptionPlan ? subscriptionPlan?.label : " "}`}{" "}
-              {`${subscriptionPlan ? subscriptionPlan.plan : " "}`}
-            </b>{" "}
-            plan. <br />
-            Billing will take place{" "}
-            <b>{`${subscriptionPlan ? subscriptionPlan?.label : " "}`}</b> .
-            {/* if you choose to autorenew. */}
-          </Text>
           <Text fontWeight="normal">
             Your account will be charged{" "}
-            <b>{`${
-              subscriptionPlan ? subscriptionPlan?.amount_label : "-- --"
-            }`}</b>
+            <b>
+              ₦{" "}
+              {`${
+                paymentDetail?.actual_amount &&
+                formatCurrency(paymentDetail?.actual_amount || 0)
+              }`}
+            </b>
             , plus applicable taxes for 1 active user[s].
-            {/* <br /> We will automatically renew your plan{" "}
-            <b>{`${
-              subscriptionPlan ? subscriptionPlan?.monthly?.label : "-- --"
-            }`}</b>
-            , should you choose to autorenew. You can cancel anytime in the
-            "Settings" panel. */}
           </Text>
         </Boxed>
-        {/* <Boxed pad="0.5rem 1rem" display="flex">
-          <SwitchComp
-            checked={autorenew}
-            onChange={() => setAutorenew((prev) => !prev)}
-          />
-          <Text
-            fontSize={Theme.SecondaryFontSize}
-            fontWeight="normal"
-            color={Theme.PrimaryTextColor}
-            margin="auto 0 auto 10px"
-          >
-            Autorenew Subcription
-          </Text>
-        </Boxed> */}
         <Boxed pad="0.5rem 1rem">
           <Checkbox
             checked={terms}
