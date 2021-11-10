@@ -245,7 +245,7 @@ export function RouterConfig({ history, app }) {
             exact
             render={(props) =>
               (window.location =
-                "https://www.aaerlaw.com/court-forms/items?court_form_id=8&name=Precedents")
+                "https://www.aaerlaw.com/court-forms/items?court_form_id=15&name=Precedents")
             }
           />
           {/* #########   E N D :    G U A R D E D      U R L S   #########*/}
