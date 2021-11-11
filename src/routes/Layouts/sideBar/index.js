@@ -3,7 +3,7 @@ import { SideBar } from "./sideBar";
 import { routerRedux } from "dva/router";
 
 import adminMenu from "./adminMenu";
-import usersMenu from "./usersMenu";
+import { professionMenu, basicMenu } from "./usersMenu";
 
 const mapStateToProps = (state, ownProps) => {
   const { app, authentication } = state;
@@ -11,9 +11,10 @@ const mapStateToProps = (state, ownProps) => {
   const { profile } = authentication;
   const { collaspe } = ownProps;
 
-  let dataList = usersMenu;
+  const isBASIC = profile ? profile.isBASIC : false;
   const isAdmin = profile?.roles?.includes("ADMIN");
 
+  let dataList = isBASIC ? basicMenu : professionMenu;
   if (isAdmin) {
     dataList = adminMenu;
   }

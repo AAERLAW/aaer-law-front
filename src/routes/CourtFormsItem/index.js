@@ -11,6 +11,7 @@ export const mapStateToProps = (state, ownProps) => {
   const { profile } = authentication;
   const isAdmin = profile?.roles?.includes("ADMIN");
   const isLoading = loading.effects["court/getAllCourtFormsItem"];
+  const isBASIC = profile.isBASIC ? profile.isBASIC : false;
   return {
     courtFormsItemList,
     courtFormsItemTotal,
@@ -18,6 +19,7 @@ export const mapStateToProps = (state, ownProps) => {
     params,
     isLoading,
     isAdmin,
+    isBASIC,
   };
 };
 

@@ -17,7 +17,7 @@ import {
 
 export const Dashboard = (props) => {
   // state props recieved
-  const { profile, isAdmin, loadingDashboard, dashboardStats } = props;
+  const { profile, isAdmin, loadingDashboard, dashboardStats, isBASIC } = props;
   const { law_reports_count, rule_regulation_count } = dashboardStats;
   const judgementList = dashboardStats.reports ? dashboardStats.reports : [];
   const regulationList = dashboardStats.regulations
@@ -173,53 +173,55 @@ export const Dashboard = (props) => {
           </Boxed>
 
           {/* ############   F O R M S   U P D A T E S   ############ */}
-          <Boxed
-            background={Theme.TertiaryDark}
-            borderRadius={Theme.SecondaryRadius}
-            boxShadow={Theme.PrimaryShadow}
-            margin="0.2rem"
-            pad="10px 0"
-          >
-            <Text fontWeight="bold" padding="15px 10px">
-              LATEST FORMS
-            </Text>
-            {loadingDashboard ? (
-              <Boxed display="flex" pad="10px">
-                <Loader margin="auto" />
-              </Boxed>
-            ) : (
-              <>
-                {formList.length > 0 &&
-                  formList.map((item, index) => (
-                    <Grid
-                      key={index}
-                      desktop="auto 40px"
-                      tablet="auto 40px"
-                      mobile="auto 40px"
-                      background={index % 2 > 0 && Theme.PrimaryDark}
-                    >
-                      <Boxed pad="10px ">
-                        <Text
-                          color={Theme.SecondaryTextColor}
-                          cursor="pointer"
-                          onClick={() =>
-                            redirect(
-                              `/court-forms/items`,
-                              `?court_form_id=${item.id}&name=${item.title}`
-                            )
-                          }
-                        >
-                          {item.title && truncateText(item.title, 27)}
-                        </Text>
-                      </Boxed>
-                      <Boxed display="flex">
-                        <Icon margin="auto" className="icon icon-file-text" />
-                      </Boxed>
-                    </Grid>
-                  ))}
-              </>
-            )}
-          </Boxed>
+          {!isBASIC && (
+            <Boxed
+              background={Theme.TertiaryDark}
+              borderRadius={Theme.SecondaryRadius}
+              boxShadow={Theme.PrimaryShadow}
+              margin="0.2rem"
+              pad="10px 0"
+            >
+              <Text fontWeight="bold" padding="15px 10px">
+                LATEST FORMS
+              </Text>
+              {loadingDashboard ? (
+                <Boxed display="flex" pad="10px">
+                  <Loader margin="auto" />
+                </Boxed>
+              ) : (
+                <>
+                  {formList.length > 0 &&
+                    formList.map((item, index) => (
+                      <Grid
+                        key={index}
+                        desktop="auto 40px"
+                        tablet="auto 40px"
+                        mobile="auto 40px"
+                        background={index % 2 > 0 && Theme.PrimaryDark}
+                      >
+                        <Boxed pad="10px ">
+                          <Text
+                            color={Theme.SecondaryTextColor}
+                            cursor="pointer"
+                            onClick={() =>
+                              redirect(
+                                `/court-forms/items`,
+                                `?court_form_id=${item.id}&name=${item.title}`
+                              )
+                            }
+                          >
+                            {item.title && truncateText(item.title, 27)}
+                          </Text>
+                        </Boxed>
+                        <Boxed display="flex">
+                          <Icon margin="auto" className="icon icon-file-text" />
+                        </Boxed>
+                      </Grid>
+                    ))}
+                </>
+              )}
+            </Boxed>
+          )}
 
           {/* ############   R E G U L A T I O N S   U P D A T E S   ############ */}
           <Boxed

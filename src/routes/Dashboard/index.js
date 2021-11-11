@@ -10,11 +10,13 @@ const mapStateToProps = (state, ownProps) => {
   const isAdmin = profile?.roles?.includes("ADMIN");
   const loadingDashboard = loading.effects[getDashboardStatsURL];
 
+  const isBASIC = profile.isBASIC ? profile.isBASIC : false;
   return {
     profile,
     isAdmin,
     loadingDashboard,
     dashboardStats,
+    isBASIC,
   };
 };
 

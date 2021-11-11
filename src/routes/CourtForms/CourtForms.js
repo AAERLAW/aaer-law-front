@@ -29,6 +29,7 @@ export const CourtForms = (props) => {
     fetchActionURL,
     isLoading,
     isAdmin,
+    isBASIC,
   } = props;
 
   // dispatch props recieved
@@ -43,11 +44,15 @@ export const CourtForms = (props) => {
   const [courtLevel, setCourtLevel] = useState("");
 
   useEffect(() => {
-    let data = {
-      page: 1,
-      size: 10,
-    };
-    getAllCourtForms(data);
+    if (!isBASIC || isAdmin) {
+      let data = {
+        page: 1,
+        size: 10,
+      };
+      getAllCourtForms(data);
+    } else {
+      redirect("/dashboard");
+    }
   }, []);
 
   const onDelete = (item) => {

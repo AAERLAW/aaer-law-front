@@ -132,10 +132,16 @@ export default {
     *postLogin({ payload }, { put }) {
       const { data } = payload;
       const { access_token, refresh_token } = data;
+
+      const subscription = data.subscription ? data.subscription : {};
+      const title = subscription.title ? subscription.title : "";
+      const isBASIC = title ? title.slice(0, 5) === "BASIC" : false;
+      const profile = { ...data, isBASIC };
       localStorage.setItem(storageToken, access_token);
       localStorage.setItem(storageRefeshToken, refresh_token);
-      localStorage.setItem(storageProfile, JSON.stringify(data));
-      yield put({ type: "save", payload: { profile: data } });
+      localStorage.setItem(storageProfile, JSON.stringify(profile));
+
+      yield put({ type: "save", payload: { profile: profile } });
       // yield put(routerRedux.push("/law-reports"));
       yield put(routerRedux.push({ pathname: "/dashboard" }));
     },

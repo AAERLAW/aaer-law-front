@@ -19,7 +19,7 @@ import { pageOptions } from "../../utils/constant";
 import CreateModal from "./CreateModal/index";
 
 export const Form = (props) => {
-  // dispatch props recieved
+  // state props recieved
   const {
     formList,
     formTotal,
@@ -27,6 +27,7 @@ export const Form = (props) => {
     createFormModal,
     fetchActionURL,
     isAdmin,
+    isBASIC,
   } = props;
 
   // dispatch props recieved
@@ -38,12 +39,16 @@ export const Form = (props) => {
   let errors;
 
   useEffect(() => {
-    let data = {
-      page: 1,
-      size: 10,
-      court_form_item: params.court_form_item_id,
-    };
-    getAllForms(data);
+    if (!isBASIC || isAdmin) {
+      let data = {
+        page: 1,
+        size: 10,
+        court_form_item: params.court_form_item_id,
+      };
+      getAllForms(data);
+    } else {
+      redirect("/dashboard");
+    }
   }, []);
 
   const onDelete = (item) => {

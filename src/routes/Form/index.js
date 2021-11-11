@@ -9,12 +9,14 @@ export const mapStateToProps = (state, ownProps) => {
   const { profile } = authentication;
   const isAdmin = profile?.roles?.includes("ADMIN");
   const { createFormModal, formList, formTotal } = court;
+  const isBASIC = profile.isBASIC ? profile.isBASIC : false;
   return {
     createFormModal,
     params,
     formList,
     formTotal,
     isAdmin,
+    isBASIC,
   };
 };
 

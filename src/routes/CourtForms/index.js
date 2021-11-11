@@ -6,6 +6,7 @@ export const mapStateToProps = (state, ownProps) => {
   const { loading, court, authentication } = state;
   const { courtFormsList, courtFormsTotal, createCourtFormModal } = court;
   const { profile } = authentication;
+  const isBASIC = profile.isBASIC ? profile.isBASIC : false;
   const isAdmin = profile?.roles?.includes("ADMIN");
   const isLoading = loading.effects["court/getAllCourtForms"];
   return {
@@ -14,6 +15,7 @@ export const mapStateToProps = (state, ownProps) => {
     courtFormsTotal,
     createCourtFormModal,
     isAdmin,
+    isBASIC,
   };
 };
 

@@ -243,20 +243,26 @@ export function RouterConfig({ history, app }) {
           <PrivateRoute
             path="/precedents"
             exact
-            render={(props) =>
-              (window.location =
-                "https://www.aaerlaw.com/court-forms/items?court_form_id=8&name=Precedents")
-            }
+            render={(props) => {
+              return (
+                <Redirect
+                  to={{
+                    pathname: "/court-forms/items",
+                    search: "?court_form_id=8&name=Precedents",
+                  }}
+                />
+              );
+            }}
           />
           {/* #########   E N D :    G U A R D E D      U R L S   #########*/}
           <Route path="/privacy" exact render={(props) => <Privacy />} />
           <Route path="/faq" exact render={(props) => <FAQ />} />
 
-          {/* <Route
+          <Route
             render={(props) => {
               return <Redirect to={{ pathname: "/login" }} />;
             }}
-          /> */}
+          />
         </Switch>
       </App>
     </ConnectedRouter>
