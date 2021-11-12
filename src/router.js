@@ -248,7 +248,7 @@ export function RouterConfig({ history, app }) {
                 <Redirect
                   to={{
                     pathname: "/court-forms/items",
-                    search: "?court_form_id=8&name=Precedents",
+                    search: "?court_form_id=15&name=Precedents",
                   }}
                 />
               );
