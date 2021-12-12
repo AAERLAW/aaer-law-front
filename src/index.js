@@ -12,9 +12,9 @@ import "./assets/fontello/css/confluencebits.css";
 
 // 1. Initialize
 const app = dva({
-  ...createLoading({ effects: true }),
-  params: "window.location",
-  history: createBrowserHistory(),
+	...createLoading({ effects: true }),
+	params: "window.location",
+	history: createBrowserHistory(),
 });
 // 2. Plugins
 // app.use({});
